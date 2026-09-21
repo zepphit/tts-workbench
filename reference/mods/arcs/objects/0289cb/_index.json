@@ -1,0 +1,56 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Zero Marker.0289cb.lua",
+      "file": "Zero Marker.0289cb.lua",
+      "start": 1190,
+      "end": 1222
+    },
+    {
+      "name": "src/AmbitionMarkers",
+      "file": "src__AmbitionMarkers.lua",
+      "start": 1333,
+      "end": 43201
+    },
+    {
+      "name": "src/LOG",
+      "file": "src__LOG.lua",
+      "start": 43300,
+      "end": 43988
+    },
+    {
+      "name": "src/ArcsPlayer",
+      "file": "src__ArcsPlayer.lua",
+      "start": 44094,
+      "end": 65881
+    },
+    {
+      "name": "src/Resource",
+      "file": "src__Resource.lua",
+      "start": 65985,
+      "end": 68459
+    },
+    {
+      "name": "src/GUIDs",
+      "file": "src__GUIDs.lua",
+      "start": 68560,
+      "end": 76253
+    },
+    {
+      "name": "src/ActionCards",
+      "file": "src__ActionCards.lua",
+      "start": 76360,
+      "end": 99348
+    },
+    {
+      "name": "src/Supplies",
+      "file": "src__Supplies.lua",
+      "start": 99452,
+      "end": 127354
+    }
+  ],
+  "slot": "0289cb",
+  "guid": "0289cb",
+  "save": "Mods/Workshop/3683918449.json"
+}

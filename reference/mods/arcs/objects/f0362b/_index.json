@@ -1,0 +1,20 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Book of Law.f0362b.lua",
+      "file": "Book of Law.f0362b.lua",
+      "start": 1190,
+      "end": 1212
+    },
+    {
+      "name": "src/LawBook",
+      "file": "src__LawBook.lua",
+      "start": 1315,
+      "end": 2034
+    }
+  ],
+  "slot": "f0362b",
+  "guid": "f0362b",
+  "save": "Mods/Workshop/3683918449.json"
+}

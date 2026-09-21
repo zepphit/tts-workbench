@@ -1,0 +1,423 @@
+{
+  "version": 2,
+  "_comment": [
+    "The tile catalogue. This is the file to edit for an L2 change (build plan section 6):",
+    "change a number here, run `python3 scripts/tilegen.py`, then `ttsd.py call reskin`.",
+    "",
+    "Cells are axial (q, r) on a pointy-top lattice, relative to the tile's pivot,",
+    "which is always the cell at (0, 0). The trihex shape reproduces the geometry",
+    "measured from Railways of the Lost Atlas: hexes at (0,0), (-1,1) and (0,1),",
+    "which in world units is (0,0), (-sqrt(3)/2, 1.5) and (+sqrt(3)/2, 1.5).",
+    "",
+    "A FLAT kind draws GREYSCALE on purpose. Colour comes from ColorDiffuse at",
+    "runtime, so recolouring a kind is a live tint (L1) and not a regenerate.",
+    "It takes that tint from `terrains` when it shares a terrain's name.",
+    "",
+    "A PAINTED kind (one with a `paint` block) bakes colour in and drops to L2:",
+    "terrain changes inside the tile, and one ColorDiffuse cannot express two",
+    "terrains. Edit a colour in `terrains`, regenerate, `ttsd.py call reskinall`.",
+    "",
+    "Edges in a `paint` block are numbered 1..6 the way src/10-hex.lua numbers",
+    "directions: 1=E 2=SE 3=SW 4=W 5=NW 6=NE. Only a tile's OUTER edges may be",
+    "overridden; an edge facing another cell of the same tile blends to that",
+    "cell's own terrain and tilegen refuses an override on it. For the trihex",
+    "the outer edges are cell 1: 1,2,3,4 | cell 2: 3,4,5,6 | cell 3: 1,2,5,6.",
+    "",
+    "THE OWNER NUMBERS THEM THE OTHER WAY. At the table he says 1=W 2=NW 3=NE",
+    "4=E 5=SE 6=SW — clockwise from west, where this file runs anticlockwise",
+    "from east. To turn one of his numbers into a spec number add 3 and wrap:",
+    "his 1,2,3 are spec 4,5,6 and his 4,5,6 are spec 1,2,3. His 'first topmost'",
+    "cell is the second paint entry, cell (-1,1); 'the other one' is the third,",
+    "cell (0,1). In his numbering the legal outer edges are cell 1: 1,4,5,6 |",
+    "cell 2: 1,2,3,6 | cell 3: 2,3,4,5."
+  ],
+
+  "radius": 1.0,
+  "thickness": 0.1,
+  "collider_inset": 0.9425,
+
+  "texture": {
+    "resolution": 512,
+    "base": 198,
+    "grain": 34,
+    "grain_scale": 0.42,
+    "octaves": 3,
+    "seed": 1,
+    "edge": 0.2,
+    "edge_darken": 0.42,
+    "seams": true,
+    "seam_width": 0.045,
+    "seam_darken": 0.3,
+    "warp_scale": 0.55
+  },
+
+  "terrains": {
+    "jungle": { "colour": "6E9A46", "grain": 34, "grain_scale": 0.42 },
+    "deep_jungle": { "colour": "2F5A2A", "grain": 44, "grain_scale": 0.3 },
+    "river": { "colour": "5E8FA8", "grain": 22, "grain_scale": 0.7 }
+  },
+
+  "frontiers": {
+    "_comment": [
+      "How two terrains meet. reach = how far the edge terrain pushes in from",
+      "the rim, in hex radii (the apothem is 0.866, so 0.35 is about a third of",
+      "the cell and 0 means they meet exactly on the edge — which is what an",
+      "interior seam always uses). band = how wide the crossover is: small is",
+      "an abrupt beach, large a soft gradient. shore paints sand where the mix",
+      "crosses half and half; warp wobbles the boundary so it is not a chord."
+    ],
+    "default": { "reach": 0.35, "band": 0.35, "warp": 0.12 },
+    "river|jungle": {
+      "reach": 0.34, "band": 0.12, "warp": 0.1,
+      "shore": "D8C79B", "shore_width": 0.22
+    },
+    "river|deep_jungle": {
+      "reach": 0.32, "band": 0.1, "warp": 0.09,
+      "shore": "B9A57A", "shore_width": 0.2
+    },
+    "jungle|deep_jungle": { "reach": 0.44, "band": 0.4, "warp": 0.22 }
+  },
+
+  "shapes": {
+    "trihex": { "cells": [[0, 0], [-1, 1], [0, 1]] },
+    "hex1": { "cells": [[0, 0]] },
+    "hex3_row": { "cells": [[0, 0], [1, 0], [2, 0]] }
+  },
+
+  "kinds": {
+    "jungle": {
+      "shape": "trihex",
+      "label": "Jungle",
+      "weight": 4
+    },
+    "deep_jungle": {
+      "shape": "trihex",
+      "label": "Deep jungle",
+      "weight": 3,
+      "texture": { "grain": 44, "grain_scale": 0.3, "edge_darken": 0.5 }
+    },
+    "river": {
+      "shape": "trihex",
+      "label": "River",
+      "weight": 2,
+      "texture": { "grain": 22, "grain_scale": 0.7, "seam_darken": 0.12 }
+    },
+    "clearing": {
+      "shape": "hex1",
+      "label": "Clearing",
+      "tint": "B99C63",
+      "weight": 1,
+      "texture": { "grain": 26, "edge": 0.16 }
+    },
+    "probe": {
+      "shape": "trihex",
+      "label": "UV probe",
+      "tint": "FFFFFF",
+      "weight": 0,
+      "markers": true,
+      "per_cell": ["D03030", "30B050", "3060D0"],
+      "texture": { "grain": 12, "seam_darken": 0.55 }
+    },
+
+    "coast_f_n": {
+      "shape": "trihex",
+      "label": "Coast — forest north",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "5": "jungle", "6": "jungle" } },
+        { "terrain": "river", "edges": { "5": "jungle", "6": "jungle" } }
+      ]
+    },
+    "coast_f_e": {
+      "shape": "trihex",
+      "label": "Coast — forest east",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        { "terrain": "river", "edges": { "1": "jungle", "2": "jungle" } },
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "1": "jungle", "2": "jungle" } }
+      ]
+    },
+    "coast_f_w": {
+      "shape": "trihex",
+      "label": "Coast — forest west",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        { "terrain": "river", "edges": { "3": "jungle", "4": "jungle" } },
+        { "terrain": "river", "edges": { "3": "jungle", "4": "jungle" } },
+        { "terrain": "river" }
+      ]
+    },
+    "coast_f_bay_closed": {
+      "shape": "trihex",
+      "label": "Coast — forest closed bay",
+      "_comment": "His 1,2,3 on the first topmost cell and 2,3,4 on the other: the whole north arc is forest, so the water only leaves southward through the pivot cell.",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "4": "jungle", "5": "jungle", "6": "jungle" } },
+        { "terrain": "river", "edges": { "1": "jungle", "5": "jungle", "6": "jungle" } }
+      ]
+    },
+    "coast_f_engorge": {
+      "shape": "trihex",
+      "label": "Coast — forest engorgement",
+      "_comment": "His 1,2 on the first topmost cell and 3,4 on the other: forest down both flanks, the water open at the top two edges and swelling through the middle.",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "4": "jungle", "5": "jungle" } },
+        { "terrain": "river", "edges": { "1": "jungle", "6": "jungle" } }
+      ]
+    },
+    "coast_df_n": {
+      "shape": "trihex",
+      "label": "Coast — deep forest north",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "5": "deep_jungle", "6": "deep_jungle" } },
+        { "terrain": "river", "edges": { "5": "deep_jungle", "6": "deep_jungle" } }
+      ]
+    },
+    "coast_df_e": {
+      "shape": "trihex",
+      "label": "Coast — deep forest east",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        { "terrain": "river", "edges": { "1": "deep_jungle", "2": "deep_jungle" } },
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "1": "deep_jungle", "2": "deep_jungle" } }
+      ]
+    },
+    "coast_mix_n": {
+      "shape": "trihex",
+      "label": "Coast — mixed north",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river", "edges": { "5": "jungle", "6": "jungle" } },
+        { "terrain": "river", "edges": { "5": "deep_jungle", "6": "deep_jungle" } }
+      ]
+    },
+    "coast_mix_bay": {
+      "shape": "trihex",
+      "label": "Coast — mixed bay",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        { "terrain": "river", "edges": { "2": "deep_jungle", "3": "deep_jungle" } },
+        { "terrain": "river", "edges": { "3": "jungle", "4": "jungle" } },
+        { "terrain": "river" }
+      ]
+    },
+
+    "landfall_f": {
+      "shape": "trihex",
+      "label": "Landfall — forest pool",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        {
+          "terrain": "river",
+          "edges": { "1": "jungle", "2": "jungle", "3": "jungle", "4": "jungle" }
+        },
+        { "terrain": "jungle" },
+        { "terrain": "jungle" }
+      ]
+    },
+    "landfall_df": {
+      "shape": "trihex",
+      "label": "Landfall — deep forest pool",
+      "weight": 0,
+      "tray": false,
+      "paint": [
+        {
+          "terrain": "river",
+          "edges": {
+            "1": "deep_jungle", "2": "deep_jungle",
+            "3": "deep_jungle", "4": "deep_jungle"
+          }
+        },
+        { "terrain": "deep_jungle" },
+        { "terrain": "deep_jungle" }
+      ]
+    },
+    "rivermouth_f": {
+      "shape": "trihex",
+      "label": "River mouth — forest",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river" },
+        { "terrain": "jungle" }
+      ]
+    },
+    "rivermouth_df": {
+      "shape": "trihex",
+      "label": "River mouth — deep forest",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "river" },
+        { "terrain": "deep_jungle" }
+      ]
+    },
+    "river_run_f": {
+      "shape": "trihex",
+      "label": "River run — forest",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "jungle" },
+        { "terrain": "jungle" }
+      ]
+    },
+    "river_run_df": {
+      "shape": "trihex",
+      "label": "River run — deep forest",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river" },
+        { "terrain": "deep_jungle" },
+        { "terrain": "deep_jungle" }
+      ]
+    },
+
+    "glade_2": {
+      "shape": "trihex",
+      "label": "Glades — two walls",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "jungle", "edges": { "1": "deep_jungle", "2": "deep_jungle" } },
+        { "terrain": "jungle", "edges": { "3": "deep_jungle", "4": "deep_jungle" } },
+        { "terrain": "jungle", "edges": { "5": "deep_jungle", "6": "deep_jungle" } }
+      ]
+    },
+    "glade_3": {
+      "shape": "trihex",
+      "label": "Glades — three walls",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        {
+          "terrain": "jungle",
+          "edges": { "1": "deep_jungle", "2": "deep_jungle", "3": "deep_jungle" }
+        },
+        {
+          "terrain": "jungle",
+          "edges": { "4": "deep_jungle", "5": "deep_jungle", "6": "deep_jungle" }
+        },
+        {
+          "terrain": "jungle",
+          "edges": { "1": "deep_jungle", "5": "deep_jungle", "6": "deep_jungle" }
+        }
+      ]
+    },
+    "glade_4": {
+      "shape": "trihex",
+      "label": "Glades — sealed",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        {
+          "terrain": "jungle",
+          "edges": {
+            "1": "deep_jungle", "2": "deep_jungle",
+            "3": "deep_jungle", "4": "deep_jungle"
+          }
+        },
+        {
+          "terrain": "jungle",
+          "edges": {
+            "3": "deep_jungle", "4": "deep_jungle",
+            "5": "deep_jungle", "6": "deep_jungle"
+          }
+        },
+        {
+          "terrain": "jungle",
+          "edges": {
+            "1": "deep_jungle", "2": "deep_jungle",
+            "5": "deep_jungle", "6": "deep_jungle"
+          }
+        }
+      ]
+    },
+    "glade_mix_a": {
+      "shape": "trihex",
+      "label": "Glades — 2/3/4",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "jungle", "edges": { "1": "deep_jungle", "2": "deep_jungle" } },
+        {
+          "terrain": "jungle",
+          "edges": { "4": "deep_jungle", "5": "deep_jungle", "6": "deep_jungle" }
+        },
+        {
+          "terrain": "jungle",
+          "edges": {
+            "1": "deep_jungle", "2": "deep_jungle",
+            "5": "deep_jungle", "6": "deep_jungle"
+          }
+        }
+      ]
+    },
+    "glade_mix_b": {
+      "shape": "trihex",
+      "label": "Glades — 4/2/3",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        {
+          "terrain": "jungle",
+          "edges": {
+            "1": "deep_jungle", "2": "deep_jungle",
+            "3": "deep_jungle", "4": "deep_jungle"
+          }
+        },
+        { "terrain": "jungle", "edges": { "3": "deep_jungle", "4": "deep_jungle" } },
+        {
+          "terrain": "jungle",
+          "edges": { "2": "deep_jungle", "5": "deep_jungle", "6": "deep_jungle" }
+        }
+      ]
+    },
+    "glade_open": {
+      "shape": "trihex",
+      "label": "Glades — one open",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "jungle", "edges": { "2": "deep_jungle", "3": "deep_jungle" } },
+        { "terrain": "jungle", "edges": { "5": "deep_jungle", "6": "deep_jungle" } },
+        { "terrain": "jungle" }
+      ]
+    },
+    "glade_coast": {
+      "shape": "trihex",
+      "label": "Glade coast",
+      "weight": 0,
+      "tray": true,
+      "paint": [
+        { "terrain": "river", "edges": { "1": "jungle", "2": "jungle" } },
+        { "terrain": "jungle", "edges": { "4": "deep_jungle", "5": "deep_jungle" } },
+        { "terrain": "jungle", "edges": { "5": "deep_jungle", "6": "deep_jungle" } }
+      ]
+    }
+  }
+}

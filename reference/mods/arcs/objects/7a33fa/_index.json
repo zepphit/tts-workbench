@@ -1,0 +1,20 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Court Discard Zone.7a33fa.lua",
+      "file": "Court Discard Zone.7a33fa.lua",
+      "start": 1204,
+      "end": 1231
+    },
+    {
+      "name": "src/CourtDiscard",
+      "file": "src__CourtDiscard.lua",
+      "start": 1339,
+      "end": 6288
+    }
+  ],
+  "slot": "7a33fa",
+  "guid": "7a33fa",
+  "save": "Mods/Workshop/3683918449.json"
+}

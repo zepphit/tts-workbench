@@ -1,0 +1,707 @@
+{
+  "source": "Mods/Workshop/3663650077.json",
+  "sha256": "490d9e34ba85f3b5064ef2be74600f4dde8798a218e5d42aca434f10892eb735",
+  "bytes": 1128284,
+  "save_name": "Rurik: Second Edition [Scripted]",
+  "game_mode": "RURIK SECOND EDITION",
+  "date": "3/4/2026 1:18:13 PM",
+  "tts_version": "v14.2.1",
+  "extracted": "2026-09-20",
+  "slots": [
+    {
+      "slot": "global",
+      "guid": null,
+      "nickname": null,
+      "type": null,
+      "dir": "global",
+      "lua": {
+        "chars": 58213,
+        "sha256": "3c2d7726667b4f99641fbcd789dc600f6d124a29345a16d62ee7db4ce86436ef",
+        "bundled": false,
+        "file": "global/script.lua"
+      },
+      "xml": {
+        "file": "global/ui.xml",
+        "chars": 3702,
+        "sha256": "82bae339c9e597352277e42b8edcc09c27e14e57e8ce87d0b5373819fa908f8a"
+      }
+    },
+    {
+      "slot": "whiad1",
+      "guid": "whiad1",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/whiad1",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/whiad1/script.lua"
+      }
+    },
+    {
+      "slot": "191e59",
+      "guid": "191e59",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/191e59",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/191e59/script.lua"
+      }
+    },
+    {
+      "slot": "2b8575",
+      "guid": "2b8575",
+      "nickname": "4",
+      "type": "Custom_Token",
+      "dir": "objects/2b8575",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/2b8575/script.lua"
+      }
+    },
+    {
+      "slot": "a33d26",
+      "guid": "a33d26",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/a33d26",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/a33d26/script.lua"
+      }
+    },
+    {
+      "slot": "a236ef",
+      "guid": "a236ef",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/a236ef",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/a236ef/script.lua"
+      }
+    },
+    {
+      "slot": "484bbe",
+      "guid": "484bbe",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/484bbe",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/484bbe/script.lua"
+      }
+    },
+    {
+      "slot": "067d5f",
+      "guid": "067d5f",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/067d5f",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/067d5f/script.lua"
+      }
+    },
+    {
+      "slot": "4a0818",
+      "guid": "4a0818",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/4a0818",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/4a0818/script.lua"
+      }
+    },
+    {
+      "slot": "965cc4",
+      "guid": "965cc4",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/965cc4",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/965cc4/script.lua"
+      }
+    },
+    {
+      "slot": "7af88c",
+      "guid": "7af88c",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/7af88c",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/7af88c/script.lua"
+      }
+    },
+    {
+      "slot": "7856d0",
+      "guid": "7856d0",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/7856d0",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/7856d0/script.lua"
+      }
+    },
+    {
+      "slot": "27f7e6",
+      "guid": "27f7e6",
+      "nickname": "5",
+      "type": "Custom_Token",
+      "dir": "objects/27f7e6",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/27f7e6/script.lua"
+      }
+    },
+    {
+      "slot": "810a37",
+      "guid": "810a37",
+      "nickname": "5",
+      "type": "Custom_Token",
+      "dir": "objects/810a37",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/810a37/script.lua"
+      }
+    },
+    {
+      "slot": "fb9e24",
+      "guid": "fb9e24",
+      "nickname": "3",
+      "type": "Custom_Token",
+      "dir": "objects/fb9e24",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/fb9e24/script.lua"
+      }
+    },
+    {
+      "slot": "f8d580",
+      "guid": "f8d580",
+      "nickname": "3",
+      "type": "Custom_Token",
+      "dir": "objects/f8d580",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/f8d580/script.lua"
+      }
+    },
+    {
+      "slot": "30d88e",
+      "guid": "30d88e",
+      "nickname": "3",
+      "type": "Custom_Token",
+      "dir": "objects/30d88e",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/30d88e/script.lua"
+      }
+    },
+    {
+      "slot": "f46977",
+      "guid": "f46977",
+      "nickname": "3",
+      "type": "Custom_Token",
+      "dir": "objects/f46977",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/f46977/script.lua"
+      }
+    },
+    {
+      "slot": "yelad3",
+      "guid": "yelad3",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/yelad3",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/yelad3/script.lua"
+      }
+    },
+    {
+      "slot": "redad3",
+      "guid": "redad3",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/redad3",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/redad3/script.lua"
+      }
+    },
+    {
+      "slot": "whiad3",
+      "guid": "whiad3",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/whiad3",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/whiad3/script.lua"
+      }
+    },
+    {
+      "slot": "bluad3",
+      "guid": "bluad3",
+      "nickname": "2",
+      "type": "Custom_Token",
+      "dir": "objects/bluad3",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/bluad3/script.lua"
+      }
+    },
+    {
+      "slot": "163aaa",
+      "guid": "163aaa",
+      "nickname": "Fur",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/163aaa",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/163aaa/script.lua"
+      }
+    },
+    {
+      "slot": "3459df",
+      "guid": "3459df",
+      "nickname": "Wood",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/3459df",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/3459df/script.lua"
+      }
+    },
+    {
+      "slot": "a9f5aa",
+      "guid": "a9f5aa",
+      "nickname": "Honey",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/a9f5aa",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/a9f5aa/script.lua"
+      }
+    },
+    {
+      "slot": "e884c1",
+      "guid": "e884c1",
+      "nickname": "Ore",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/e884c1",
+      "lua": {
+        "chars": 2825,
+        "sha256": "db4796a626ff618a948ed5dd966824b8faea45c2dd5bcc306db044f309f67757",
+        "bundled": false,
+        "file": "objects/e884c1/script.lua"
+      }
+    },
+    {
+      "slot": "30fbf8",
+      "guid": "30fbf8",
+      "nickname": "Fish",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/30fbf8",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/30fbf8/script.lua"
+      }
+    },
+    {
+      "slot": "9d302a",
+      "guid": "9d302a",
+      "nickname": null,
+      "type": "Custom_Model_Bag",
+      "dir": "objects/9d302a",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/9d302a/script.lua"
+      }
+    },
+    {
+      "slot": "a14a07",
+      "guid": "a14a07",
+      "nickname": null,
+      "type": "Custom_Model_Bag",
+      "dir": "objects/a14a07",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/a14a07/script.lua"
+      }
+    },
+    {
+      "slot": "afd81f",
+      "guid": "afd81f",
+      "nickname": "Fur",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/afd81f",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/afd81f/script.lua"
+      }
+    },
+    {
+      "slot": "f98065",
+      "guid": "f98065",
+      "nickname": "Wood",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/f98065",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/f98065/script.lua"
+      }
+    },
+    {
+      "slot": "75ea01",
+      "guid": "75ea01",
+      "nickname": "Fish",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/75ea01",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/75ea01/script.lua"
+      }
+    },
+    {
+      "slot": "fd45af",
+      "guid": "fd45af",
+      "nickname": "Honey",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/fd45af",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/fd45af/script.lua"
+      }
+    },
+    {
+      "slot": "064e16",
+      "guid": "064e16",
+      "nickname": "Ore",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/064e16",
+      "lua": {
+        "chars": 2825,
+        "sha256": "db4796a626ff618a948ed5dd966824b8faea45c2dd5bcc306db044f309f67757",
+        "bundled": false,
+        "file": "objects/064e16/script.lua"
+      }
+    },
+    {
+      "slot": "acb198",
+      "guid": "acb198",
+      "nickname": "Ore",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/acb198",
+      "lua": {
+        "chars": 2825,
+        "sha256": "db4796a626ff618a948ed5dd966824b8faea45c2dd5bcc306db044f309f67757",
+        "bundled": false,
+        "file": "objects/acb198/script.lua"
+      }
+    },
+    {
+      "slot": "a24f15",
+      "guid": "a24f15",
+      "nickname": null,
+      "type": "Custom_Model_Bag",
+      "dir": "objects/a24f15",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/a24f15/script.lua"
+      }
+    },
+    {
+      "slot": "541675",
+      "guid": "541675",
+      "nickname": "Fur",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/541675",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/541675/script.lua"
+      }
+    },
+    {
+      "slot": "586a7e",
+      "guid": "586a7e",
+      "nickname": "Wood",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/586a7e",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/586a7e/script.lua"
+      }
+    },
+    {
+      "slot": "b1336b",
+      "guid": "b1336b",
+      "nickname": "Fish",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/b1336b",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/b1336b/script.lua"
+      }
+    },
+    {
+      "slot": "e891e0",
+      "guid": "e891e0",
+      "nickname": "Honey",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/e891e0",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/e891e0/script.lua"
+      }
+    },
+    {
+      "slot": "8d8618",
+      "guid": "8d8618",
+      "nickname": "Ore",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/8d8618",
+      "lua": {
+        "chars": 2825,
+        "sha256": "db4796a626ff618a948ed5dd966824b8faea45c2dd5bcc306db044f309f67757",
+        "bundled": false,
+        "file": "objects/8d8618/script.lua"
+      }
+    },
+    {
+      "slot": "0e42df",
+      "guid": "0e42df",
+      "nickname": null,
+      "type": "Custom_Model_Bag",
+      "dir": "objects/0e42df",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/0e42df/script.lua"
+      }
+    },
+    {
+      "slot": "8884a3",
+      "guid": "8884a3",
+      "nickname": "Fur",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/8884a3",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/8884a3/script.lua"
+      }
+    },
+    {
+      "slot": "6ab8d4",
+      "guid": "6ab8d4",
+      "nickname": "Wood",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/6ab8d4",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/6ab8d4/script.lua"
+      }
+    },
+    {
+      "slot": "2ebb20",
+      "guid": "2ebb20",
+      "nickname": "Fish",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/2ebb20",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/2ebb20/script.lua"
+      }
+    },
+    {
+      "slot": "3b5db3",
+      "guid": "3b5db3",
+      "nickname": "Honey",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/3b5db3",
+      "lua": {
+        "chars": 2824,
+        "sha256": "2c1a1e619a55667651cf07b5169fc62e263b4c124f2e5f0db9c6701214f9096f",
+        "bundled": false,
+        "file": "objects/3b5db3/script.lua"
+      }
+    },
+    {
+      "slot": "8e05ed",
+      "guid": "8e05ed",
+      "nickname": null,
+      "type": "BlockSquare",
+      "dir": "objects/8e05ed",
+      "lua": {
+        "chars": 3920,
+        "sha256": "6aca948b0fddc6393bb1c937f55dd8a9082315998ba37257733472091eee40be",
+        "bundled": false,
+        "file": "objects/8e05ed/script.lua"
+      }
+    },
+    {
+      "slot": "f5addd",
+      "guid": "f5addd",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/f5addd",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/f5addd/script.lua"
+      }
+    },
+    {
+      "slot": "c65b92",
+      "guid": "c65b92",
+      "nickname": null,
+      "type": "Custom_Assetbundle",
+      "dir": "objects/c65b92",
+      "lua": {
+        "chars": 81,
+        "sha256": "1ce2720cdc15a14144a5f3fbbb3d5fb884894b1e53c81971638f38355cd85e50",
+        "bundled": false,
+        "file": "objects/c65b92/script.lua"
+      }
+    },
+    {
+      "slot": "35a952",
+      "guid": "35a952",
+      "nickname": "4",
+      "type": "Custom_Token",
+      "dir": "objects/35a952",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/35a952/script.lua"
+      }
+    },
+    {
+      "slot": "cbebd9",
+      "guid": "cbebd9",
+      "nickname": "1",
+      "type": "Custom_Token",
+      "dir": "objects/cbebd9",
+      "lua": {
+        "chars": 1700,
+        "sha256": "b8c5a3fb1868f51a463e915c8bd2490ea8bbe6b10d206ec3a5cd98de58e8573a",
+        "bundled": false,
+        "file": "objects/cbebd9/script.lua"
+      }
+    },
+    {
+      "slot": "8cb299",
+      "guid": "8cb299",
+      "nickname": null,
+      "type": "Custom_Assetbundle",
+      "dir": "objects/8cb299",
+      "lua": {
+        "chars": 57,
+        "sha256": "0f2b8a1cba0c833ba27c8010760202cf86e9ddb2f2cbfa547f61de3e16908b78",
+        "bundled": false,
+        "file": "objects/8cb299/script.lua"
+      }
+    },
+    {
+      "slot": "792298",
+      "guid": "792298",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/792298",
+      "lua": {
+        "chars": 81,
+        "sha256": "1ce2720cdc15a14144a5f3fbbb3d5fb884894b1e53c81971638f38355cd85e50",
+        "bundled": false,
+        "file": "objects/792298/script.lua"
+      }
+    }
+  ],
+  "shared_modules": []
+}

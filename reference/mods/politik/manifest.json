@@ -1,0 +1,359 @@
+{
+  "source": "Mods/Workshop/3460664356.json",
+  "sha256": "c19eeb428efda03b9da6d30e04bf8a638519eaf164d006a494b59f18ee67f6de",
+  "bytes": 3163094,
+  "save_name": "Politik",
+  "game_mode": "Politik",
+  "date": "9/19/2026 11:09:55 AM",
+  "tts_version": "v14.2.2",
+  "extracted": "2026-09-20",
+  "slots": [
+    {
+      "slot": "global",
+      "guid": null,
+      "nickname": null,
+      "type": null,
+      "dir": "global",
+      "lua": {
+        "chars": 9857,
+        "sha256": "d0f53d8dc76cf0ece7f89a894abedbaa0f2de00726133959c15274133ca244fc",
+        "bundled": false,
+        "file": "global/script.lua"
+      },
+      "xml": {
+        "stub": true,
+        "chars": 81
+      }
+    },
+    {
+      "slot": "45ce70",
+      "guid": "45ce70",
+      "nickname": null,
+      "type": "Custom_Assetbundle",
+      "dir": "objects/45ce70",
+      "lua": {
+        "chars": 53,
+        "sha256": "e3d0303f1595284de99f78aba0d1fd7a672f1fa011aeef0758bde1ab86c2a7b1",
+        "bundled": false,
+        "file": "objects/45ce70/script.lua"
+      }
+    },
+    {
+      "slot": "d34970",
+      "guid": "d34970",
+      "nickname": null,
+      "type": "BlockSquare",
+      "dir": "objects/d34970",
+      "lua": {
+        "chars": 16406,
+        "sha256": "1e03f87b435372502d77d18e61991265f658decc3fca746acee5e0ff4ae69ff0",
+        "bundled": false,
+        "file": "objects/d34970/script.lua"
+      }
+    },
+    {
+      "slot": "2765dc",
+      "guid": "2765dc",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/2765dc",
+      "lua": {
+        "chars": 1077,
+        "sha256": "89a34a2ffbbff23f198c0b2d9354d6fdf4989f4e786c3fb277f02b84d79f7f43",
+        "bundled": false,
+        "file": "objects/2765dc/script.lua"
+      }
+    },
+    {
+      "slot": "f782d2",
+      "guid": "f782d2",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/f782d2",
+      "lua": {
+        "chars": 3528,
+        "sha256": "6ddb7c87205c9515d21ae91d48b46ac8ce0782209f6052190df34eef3d4d61d6",
+        "bundled": false,
+        "file": "objects/f782d2/script.lua"
+      }
+    },
+    {
+      "slot": "3fa8bb",
+      "guid": "3fa8bb",
+      "nickname": "[E9E2B6]Resolve Landscape",
+      "type": "Custom_Token",
+      "dir": "objects/3fa8bb",
+      "lua": {
+        "chars": 5699,
+        "sha256": "20bd18fabfefeff52e9756bd99d3a64bdc661838df07fea8af988fb60e0f7ba9",
+        "bundled": false,
+        "file": "objects/3fa8bb/script.lua"
+      }
+    },
+    {
+      "slot": "289b39",
+      "guid": "289b39",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/289b39",
+      "lua": {
+        "chars": 5115,
+        "sha256": "5c7f4409a946c96e0b5b27d19a103e8eb77a0354d8041df6e8a2d429e13d6be1",
+        "bundled": false,
+        "file": "objects/289b39/script.lua"
+      }
+    },
+    {
+      "slot": "4817be",
+      "guid": "4817be",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/4817be",
+      "lua": {
+        "chars": 11779,
+        "sha256": "bb4c16815f97605f988b6938617f87cdeb4b1093b527a2932f613b8c10e11114",
+        "bundled": false,
+        "file": "objects/4817be/script.lua"
+      }
+    },
+    {
+      "slot": "c0a7c3",
+      "guid": "c0a7c3",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/c0a7c3",
+      "lua": {
+        "chars": 4696,
+        "sha256": "826503637c8c85d44c0afd2fa81d312adc31b8b7cbd3a5b945a9a5bf28b782dc",
+        "bundled": false,
+        "file": "objects/c0a7c3/script.lua"
+      }
+    },
+    {
+      "slot": "fb0a83",
+      "guid": "fb0a83",
+      "nickname": null,
+      "type": "Custom_Token",
+      "dir": "objects/fb0a83",
+      "lua": {
+        "chars": 1783,
+        "sha256": "e17000504dd6a7e807e8c715d7fb15cb665b0de04624473e63b48e7575b4331d",
+        "bundled": false,
+        "file": "objects/fb0a83/script.lua"
+      }
+    },
+    {
+      "slot": "1efc34",
+      "guid": "1efc34",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/1efc34",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/1efc34/script.lua"
+      },
+      "xml": {
+        "file": "objects/1efc34/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "5cfd6c",
+      "guid": "5cfd6c",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/5cfd6c",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/5cfd6c/script.lua"
+      },
+      "xml": {
+        "file": "objects/5cfd6c/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "f0237c",
+      "guid": "f0237c",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/f0237c",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/f0237c/script.lua"
+      },
+      "xml": {
+        "file": "objects/f0237c/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "1c1690",
+      "guid": "1c1690",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/1c1690",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/1c1690/script.lua"
+      },
+      "xml": {
+        "file": "objects/1c1690/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "241e2d",
+      "guid": "241e2d",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/241e2d",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/241e2d/script.lua"
+      },
+      "xml": {
+        "file": "objects/241e2d/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "a4a0b5",
+      "guid": "a4a0b5",
+      "nickname": null,
+      "type": "BlockSquare",
+      "dir": "objects/a4a0b5",
+      "lua": {
+        "chars": 3747,
+        "sha256": "0996b8c208667ab9215a78c7e8c10c64a5addfe58a1b2d8b273e1f493db69f2d",
+        "bundled": false,
+        "file": "objects/a4a0b5/script.lua"
+      }
+    },
+    {
+      "slot": "0a732d",
+      "guid": "0a732d",
+      "nickname": "[95CE93]Food Price",
+      "type": "BlockSquare",
+      "dir": "objects/0a732d",
+      "lua": {
+        "chars": 3502,
+        "sha256": "094d3bfdd71934f3ecb8d36b317c0f1315f1703fedcc6ea9785d3915a55bbdee",
+        "bundled": false,
+        "file": "objects/0a732d/script.lua"
+      }
+    },
+    {
+      "slot": "be7d07",
+      "guid": "be7d07",
+      "nickname": "[7B88C5]Campaign Price",
+      "type": "BlockSquare",
+      "dir": "objects/be7d07",
+      "lua": {
+        "chars": 3659,
+        "sha256": "c0df2f4056ed21b8b675b0949c2a05cca15c82822bd8d94dfc1279f0b32cf170",
+        "bundled": false,
+        "file": "objects/be7d07/script.lua"
+      }
+    },
+    {
+      "slot": "abfcb0",
+      "guid": "abfcb0",
+      "nickname": "[D64949]Clash Price",
+      "type": "BlockSquare",
+      "dir": "objects/abfcb0",
+      "lua": {
+        "chars": 3543,
+        "sha256": "73e3c530f938b2628d058aeaa8cebcad1f3f918ba2443002e62796729a073686",
+        "bundled": false,
+        "file": "objects/abfcb0/script.lua"
+      }
+    },
+    {
+      "slot": "80be5e",
+      "guid": "80be5e",
+      "nickname": "[C86A8D]Educate Price",
+      "type": "BlockSquare",
+      "dir": "objects/80be5e",
+      "lua": {
+        "chars": 3610,
+        "sha256": "148ef91a94c15389479f0b5b1586103ee7ae37ab0e867e8bd05cff6c6f746f83",
+        "bundled": false,
+        "file": "objects/80be5e/script.lua"
+      }
+    },
+    {
+      "slot": "a04cb4",
+      "guid": "a04cb4",
+      "nickname": "[7ABCD1]Research Price",
+      "type": "BlockSquare",
+      "dir": "objects/a04cb4",
+      "lua": {
+        "chars": 3639,
+        "sha256": "1370a46daf3998ace4f9bef3bb03d2002fd5c5c10d043b73efd0f5ced8813c27",
+        "bundled": false,
+        "file": "objects/a04cb4/script.lua"
+      }
+    },
+    {
+      "slot": "da8ca3",
+      "guid": "da8ca3",
+      "nickname": "[A9A9A9]Carbon Price",
+      "type": "BlockSquare",
+      "dir": "objects/da8ca3",
+      "lua": {
+        "chars": 3549,
+        "sha256": "ccec39f8559b466b60ed335b878e0bcbeb8fd27217cdec1ce97147bf8ecb5c42",
+        "bundled": false,
+        "file": "objects/da8ca3/script.lua"
+      }
+    },
+    {
+      "slot": "2b84d7",
+      "guid": "2b84d7",
+      "nickname": "[E9E2B6]Resources",
+      "type": "Custom_Token",
+      "dir": "objects/2b84d7",
+      "lua": {
+        "chars": 4304,
+        "sha256": "a2629453c1f55a34cf665184b00073a9b9683e0c33d6978dfa86631cbd39672b",
+        "bundled": false,
+        "file": "objects/2b84d7/script.lua"
+      },
+      "xml": {
+        "file": "objects/2b84d7/ui.xml",
+        "chars": 1614,
+        "sha256": "1d61d5bcf11fae4b6e598546118c0e90afc4723df47f5c68848376117d0b31d4"
+      }
+    },
+    {
+      "slot": "5a5dd1",
+      "guid": "5a5dd1",
+      "nickname": "[E9E2B6]Clash Helper",
+      "type": "Custom_Tile",
+      "dir": "objects/5a5dd1",
+      "lua": {
+        "chars": 6848,
+        "sha256": "84202f193045bb5b308cbc6f53da9abf11a138fe1e3caa57e3df41c96c0df0a9",
+        "bundled": false,
+        "file": "objects/5a5dd1/script.lua"
+      }
+    }
+  ],
+  "shared_modules": []
+}

@@ -1,0 +1,43 @@
+{
+  "source": "Mods/Workshop/2804149704.json",
+  "sha256": "829bf6584fa2aa53576ebbbee0aa228c69bc75fbb36b15de79067af3515c2fde",
+  "bytes": 1169238,
+  "save_name": "Almoravid: Reconquista and Riposte in Spain, 1085-1086 (GMT Games)",
+  "game_mode": "Almoravid (GMT Games)",
+  "date": "3/16/2023 6:28:58 PM",
+  "tts_version": "v13.2.2",
+  "extracted": "2026-09-20",
+  "slots": [
+    {
+      "slot": "global",
+      "guid": null,
+      "nickname": null,
+      "type": null,
+      "dir": "global",
+      "lua": {
+        "chars": 219055,
+        "sha256": "897244eefdb7d8e31ec67d04181e3bafc0d7fc0324fad9fe4294194628a1d283",
+        "bundled": false,
+        "file": "global/script.lua"
+      },
+      "xml": {
+        "stub": true,
+        "chars": 81
+      }
+    },
+    {
+      "slot": "ddb88c",
+      "guid": "ddb88c",
+      "nickname": null,
+      "type": "Custom_Model",
+      "dir": "objects/ddb88c",
+      "lua": {
+        "chars": 838,
+        "sha256": "5655f418b306b360233f8990a23cd4d5508a7de7761f6059b9da80ba66681daa",
+        "bundled": false,
+        "file": "objects/ddb88c/script.lua"
+      }
+    }
+  ],
+  "shared_modules": []
+}

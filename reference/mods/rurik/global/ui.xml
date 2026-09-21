@@ -1,0 +1,137 @@
+<!-- =========================
+     SETUP MENU (989 x 951) - SCALED DOWN
+     ========================= -->
+<Panel
+    id="setupMenu"
+    height="951"
+    width="989"
+    image="Menu"
+    rectAlignment="Center"
+    allowDragging="true"
+    showAnimation="Grow"
+    hideAnimation="FadeOut"
+    returnToOriginalPositionWhenReleased="false"
+    outline="#000000" outlineSize="1 -1"
+    active="false"
+>
+
+    <!-- Close button -->
+    <Button
+        onClick="UIHideSetupMenu"
+        height="38"
+        width="38"
+        image="Button_Square_Blue"
+        text="-"
+        textColor="#EFEDE8"
+        fontStyle="Bold"
+        fontSize="30"
+        rectAlignment="UpperRight"
+        offsetXY="-10 -10"
+        outline="#000000" outlineSize="1 -1"
+    />
+
+    <!-- Content container -->
+    <Panel
+        height="901"
+        width="949"
+        rectAlignment="Center"
+        offsetXY="0 -6"
+        color="#00000000"
+    >
+        <VerticalLayout
+            childAlignment="UpperCenter"
+            spacing="14"
+            padding="18 18 18 18"
+        >
+
+            <!-- Header (no big title, just spacing) -->
+            <Panel height="180" width="949" color="#00000000" />
+
+            <!-- Options row -->
+            <Panel height="260" width="949" color="#00000000">
+                <HorizontalLayout childAlignment="UpperCenter" spacing="36" padding="0 0 0 0">
+
+                    <!-- Player count -->
+<Panel height="240" width="420" color="#00000000">
+  <VerticalLayout childAlignment="UpperCenter" spacing="10" padding="6 6 6 6">
+
+    <!-- Header row (prevents overlap / click blocking) -->
+    <Panel height="60" width="420" color="#00000000">
+      <Image
+        image="PlayerCount"
+        height="60"
+        width="420"
+        preserveAspect="true"
+      />
+    </Panel>
+
+    <!-- Dropdown row (keeps a clean clickable area) -->
+    <Panel height="60" width="420" color="#00000000">
+      <Dropdown
+        id="PlayerAmount"
+        onValueChanged="playerAmountSelected"
+        width="360"
+        height="44"
+        outline="#000000" outlineSize="1 -1"
+      >
+        <Option selected="true">2 Players</Option>
+        <Option>3 Players</Option>
+        <Option>4 Players</Option>
+      </Dropdown>
+    </Panel>
+
+  </VerticalLayout>
+</Panel>
+
+                </HorizontalLayout>
+            </Panel>
+
+            <!-- Spacer -->
+            <Panel height="70" width="949" color="#00000000" />
+
+            <!-- Footer -->
+            <Panel height="260" width="949" color="#00000000">
+                <VerticalLayout childAlignment="UpperCenter" spacing="10" padding="0 0 0 0">
+                    <Button
+                        onClick="selectedSetup"
+                        height="70"
+                        width="260"
+                        image="Button_Main_Blue"
+                        preserveAspect="true"
+                    />
+                </VerticalLayout>
+            </Panel>
+
+        </VerticalLayout>
+    </Panel>
+</Panel>
+
+
+<!-- =========================
+     SETUP MENU CLOSED
+     ========================= -->
+<Panel
+    id="setupMenuClosed"
+    height="64"
+    width="140"
+    rectAlignment="UpperRight"
+    offsetXY="-150 -30"
+    showAnimation="Grow"
+    hideAnimation="FadeOut"
+    active="false"
+    color="#EFEDE8"
+>
+    <Button
+        image="Button_Square_Blue"
+        onClick="UIShowSetupMenu"
+        width="140"
+        height="64"
+    />
+    <Text
+        text="Setup Menu"
+        rectAlignment="MiddleCenter"
+        fontStyle="Bold"
+        fontSize="18"
+        color="#EFEDE8"
+    />
+</Panel>

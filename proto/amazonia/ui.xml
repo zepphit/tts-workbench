@@ -1,0 +1,48 @@
+<!-- Amazonia — the screen panel.
+     Lives in the save's XmlUI, so it exists before onLoad runs and the script
+     never calls setXml: it only sets the three values that change. Handlers
+     here take (player, value, id), not the button signature; they are the
+     ui* globals in src/50-api.lua.
+
+     This is the hand-driven half of the command surface. Everything on it has
+     an `A.*` equivalent, because the agent loop drives the same verbs through
+     `ttsd.py call` — one behaviour, two front ends. -->
+
+<Defaults>
+  <Text color="#e8e0cf" fontSize="20" alignment="MiddleLeft"/>
+  <Button color="#2f3b27" textColor="#e8e0cf" fontSize="18" fontStyle="Bold"/>
+
+  <Panel class="hud" color="#1b2417" outline="#00000080" outlineSize="2 2"/>
+  <Text class="stat" fontSize="21"/>
+  <Text class="title" fontSize="25" fontStyle="Bold" color="#b8cf7a"/>
+  <Text class="hint" fontSize="15" color="#8e9c78"/>
+</Defaults>
+
+<!-- Bottom RIGHT, lifted clear of the Edit Note icon in the corner.
+     Never the lower left: that is where TTS puts the chat window, and a panel
+     there hides it. This is the owner's standing preference for every mod, not
+     a one-off for Amazonia.
+     rectAlignment anchors the panel's own corner, so from LowerRight a negative
+     X insets it from the right edge and a positive Y lifts it off the bottom. -->
+<Panel class="hud" id="hud" rectAlignment="LowerRight" width="300" height="298"
+       offsetXY="-24 104">
+  <VerticalLayout padding="16 16 14 14" spacing="6">
+    <Text class="title" preferredHeight="30">Amazonia</Text>
+    <Text class="stat" id="hudSeed" preferredHeight="26">Seed —</Text>
+    <Text class="stat" id="hudTiles" preferredHeight="26">Tiles: —</Text>
+    <Text class="stat" id="hudRings" preferredHeight="26">Rings: —</Text>
+    <HorizontalLayout spacing="8" preferredHeight="40">
+      <Button id="uiReroll" onClick="uiReroll">Reroll</Button>
+      <Button id="uiLock" onClick="uiLock" color="#3c3524">Lock</Button>
+    </HorizontalLayout>
+    <HorizontalLayout spacing="8" preferredHeight="40">
+      <Button id="uiTray" onClick="uiTray" color="#2a3a44">Tray</Button>
+    </HorizontalLayout>
+    <HorizontalLayout spacing="8" preferredHeight="40">
+      <Button id="uiShrink" onClick="uiShrink">Smaller</Button>
+      <Button id="uiGrow" onClick="uiGrow">Bigger</Button>
+      <Button id="uiClear" onClick="uiClear" color="#4d241f">Clear</Button>
+    </HorizontalLayout>
+    <Text class="hint" preferredHeight="20">ttsd.py exec 'return AZ.state()'</Text>
+  </VerticalLayout>
+</Panel>

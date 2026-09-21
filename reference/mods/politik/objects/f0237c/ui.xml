@@ -1,0 +1,105 @@
+<Defaults>
+
+  <InputField
+   class="val"
+   color="rgba(0,0,0,0)"
+   outline="rgba(255,0,0,255)"
+   outlineSize="1 -1"
+   width="200"
+   height="110"
+   fontSize="80"
+   horizontalOverflow="Wrap"
+   placeholder="#"
+   textAlignment="MiddleCenter"
+   characterValidation="Integer"
+   rotation="0 0 180"
+   onEndEdit="updateVal"/>
+
+  <Button
+   class="adjust"
+   color="rgba(0,0,0,0)"
+   outline="rgba(0,0,255,255)"
+   outlineSize="1 -1"
+   width="50"
+   height="40"
+   fontSize="50"
+   fontStyle="Bold"
+   textAlignment="LowerCenter"
+   verticalOverflow="Overflow"
+   rotation="0 0 180"
+   onClick="adjust"/>
+
+</Defaults>
+<InputField
+ class="val"
+ id="val1"
+ navigation="Explicit"
+ name="Capital"
+ position="-40 -180 -11"/>
+
+<InputField
+ class="val"
+ id="val2"
+ navigation="Explicit"
+ name="Carbon"
+ position="-40 60 -11"/>
+
+<InputField
+ class="val"
+ id="val3"
+ navigation="Explicit"
+ name="Food"
+ position="-40 190 -11"/>
+
+<Button
+ class="adjust"
+ id="plus1"
+ name="+1 Capital"
+ height="80"
+ position="77 -190 -11">
+ +
+</Button>
+
+<Button
+ class="adjust"
+ id="plus2"
+ name="+1 Carbon"
+ height="80"
+ position="77 50 -11">
+ +
+</Button>
+
+<Button
+ class="adjust"
+ id="plus3"
+ name="+1 Food"
+ height="80"
+ position="77 180 -11">
+ +
+</Button>
+
+
+<Button
+ class="adjust"
+ id="minus1"
+ name="-1 Capital"
+ position="77 -130 -11">
+ –
+</Button>
+
+<Button
+ class="adjust"
+ id="minus2"
+ name="-1 Carbon"
+ position="77 110 -11">
+ –
+</Button>
+
+<Button
+ class="adjust"
+ id="minus3"
+ name="-1 Food"
+ position="77 240 -11">
+ –
+</Button>
+

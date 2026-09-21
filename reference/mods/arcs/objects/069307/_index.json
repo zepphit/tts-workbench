@@ -1,0 +1,20 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Dice Counter.069307.lua",
+      "file": "Dice Counter.069307.lua",
+      "start": 1192,
+      "end": 1218
+    },
+    {
+      "name": "src/DiceCounter",
+      "file": "src__DiceCounter.lua",
+      "start": 1325,
+      "end": 7141
+    }
+  ],
+  "slot": "069307",
+  "guid": "069307",
+  "save": "Mods/Workshop/3683918449.json"
+}

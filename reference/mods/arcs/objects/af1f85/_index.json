@@ -1,0 +1,20 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Dice Board.af1f85.lua",
+      "file": "Dice Board.af1f85.lua",
+      "start": 1188,
+      "end": 1212
+    },
+    {
+      "name": "src/DiceBoard",
+      "file": "src__DiceBoard.lua",
+      "start": 1317,
+      "end": 15961
+    }
+  ],
+  "slot": "af1f85",
+  "guid": "af1f85",
+  "save": "Mods/Workshop/3683918449.json"
+}

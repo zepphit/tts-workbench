@@ -1,0 +1,862 @@
+{
+  "source": "Mods/Workshop/3026289764.json",
+  "sha256": "2dadbf512f6b4942abac469b1989489be21fb2375c2b5908422601b0e704d843",
+  "bytes": 1745379,
+  "save_name": "Railways of the Lost Atlas [Official]",
+  "game_mode": "Railways of the Lost Atlas",
+  "date": "4/25/2026 6:43:22 PM",
+  "tts_version": "v14.2.1",
+  "extracted": "2026-09-20",
+  "slots": [
+    {
+      "slot": "global",
+      "guid": null,
+      "nickname": null,
+      "type": null,
+      "dir": "global",
+      "lua": {
+        "chars": 93192,
+        "sha256": "59a475c58d648e5867a30d218955d1aee9fb1ad77633c9acdc8385f029a3802e",
+        "bundled": false,
+        "file": "global/script.lua"
+      },
+      "xml": {
+        "stub": true,
+        "chars": 81
+      }
+    },
+    {
+      "slot": "bd69bd",
+      "guid": "bd69bd",
+      "nickname": "Flex Table Control",
+      "type": "Chinese_Checkers_Piece",
+      "dir": "objects/bd69bd",
+      "lua": {
+        "chars": 16336,
+        "sha256": "7c5a449a37fe7eeffabda81bbd3aa107661fee359c6d6b6985a1bf0a2faaed6d",
+        "bundled": false,
+        "file": "objects/bd69bd/script.lua"
+      }
+    },
+    {
+      "slot": "1e7a40",
+      "guid": "1e7a40",
+      "nickname": "[i]Map Tiles[/i]",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/1e7a40",
+      "lua": {
+        "chars": 128,
+        "sha256": "2e0d60fb102e2b3de230d6feedc0b1b2a0fec027edcfafa2a68a8fee5c3791e8",
+        "bundled": false,
+        "file": "objects/1e7a40/script.lua"
+      }
+    },
+    {
+      "slot": "93c2a0",
+      "guid": "93c2a0",
+      "nickname": "[i](place upgraded tiles here to return them to ",
+      "type": "Bag",
+      "dir": "objects/93c2a0",
+      "lua": {
+        "chars": 418,
+        "sha256": "85a3109a9cea6545cbd4316ddfd688d8c7bff7fed98fef9d1c1a6c74640e3869",
+        "bundled": false,
+        "file": "objects/93c2a0/script.lua"
+      }
+    },
+    {
+      "slot": "54bdb7",
+      "guid": "54bdb7",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/54bdb7",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/54bdb7/script.lua"
+      }
+    },
+    {
+      "slot": "696eac",
+      "guid": "696eac",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/696eac",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/696eac/script.lua"
+      }
+    },
+    {
+      "slot": "c4a958",
+      "guid": "c4a958",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/c4a958",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/c4a958/script.lua"
+      }
+    },
+    {
+      "slot": "4cda8f",
+      "guid": "4cda8f",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/4cda8f",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/4cda8f/script.lua"
+      }
+    },
+    {
+      "slot": "e5c513",
+      "guid": "e5c513",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/e5c513",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/e5c513/script.lua"
+      }
+    },
+    {
+      "slot": "85e1a9",
+      "guid": "85e1a9",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/85e1a9",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/85e1a9/script.lua"
+      }
+    },
+    {
+      "slot": "efb920",
+      "guid": "efb920",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/efb920",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/efb920/script.lua"
+      }
+    },
+    {
+      "slot": "4d95b5",
+      "guid": "4d95b5",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/4d95b5",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/4d95b5/script.lua"
+      }
+    },
+    {
+      "slot": "c9a29c",
+      "guid": "c9a29c",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/c9a29c",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/c9a29c/script.lua"
+      }
+    },
+    {
+      "slot": "9dfbf8",
+      "guid": "9dfbf8",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9dfbf8",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9dfbf8/script.lua"
+      }
+    },
+    {
+      "slot": "51ca78",
+      "guid": "51ca78",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/51ca78",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/51ca78/script.lua"
+      }
+    },
+    {
+      "slot": "7884e0",
+      "guid": "7884e0",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/7884e0",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/7884e0/script.lua"
+      }
+    },
+    {
+      "slot": "08248e",
+      "guid": "08248e",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/08248e",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/08248e/script.lua"
+      }
+    },
+    {
+      "slot": "2b8cfd",
+      "guid": "2b8cfd",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/2b8cfd",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/2b8cfd/script.lua"
+      }
+    },
+    {
+      "slot": "b3e4c2",
+      "guid": "b3e4c2",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/b3e4c2",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/b3e4c2/script.lua"
+      }
+    },
+    {
+      "slot": "9b9ab0",
+      "guid": "9b9ab0",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9b9ab0",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9b9ab0/script.lua"
+      }
+    },
+    {
+      "slot": "7e0eda",
+      "guid": "7e0eda",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/7e0eda",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/7e0eda/script.lua"
+      }
+    },
+    {
+      "slot": "113d2b",
+      "guid": "113d2b",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/113d2b",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/113d2b/script.lua"
+      }
+    },
+    {
+      "slot": "8c27a6",
+      "guid": "8c27a6",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/8c27a6",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/8c27a6/script.lua"
+      }
+    },
+    {
+      "slot": "e6be9e",
+      "guid": "e6be9e",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/e6be9e",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/e6be9e/script.lua"
+      }
+    },
+    {
+      "slot": "0ed655",
+      "guid": "0ed655",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/0ed655",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/0ed655/script.lua"
+      }
+    },
+    {
+      "slot": "6ef416",
+      "guid": "6ef416",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/6ef416",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/6ef416/script.lua"
+      }
+    },
+    {
+      "slot": "5f379b",
+      "guid": "5f379b",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/5f379b",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/5f379b/script.lua"
+      }
+    },
+    {
+      "slot": "9205a5",
+      "guid": "9205a5",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9205a5",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9205a5/script.lua"
+      }
+    },
+    {
+      "slot": "1b9ee6",
+      "guid": "1b9ee6",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/1b9ee6",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/1b9ee6/script.lua"
+      }
+    },
+    {
+      "slot": "119911",
+      "guid": "119911",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/119911",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/119911/script.lua"
+      }
+    },
+    {
+      "slot": "3c279e",
+      "guid": "3c279e",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/3c279e",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/3c279e/script.lua"
+      }
+    },
+    {
+      "slot": "66f85b",
+      "guid": "66f85b",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/66f85b",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/66f85b/script.lua"
+      }
+    },
+    {
+      "slot": "241a5a",
+      "guid": "241a5a",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/241a5a",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/241a5a/script.lua"
+      }
+    },
+    {
+      "slot": "a0e09f",
+      "guid": "a0e09f",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/a0e09f",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/a0e09f/script.lua"
+      }
+    },
+    {
+      "slot": "5bf26f",
+      "guid": "5bf26f",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/5bf26f",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/5bf26f/script.lua"
+      }
+    },
+    {
+      "slot": "944038",
+      "guid": "944038",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/944038",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/944038/script.lua"
+      }
+    },
+    {
+      "slot": "3ac88e",
+      "guid": "3ac88e",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/3ac88e",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/3ac88e/script.lua"
+      }
+    },
+    {
+      "slot": "43f418",
+      "guid": "43f418",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/43f418",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/43f418/script.lua"
+      }
+    },
+    {
+      "slot": "9a7be9",
+      "guid": "9a7be9",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9a7be9",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9a7be9/script.lua"
+      }
+    },
+    {
+      "slot": "5bfa52",
+      "guid": "5bfa52",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/5bfa52",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/5bfa52/script.lua"
+      }
+    },
+    {
+      "slot": "8bce8c",
+      "guid": "8bce8c",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/8bce8c",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/8bce8c/script.lua"
+      }
+    },
+    {
+      "slot": "546a63",
+      "guid": "546a63",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/546a63",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/546a63/script.lua"
+      }
+    },
+    {
+      "slot": "26b5b0",
+      "guid": "26b5b0",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/26b5b0",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/26b5b0/script.lua"
+      }
+    },
+    {
+      "slot": "d46555",
+      "guid": "d46555",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/d46555",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/d46555/script.lua"
+      }
+    },
+    {
+      "slot": "3090b0",
+      "guid": "3090b0",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/3090b0",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/3090b0/script.lua"
+      }
+    },
+    {
+      "slot": "bc1a88",
+      "guid": "bc1a88",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/bc1a88",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/bc1a88/script.lua"
+      }
+    },
+    {
+      "slot": "17ccd7",
+      "guid": "17ccd7",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/17ccd7",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/17ccd7/script.lua"
+      }
+    },
+    {
+      "slot": "8bd5ce",
+      "guid": "8bd5ce",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/8bd5ce",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/8bd5ce/script.lua"
+      }
+    },
+    {
+      "slot": "9eb208",
+      "guid": "9eb208",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9eb208",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9eb208/script.lua"
+      }
+    },
+    {
+      "slot": "9d3c46",
+      "guid": "9d3c46",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/9d3c46",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/9d3c46/script.lua"
+      }
+    },
+    {
+      "slot": "ee1f5b",
+      "guid": "ee1f5b",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/ee1f5b",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/ee1f5b/script.lua"
+      }
+    },
+    {
+      "slot": "f64c8d",
+      "guid": "f64c8d",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/f64c8d",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/f64c8d/script.lua"
+      }
+    },
+    {
+      "slot": "d6181c",
+      "guid": "d6181c",
+      "nickname": "[i]Extra Stacks of Map Tiles for Variants[/i]",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/d6181c",
+      "lua": {
+        "chars": 128,
+        "sha256": "2e0d60fb102e2b3de230d6feedc0b1b2a0fec027edcfafa2a68a8fee5c3791e8",
+        "bundled": false,
+        "file": "objects/d6181c/script.lua"
+      }
+    },
+    {
+      "slot": "8bc179",
+      "guid": "8bc179",
+      "nickname": "[i]Extra Stacks of Map Tiles for Variants[/i]",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/8bc179",
+      "lua": {
+        "chars": 128,
+        "sha256": "2e0d60fb102e2b3de230d6feedc0b1b2a0fec027edcfafa2a68a8fee5c3791e8",
+        "bundled": false,
+        "file": "objects/8bc179/script.lua"
+      }
+    },
+    {
+      "slot": "28c94b",
+      "guid": "28c94b",
+      "nickname": "[i]Extra Stacks of Map Tiles for Variants[/i]",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/28c94b",
+      "lua": {
+        "chars": 128,
+        "sha256": "2e0d60fb102e2b3de230d6feedc0b1b2a0fec027edcfafa2a68a8fee5c3791e8",
+        "bundled": false,
+        "file": "objects/28c94b/script.lua"
+      }
+    },
+    {
+      "slot": "ff47c5",
+      "guid": "ff47c5",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/ff47c5",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/ff47c5/script.lua"
+      }
+    },
+    {
+      "slot": "7820ef",
+      "guid": "7820ef",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/7820ef",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/7820ef/script.lua"
+      }
+    },
+    {
+      "slot": "feabe4",
+      "guid": "feabe4",
+      "nickname": null,
+      "type": "Bag",
+      "dir": "objects/feabe4",
+      "lua": {
+        "chars": 997,
+        "sha256": "1f6b132023d2c91c10b0e588acbfeb4092de6f41b3d26d516c67ea5518bf0e82",
+        "bundled": false,
+        "file": "objects/feabe4/script.lua"
+      }
+    },
+    {
+      "slot": "6994ae",
+      "guid": "6994ae",
+      "nickname": "[i]Wildflower Valley[/i]\r A route that passes th",
+      "type": "Custom_Model",
+      "dir": "objects/6994ae",
+      "lua": {
+        "chars": 67,
+        "sha256": "dd268c416822e75d597cfc653b29498d7f7859e736d7c0c330f1b67348c0326d",
+        "bundled": false,
+        "file": "objects/6994ae/script.lua"
+      }
+    },
+    {
+      "slot": "999e8f",
+      "guid": "999e8f",
+      "nickname": "[i]Waterfall\r (mouse over)[/i]",
+      "type": "Custom_Model",
+      "dir": "objects/999e8f",
+      "lua": {
+        "chars": 67,
+        "sha256": "dd268c416822e75d597cfc653b29498d7f7859e736d7c0c330f1b67348c0326d",
+        "bundled": false,
+        "file": "objects/999e8f/script.lua"
+      }
+    },
+    {
+      "slot": "f2755a",
+      "guid": "f2755a",
+      "nickname": "[i]Rock Formation\r (mouse over)[/i]",
+      "type": "Custom_Model",
+      "dir": "objects/f2755a",
+      "lua": {
+        "chars": 67,
+        "sha256": "03a31bc508c2e112aae2316063eb6a2ef86c0bd033281e0f18a2a8b0b9a9ac61",
+        "bundled": false,
+        "file": "objects/f2755a/script.lua"
+      }
+    },
+    {
+      "slot": "552435",
+      "guid": "552435",
+      "nickname": "[i]Mirage\r (mouse over)[/i]",
+      "type": "Custom_Model",
+      "dir": "objects/552435",
+      "lua": {
+        "chars": 65,
+        "sha256": "5970d58b06434e3fb99812baa7cce66c216ccfc6069860c04b16bf82722ba90f",
+        "bundled": false,
+        "file": "objects/552435/script.lua"
+      }
+    },
+    {
+      "slot": "ea4ce2",
+      "guid": "ea4ce2",
+      "nickname": "[i]Cave[/i]\r • Does not count as a stop.",
+      "type": "Custom_Model",
+      "dir": "objects/ea4ce2",
+      "lua": {
+        "chars": 67,
+        "sha256": "dd268c416822e75d597cfc653b29498d7f7859e736d7c0c330f1b67348c0326d",
+        "bundled": false,
+        "file": "objects/ea4ce2/script.lua"
+      }
+    },
+    {
+      "slot": "3ebc6f",
+      "guid": "3ebc6f",
+      "nickname": "[i]Canyon\r (mouse over)[/i]",
+      "type": "Custom_Model",
+      "dir": "objects/3ebc6f",
+      "lua": {
+        "chars": 67,
+        "sha256": "dd268c416822e75d597cfc653b29498d7f7859e736d7c0c330f1b67348c0326d",
+        "bundled": false,
+        "file": "objects/3ebc6f/script.lua"
+      }
+    },
+    {
+      "slot": "cfdce6",
+      "guid": "cfdce6",
+      "nickname": "[i]Ancient Ruins\r (mouse over)[/i]",
+      "type": "Custom_Model",
+      "dir": "objects/cfdce6",
+      "lua": {
+        "chars": 67,
+        "sha256": "03a31bc508c2e112aae2316063eb6a2ef86c0bd033281e0f18a2a8b0b9a9ac61",
+        "bundled": false,
+        "file": "objects/cfdce6/script.lua"
+      }
+    }
+  ],
+  "shared_modules": []
+}

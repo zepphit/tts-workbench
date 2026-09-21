@@ -1,0 +1,37 @@
+# This repo lives inside the live Tabletop Simulator data directory
+# (~/Library/Tabletop Simulator, 8.7 GB). Almost none of that belongs in git:
+# Mods/ is a TTS-managed asset cache, Saves/ is game state TTS rewrites on a
+# timer, and both are far too large to version.
+#
+# So: ignore everything at the top level, then re-include the authored work by
+# name. Git does not descend into an ignored directory, which is what keeps
+# `git status` from ever walking the 8.7 GB cache.
+
+/*
+
+!/.gitignore
+!/README.md
+
+# The documentation and tooling set (authored, not TTS's).
+!/CLAUDE.md
+!/.claude/
+!/docs/
+!/scripts/
+!/reference/
+!/proto/
+
+# Saves/ stays out, except Amazonia's save and its thumbnail. TS_Save_127.json
+# is the build output of proto/amazonia/build.sh and is also rewritten by TTS
+# itself whenever the game saves, so expect it to show up dirty while TTS runs.
+!/Saves/
+/Saves/*
+!/Saves/TS_Save_127.json
+!/Saves/TS_Save_127.png
+
+# Generated and volatile, inside the directories re-included above.
+__pycache__/
+*.pyc
+# ttsd.py serve's observed changelog: a local record of a running game.
+/proto/amazonia/.journal/
+
+.DS_Store

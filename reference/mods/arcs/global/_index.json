@@ -1,0 +1,164 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Global.-1.lua",
+      "file": "Global.-1.lua",
+      "start": 1172,
+      "end": 1193
+    },
+    {
+      "name": "src/Global",
+      "file": "src__Global.lua",
+      "start": 1295,
+      "end": 91392
+    },
+    {
+      "name": "assets/leaders_pnp2_starting",
+      "file": "assets__leaders_pnp2_starting.lua",
+      "start": 91512,
+      "end": 94791
+    },
+    {
+      "name": "assets/leaders_starting_pieces",
+      "file": "assets__leaders_starting_pieces.lua",
+      "start": 94913,
+      "end": 136317
+    },
+    {
+      "name": "src/SheetsSenderOverlay",
+      "file": "src__SheetsSenderOverlay.lua",
+      "start": 136432,
+      "end": 143913
+    },
+    {
+      "name": "src/integrations/ErrataFaqService",
+      "file": "src__integrations__ErrataFaqService.lua",
+      "start": 144038,
+      "end": 160492
+    },
+    {
+      "name": "src/SheetsSender",
+      "file": "src__SheetsSender.lua",
+      "start": 160600,
+      "end": 215691
+    },
+    {
+      "name": "src/GUIDs",
+      "file": "src__GUIDs.lua",
+      "start": 215792,
+      "end": 223485
+    },
+    {
+      "name": "src/ActionCards",
+      "file": "src__ActionCards.lua",
+      "start": 223592,
+      "end": 246580
+    },
+    {
+      "name": "src/Supplies",
+      "file": "src__Supplies.lua",
+      "start": 246684,
+      "end": 274586
+    },
+    {
+      "name": "src/LOG",
+      "file": "src__LOG.lua",
+      "start": 274685,
+      "end": 275373
+    },
+    {
+      "name": "src/Timer",
+      "file": "src__Timer.lua",
+      "start": 275474,
+      "end": 280683
+    },
+    {
+      "name": "src/Camera",
+      "file": "src__Camera.lua",
+      "start": 280785,
+      "end": 285823
+    },
+    {
+      "name": "src/SetupControl",
+      "file": "src__SetupControl.lua",
+      "start": 285931,
+      "end": 328815
+    },
+    {
+      "name": "src/Counters",
+      "file": "src__Counters.lua",
+      "start": 328919,
+      "end": 337857
+    },
+    {
+      "name": "src/Campaign",
+      "file": "src__Campaign.lua",
+      "start": 337961,
+      "end": 354466
+    },
+    {
+      "name": "src/InitiativeMarker",
+      "file": "src__InitiativeMarker.lua",
+      "start": 354578,
+      "end": 357119
+    },
+    {
+      "name": "src/Merchant",
+      "file": "src__Merchant.lua",
+      "start": 357223,
+      "end": 357952
+    },
+    {
+      "name": "src/Resource",
+      "file": "src__Resource.lua",
+      "start": 358056,
+      "end": 360530
+    },
+    {
+      "name": "src/BaseGame",
+      "file": "src__BaseGame.lua",
+      "start": 360634,
+      "end": 459964
+    },
+    {
+      "name": "src/ArcsPlayer",
+      "file": "src__ArcsPlayer.lua",
+      "start": 460070,
+      "end": 481857
+    },
+    {
+      "name": "src/RoundManager",
+      "file": "src__RoundManager.lua",
+      "start": 481965,
+      "end": 486571
+    },
+    {
+      "name": "src/AmbitionMarkers",
+      "file": "src__AmbitionMarkers.lua",
+      "start": 486682,
+      "end": 528550
+    },
+    {
+      "name": "src/Control",
+      "file": "src__Control.lua",
+      "start": 528653,
+      "end": 543239
+    },
+    {
+      "name": "src/events/DropActionEvents",
+      "file": "src__events__DropActionEvents.lua",
+      "start": 543358,
+      "end": 547167
+    },
+    {
+      "name": "src/events/OverlayChatCommands",
+      "file": "src__events__OverlayChatCommands.lua",
+      "start": 547289,
+      "end": 550799
+    }
+  ],
+  "slot": "global",
+  "guid": null,
+  "save": "Mods/Workshop/3683918449.json"
+}

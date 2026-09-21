@@ -1,0 +1,74 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Control.6e21fe.lua",
+      "file": "Control.6e21fe.lua",
+      "start": 1182,
+      "end": 1204
+    },
+    {
+      "name": "src/Control",
+      "file": "src__Control.lua",
+      "start": 1307,
+      "end": 15893
+    },
+    {
+      "name": "src/Supplies",
+      "file": "src__Supplies.lua",
+      "start": 15997,
+      "end": 43899
+    },
+    {
+      "name": "src/GUIDs",
+      "file": "src__GUIDs.lua",
+      "start": 44000,
+      "end": 51693
+    },
+    {
+      "name": "src/LOG",
+      "file": "src__LOG.lua",
+      "start": 51792,
+      "end": 52480
+    },
+    {
+      "name": "src/RoundManager",
+      "file": "src__RoundManager.lua",
+      "start": 52588,
+      "end": 57194
+    },
+    {
+      "name": "src/InitiativeMarker",
+      "file": "src__InitiativeMarker.lua",
+      "start": 57306,
+      "end": 59847
+    },
+    {
+      "name": "src/AmbitionMarkers",
+      "file": "src__AmbitionMarkers.lua",
+      "start": 59958,
+      "end": 101826
+    },
+    {
+      "name": "src/ArcsPlayer",
+      "file": "src__ArcsPlayer.lua",
+      "start": 101932,
+      "end": 123719
+    },
+    {
+      "name": "src/Resource",
+      "file": "src__Resource.lua",
+      "start": 123823,
+      "end": 126297
+    },
+    {
+      "name": "src/ActionCards",
+      "file": "src__ActionCards.lua",
+      "start": 126404,
+      "end": 149392
+    }
+  ],
+  "slot": "6e21fe",
+  "guid": "6e21fe",
+  "save": "Mods/Workshop/3683918449.json"
+}

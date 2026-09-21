@@ -1,0 +1,48 @@
+<!-- vendored from https://api.tabletopsimulator.com/components/examples/ — do not edit, regenerate with scripts/fetch_api_docs.py -->
+
+# Examples
+
+> **Danger**
+>
+> Component APIs are an advanced feature. An **understanding of how Unity works is required** to utilize them.
+
+These examples are complete scripts which can be placed on a regular Red Block.
+
+> **Example**
+>
+> Disable shadow receiving for an object.
+
+```lua
+function onLoad()
+    -- Get the MeshRenderer of the block's GameObject
+    local meshRenderer = self.getComponent("MeshRenderer")
+    -- Disable its ability to have a shadow cast onto it by another Object
+    meshRenderer.set("receiveShadows", false)
+end
+```
+
+> **Example**
+>
+> Disable an object's (box) collider. This will typically result in the object falling through the table.
+
+```lua
+function onLoad()
+    -- Get the BoxCollider Component of the block's GameObject
+    local boxCollider = self.getComponent("BoxCollider")
+    -- Disable the BoxCollider Component
+    boxCollider.set("enabled", false)
+end
+```
+
+> **Example**
+>
+> Disable audio for an object. The object will no longer make sound e.g. when picked up from or dropped on the table. Other objects may continue to make sound when colliding with this object.
+
+```lua
+function onLoad()
+    -- Get the AudioSource Component of the block's GameObject
+    local blockComp = self.getComponent("AudioSource")
+    -- Mute it
+    blockComp.set("mute", true)
+end
+```

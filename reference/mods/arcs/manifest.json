@@ -1,0 +1,780 @@
+{
+  "source": "Mods/Workshop/3683918449.json",
+  "sha256": "355d4c8a17e5e28ac3182cea0314aeb3f3d051e75866753f7888ec8be801263d",
+  "bytes": 4912551,
+  "save_name": "Arcs: Celestial Edition",
+  "game_mode": "Arcs",
+  "date": "8/30/2026 4:44:14 PM",
+  "tts_version": "v14.2.2",
+  "extracted": "2026-09-20",
+  "slots": [
+    {
+      "slot": "global",
+      "guid": null,
+      "nickname": null,
+      "type": null,
+      "dir": "global",
+      "lua": {
+        "chars": 550845,
+        "sha256": "54f9826fe8663e882e28d70d320dc7308ad9f3f9d46fa9229a0992d5374c1228",
+        "bundled": true,
+        "file": "global/_bundle.lua",
+        "modules": [
+          {
+            "name": "Global.-1.lua",
+            "file": "global/Global.-1.lua",
+            "chars": 21,
+            "sha256": "4dff7d8923fe9209ef5578df5cb93a7111dbc6759808efcb7ce3048aeb1b9f05"
+          },
+          {
+            "name": "src/Global",
+            "file": "global/src__Global.lua",
+            "chars": 90097,
+            "sha256": "dbfa43b068382934bcc84b5c3c48e08dfa93ff4ca1018c7bf4929f4c83e4d4ca"
+          },
+          {
+            "name": "assets/leaders_pnp2_starting",
+            "file": "global/assets__leaders_pnp2_starting.lua",
+            "chars": 3279,
+            "sha256": "ad9f3be5fecb36f26cb6069e9a46fcfdbbb8d1190b7c06252852d2ca1c150089"
+          },
+          {
+            "name": "assets/leaders_starting_pieces",
+            "file": "global/assets__leaders_starting_pieces.lua",
+            "chars": 41404,
+            "sha256": "240c4a41320a7829972a08113b7f7a4d0eb595f02bed764bcef858484b7a2822"
+          },
+          {
+            "name": "src/SheetsSenderOverlay",
+            "file": "global/src__SheetsSenderOverlay.lua",
+            "chars": 7481,
+            "sha256": "52637ff5b4bdcb0e76bad6831528afabd916cdc84da6581c8a4f8b8fe17e6f34"
+          },
+          {
+            "name": "src/integrations/ErrataFaqService",
+            "file": "global/src__integrations__ErrataFaqService.lua",
+            "chars": 16454,
+            "sha256": "632a525b11f004d2fc29c5dd51db7229e078807d080524887ffdd237fbd8242b"
+          },
+          {
+            "name": "src/SheetsSender",
+            "file": "global/src__SheetsSender.lua",
+            "chars": 55091,
+            "sha256": "08abebaf46653ded70e61e70df9a5a67dddfc6fdf55cb331152240036a561295"
+          },
+          {
+            "name": "src/GUIDs",
+            "file": "global/src__GUIDs.lua",
+            "chars": 7693,
+            "sha256": "2c7628873146e34331e9570f90f707ab8f466d759564d81f777efd8468b9e230"
+          },
+          {
+            "name": "src/ActionCards",
+            "file": "global/src__ActionCards.lua",
+            "chars": 22988,
+            "sha256": "230a2d5a3e158c179d73e8744ffe9a8c0bf6c0fc12ab752319249a1426498cad"
+          },
+          {
+            "name": "src/Supplies",
+            "file": "global/src__Supplies.lua",
+            "chars": 27902,
+            "sha256": "8f808c062be64c8f8570bf93024de19d876048f95b6a3cb3f6e8497f0be6fa08"
+          },
+          {
+            "name": "src/LOG",
+            "file": "global/src__LOG.lua",
+            "chars": 688,
+            "sha256": "5b21c13ee2d62eafe2ee36d39a9ee52988f7749f0a064c3f3f9e2f3586c0d35f"
+          },
+          {
+            "name": "src/Timer",
+            "file": "global/src__Timer.lua",
+            "chars": 5209,
+            "sha256": "035b84f8d2493bdd17ee16a75e52486390eca76a490c0ad4735aa30590d1793a"
+          },
+          {
+            "name": "src/Camera",
+            "file": "global/src__Camera.lua",
+            "chars": 5038,
+            "sha256": "2b2fee1e3d8432be850d8e6bb89722346234ea5317fbb057acba2fa1f64381a1"
+          },
+          {
+            "name": "src/SetupControl",
+            "file": "global/src__SetupControl.lua",
+            "chars": 42884,
+            "sha256": "5dbc823ed40aa4e423ef1606d4987a24799917894ae48c7951e0eea15b626a8d"
+          },
+          {
+            "name": "src/Counters",
+            "file": "global/src__Counters.lua",
+            "chars": 8938,
+            "sha256": "ec874eea7d4a3994d8bacc8142d98d01423699f9f0264970370ad7f1ffa795a9"
+          },
+          {
+            "name": "src/Campaign",
+            "file": "global/src__Campaign.lua",
+            "chars": 16505,
+            "sha256": "73fb0ffb991ba79c74e434bb0ee0cc063f3886114a1cee2bbdeb0f9ac8e3f0d9"
+          },
+          {
+            "name": "src/InitiativeMarker",
+            "file": "global/src__InitiativeMarker.lua",
+            "chars": 2541,
+            "sha256": "64094545432ad4d2cb82768ac3168d8fc51ccfce695037f4f1003f6aa8c3221a"
+          },
+          {
+            "name": "src/Merchant",
+            "file": "global/src__Merchant.lua",
+            "chars": 729,
+            "sha256": "6b0649a26fe2d0dc51d3c52d6ef9e8e24bbbd9e0ab23566da08db56b0c927cc8"
+          },
+          {
+            "name": "src/Resource",
+            "file": "global/src__Resource.lua",
+            "chars": 2474,
+            "sha256": "f336b722a4e141e4bad05a0a039905073fb68f6b1fdecaf9f0ab3841a0dab459"
+          },
+          {
+            "name": "src/BaseGame",
+            "file": "global/src__BaseGame.lua",
+            "chars": 99330,
+            "sha256": "46147a87553bcd88be54051f0e128427f0b7a000ffbf4bb5ea371d41341aa9c9"
+          },
+          {
+            "name": "src/ArcsPlayer",
+            "file": "global/src__ArcsPlayer.lua",
+            "chars": 21787,
+            "sha256": "e3324bb2a66ddfc58d5abb27e5eb5b6dde024654fd79ea6f8ce1010dc7cc8ec2"
+          },
+          {
+            "name": "src/RoundManager",
+            "file": "global/src__RoundManager.lua",
+            "chars": 4606,
+            "sha256": "b62400699e56f078a26d7374ed324a26001b2ae58464107bb038983be1db8d36"
+          },
+          {
+            "name": "src/AmbitionMarkers",
+            "file": "global/src__AmbitionMarkers.lua",
+            "chars": 41868,
+            "sha256": "acfefe82e52977e9e68aa701210487def06643227781a6bf7c9172b105ff0876"
+          },
+          {
+            "name": "src/Control",
+            "file": "global/src__Control.lua",
+            "chars": 14586,
+            "sha256": "9806892da5987a3355c0d1255389ae7da89e15ee1aeffb8e5d077bdec9798b55"
+          },
+          {
+            "name": "src/events/DropActionEvents",
+            "file": "global/src__events__DropActionEvents.lua",
+            "chars": 3809,
+            "sha256": "f909d0890a7774afe0ddd315b3b7a4cf6b9c5f90e05f18f8f1191dbbd4a3ad4e"
+          },
+          {
+            "name": "src/events/OverlayChatCommands",
+            "file": "global/src__events__OverlayChatCommands.lua",
+            "chars": 3510,
+            "sha256": "259cca03b70167c064ca306c774bf291e635994b035d8b7724f99b3a56a45671"
+          }
+        ]
+      },
+      "xml": {
+        "stub": true,
+        "chars": 81
+      }
+    },
+    {
+      "slot": "0289cb",
+      "guid": "0289cb",
+      "nickname": "Zero Marker",
+      "type": "Custom_Tile",
+      "dir": "objects/0289cb",
+      "lua": {
+        "chars": 127409,
+        "sha256": "ecca8804ddbcd1f7d3796bfea0bb8c9303451faca3637c704af8a9df629c088a",
+        "bundled": true,
+        "file": "objects/0289cb/_bundle.lua",
+        "modules": [
+          {
+            "name": "Zero Marker.0289cb.lua",
+            "file": "objects/0289cb/Zero Marker.0289cb.lua",
+            "chars": 32,
+            "sha256": "f0c4d6b7d61249c7197fcd414c76181c99d7cf2031f2351510f306062db21452"
+          },
+          {
+            "name": "src/AmbitionMarkers",
+            "file": "objects/0289cb/src__AmbitionMarkers.lua",
+            "chars": 41868,
+            "sha256": "acfefe82e52977e9e68aa701210487def06643227781a6bf7c9172b105ff0876"
+          },
+          {
+            "name": "src/LOG",
+            "file": "objects/0289cb/src__LOG.lua",
+            "chars": 688,
+            "sha256": "5b21c13ee2d62eafe2ee36d39a9ee52988f7749f0a064c3f3f9e2f3586c0d35f"
+          },
+          {
+            "name": "src/ArcsPlayer",
+            "file": "objects/0289cb/src__ArcsPlayer.lua",
+            "chars": 21787,
+            "sha256": "e3324bb2a66ddfc58d5abb27e5eb5b6dde024654fd79ea6f8ce1010dc7cc8ec2"
+          },
+          {
+            "name": "src/Resource",
+            "file": "objects/0289cb/src__Resource.lua",
+            "chars": 2474,
+            "sha256": "f336b722a4e141e4bad05a0a039905073fb68f6b1fdecaf9f0ab3841a0dab459"
+          },
+          {
+            "name": "src/GUIDs",
+            "file": "objects/0289cb/src__GUIDs.lua",
+            "chars": 7693,
+            "sha256": "2c7628873146e34331e9570f90f707ab8f466d759564d81f777efd8468b9e230"
+          },
+          {
+            "name": "src/ActionCards",
+            "file": "objects/0289cb/src__ActionCards.lua",
+            "chars": 22988,
+            "sha256": "230a2d5a3e158c179d73e8744ffe9a8c0bf6c0fc12ab752319249a1426498cad"
+          },
+          {
+            "name": "src/Supplies",
+            "file": "objects/0289cb/src__Supplies.lua",
+            "chars": 27902,
+            "sha256": "8f808c062be64c8f8570bf93024de19d876048f95b6a3cb3f6e8497f0be6fa08"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "7a33fa",
+      "guid": "7a33fa",
+      "nickname": "Court Discard Zone",
+      "type": "ScriptingTrigger",
+      "dir": "objects/7a33fa",
+      "lua": {
+        "chars": 6350,
+        "sha256": "302bf2b1632369f8664b63451cf1d0b30234300cd24e91a1384102332ffc7daf",
+        "bundled": true,
+        "file": "objects/7a33fa/_bundle.lua",
+        "modules": [
+          {
+            "name": "Court Discard Zone.7a33fa.lua",
+            "file": "objects/7a33fa/Court Discard Zone.7a33fa.lua",
+            "chars": 27,
+            "sha256": "e51d90c256a5dc52bf5b5d40c7c332dd1ff4a3372603b730b21fdaabb688f94a"
+          },
+          {
+            "name": "src/CourtDiscard",
+            "file": "objects/7a33fa/src__CourtDiscard.lua",
+            "chars": 4949,
+            "sha256": "57b454fe623f96ff6a29dc1c83a0df0498ea21c061b005a9c90240c756d1df9c"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "6e21fe",
+      "guid": "6e21fe",
+      "nickname": "Control",
+      "type": "CardCustom",
+      "dir": "objects/6e21fe",
+      "lua": {
+        "chars": 149443,
+        "sha256": "8272740dd06a394e4a9522289e2ab536dd698327f14289f73f163114009b8608",
+        "bundled": true,
+        "file": "objects/6e21fe/_bundle.lua",
+        "modules": [
+          {
+            "name": "Control.6e21fe.lua",
+            "file": "objects/6e21fe/Control.6e21fe.lua",
+            "chars": 22,
+            "sha256": "c6c6d194434f800a43920ec9813f584f23b60f2948dc4778a44828197f141c5b"
+          },
+          {
+            "name": "src/Control",
+            "file": "objects/6e21fe/src__Control.lua",
+            "chars": 14586,
+            "sha256": "9806892da5987a3355c0d1255389ae7da89e15ee1aeffb8e5d077bdec9798b55"
+          },
+          {
+            "name": "src/Supplies",
+            "file": "objects/6e21fe/src__Supplies.lua",
+            "chars": 27902,
+            "sha256": "8f808c062be64c8f8570bf93024de19d876048f95b6a3cb3f6e8497f0be6fa08"
+          },
+          {
+            "name": "src/GUIDs",
+            "file": "objects/6e21fe/src__GUIDs.lua",
+            "chars": 7693,
+            "sha256": "2c7628873146e34331e9570f90f707ab8f466d759564d81f777efd8468b9e230"
+          },
+          {
+            "name": "src/LOG",
+            "file": "objects/6e21fe/src__LOG.lua",
+            "chars": 688,
+            "sha256": "5b21c13ee2d62eafe2ee36d39a9ee52988f7749f0a064c3f3f9e2f3586c0d35f"
+          },
+          {
+            "name": "src/RoundManager",
+            "file": "objects/6e21fe/src__RoundManager.lua",
+            "chars": 4606,
+            "sha256": "b62400699e56f078a26d7374ed324a26001b2ae58464107bb038983be1db8d36"
+          },
+          {
+            "name": "src/InitiativeMarker",
+            "file": "objects/6e21fe/src__InitiativeMarker.lua",
+            "chars": 2541,
+            "sha256": "64094545432ad4d2cb82768ac3168d8fc51ccfce695037f4f1003f6aa8c3221a"
+          },
+          {
+            "name": "src/AmbitionMarkers",
+            "file": "objects/6e21fe/src__AmbitionMarkers.lua",
+            "chars": 41868,
+            "sha256": "acfefe82e52977e9e68aa701210487def06643227781a6bf7c9172b105ff0876"
+          },
+          {
+            "name": "src/ArcsPlayer",
+            "file": "objects/6e21fe/src__ArcsPlayer.lua",
+            "chars": 21787,
+            "sha256": "e3324bb2a66ddfc58d5abb27e5eb5b6dde024654fd79ea6f8ce1010dc7cc8ec2"
+          },
+          {
+            "name": "src/Resource",
+            "file": "objects/6e21fe/src__Resource.lua",
+            "chars": 2474,
+            "sha256": "f336b722a4e141e4bad05a0a039905073fb68f6b1fdecaf9f0ab3841a0dab459"
+          },
+          {
+            "name": "src/ActionCards",
+            "file": "objects/6e21fe/src__ActionCards.lua",
+            "chars": 22988,
+            "sha256": "230a2d5a3e158c179d73e8744ffe9a8c0bf6c0fc12ab752319249a1426498cad"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "af1f85",
+      "guid": "af1f85",
+      "nickname": "Dice Board",
+      "type": "Custom_Tile",
+      "dir": "objects/af1f85",
+      "lua": {
+        "chars": 16015,
+        "sha256": "9fe7fba0e39946eee00e6d123a95d3a3b71fd2fbe384fc0b1accc9b7f9aca2b4",
+        "bundled": true,
+        "file": "objects/af1f85/_bundle.lua",
+        "modules": [
+          {
+            "name": "Dice Board.af1f85.lua",
+            "file": "objects/af1f85/Dice Board.af1f85.lua",
+            "chars": 24,
+            "sha256": "c093a9321741a2b3ab6a1c93490ab68f76e78224a5c18a340170d7944da63a21"
+          },
+          {
+            "name": "src/DiceBoard",
+            "file": "objects/af1f85/src__DiceBoard.lua",
+            "chars": 14644,
+            "sha256": "fe3b86fdb8964cc9a92330aa21ee08da5d357f5e905489615741542a174f41b3"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "f0362b",
+      "guid": "f0362b",
+      "nickname": "Book of Law",
+      "type": "Custom_Model_Bag",
+      "dir": "objects/f0362b",
+      "lua": {
+        "chars": 2089,
+        "sha256": "908fbf8b817e74615fb1c5cf1545cafc3b371611490a1ff071cf0810f5e936ad",
+        "bundled": true,
+        "file": "objects/f0362b/_bundle.lua",
+        "modules": [
+          {
+            "name": "Book of Law.f0362b.lua",
+            "file": "objects/f0362b/Book of Law.f0362b.lua",
+            "chars": 22,
+            "sha256": "cd1e902ad0ec7dc8585701a05ced9b15c20e62fc0765532c9cb52e8214a2957f"
+          },
+          {
+            "name": "src/LawBook",
+            "file": "objects/f0362b/src__LawBook.lua",
+            "chars": 719,
+            "sha256": "40ca615eaf00ad7db6b67aeaa8cad8e95b58b38fc64da6c95af28fd15084921c"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "7299d7",
+      "guid": "7299d7",
+      "nickname": "Setup",
+      "type": "CardCustom",
+      "dir": "objects/7299d7",
+      "lua": {
+        "chars": 256970,
+        "sha256": "50010312987c9ffe49f68a06255d8d346966a691f1815a37352e42800ba96cb3",
+        "bundled": true,
+        "file": "objects/7299d7/_bundle.lua",
+        "modules": [
+          {
+            "name": "Setup.7299d7.lua",
+            "file": "objects/7299d7/Setup.7299d7.lua",
+            "chars": 27,
+            "sha256": "a15522761285751a801ee2469060c3f09a60ec434fd4ab871affe112cbf326de"
+          },
+          {
+            "name": "src/SetupControl",
+            "file": "objects/7299d7/src__SetupControl.lua",
+            "chars": 42884,
+            "sha256": "5dbc823ed40aa4e423ef1606d4987a24799917894ae48c7951e0eea15b626a8d"
+          },
+          {
+            "name": "src/Counters",
+            "file": "objects/7299d7/src__Counters.lua",
+            "chars": 8938,
+            "sha256": "ec874eea7d4a3994d8bacc8142d98d01423699f9f0264970370ad7f1ffa795a9"
+          },
+          {
+            "name": "src/LOG",
+            "file": "objects/7299d7/src__LOG.lua",
+            "chars": 688,
+            "sha256": "5b21c13ee2d62eafe2ee36d39a9ee52988f7749f0a064c3f3f9e2f3586c0d35f"
+          },
+          {
+            "name": "src/GUIDs",
+            "file": "objects/7299d7/src__GUIDs.lua",
+            "chars": 7693,
+            "sha256": "2c7628873146e34331e9570f90f707ab8f466d759564d81f777efd8468b9e230"
+          },
+          {
+            "name": "src/Campaign",
+            "file": "objects/7299d7/src__Campaign.lua",
+            "chars": 16505,
+            "sha256": "73fb0ffb991ba79c74e434bb0ee0cc063f3886114a1cee2bbdeb0f9ac8e3f0d9"
+          },
+          {
+            "name": "src/InitiativeMarker",
+            "file": "objects/7299d7/src__InitiativeMarker.lua",
+            "chars": 2541,
+            "sha256": "64094545432ad4d2cb82768ac3168d8fc51ccfce695037f4f1003f6aa8c3221a"
+          },
+          {
+            "name": "src/Merchant",
+            "file": "objects/7299d7/src__Merchant.lua",
+            "chars": 729,
+            "sha256": "6b0649a26fe2d0dc51d3c52d6ef9e8e24bbbd9e0ab23566da08db56b0c927cc8"
+          },
+          {
+            "name": "src/Resource",
+            "file": "objects/7299d7/src__Resource.lua",
+            "chars": 2474,
+            "sha256": "f336b722a4e141e4bad05a0a039905073fb68f6b1fdecaf9f0ab3841a0dab459"
+          },
+          {
+            "name": "src/ActionCards",
+            "file": "objects/7299d7/src__ActionCards.lua",
+            "chars": 22988,
+            "sha256": "230a2d5a3e158c179d73e8744ffe9a8c0bf6c0fc12ab752319249a1426498cad"
+          },
+          {
+            "name": "src/Supplies",
+            "file": "objects/7299d7/src__Supplies.lua",
+            "chars": 27902,
+            "sha256": "8f808c062be64c8f8570bf93024de19d876048f95b6a3cb3f6e8497f0be6fa08"
+          },
+          {
+            "name": "src/BaseGame",
+            "file": "objects/7299d7/src__BaseGame.lua",
+            "chars": 99330,
+            "sha256": "46147a87553bcd88be54051f0e128427f0b7a000ffbf4bb5ea371d41341aa9c9"
+          },
+          {
+            "name": "src/ArcsPlayer",
+            "file": "objects/7299d7/src__ArcsPlayer.lua",
+            "chars": 21787,
+            "sha256": "e3324bb2a66ddfc58d5abb27e5eb5b6dde024654fd79ea6f8ce1010dc7cc8ec2"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "069307",
+      "guid": "069307",
+      "nickname": "Dice Counter",
+      "type": "Custom_Tile",
+      "dir": "objects/069307",
+      "lua": {
+        "chars": 7197,
+        "sha256": "284b1f08a87a572b1de2df9d731b553c74dca389907f107b9521a5e05598ef1c",
+        "bundled": true,
+        "file": "objects/069307/_bundle.lua",
+        "modules": [
+          {
+            "name": "Dice Counter.069307.lua",
+            "file": "objects/069307/Dice Counter.069307.lua",
+            "chars": 26,
+            "sha256": "a59dbdba3e4fe00719c8b4eb09a4276a53289f89c3c94d9d713bea564b52855a"
+          },
+          {
+            "name": "src/DiceCounter",
+            "file": "objects/069307/src__DiceCounter.lua",
+            "chars": 5816,
+            "sha256": "05f0c8fceb2c134da22212ed1521245c6773b5e842eb8d5aa91f4bd40137837a"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "4798a5",
+      "guid": "4798a5",
+      "nickname": "Dice Counter",
+      "type": "Custom_Tile",
+      "dir": "objects/4798a5",
+      "lua": {
+        "chars": 7197,
+        "sha256": "9beced4770f083e67d65d1b63665c70cf8792bfc81df7b7e8446485d119d9990",
+        "bundled": true,
+        "file": "objects/4798a5/_bundle.lua",
+        "modules": [
+          {
+            "name": "Dice Counter.4798a5.lua",
+            "file": "objects/4798a5/Dice Counter.4798a5.lua",
+            "chars": 26,
+            "sha256": "a59dbdba3e4fe00719c8b4eb09a4276a53289f89c3c94d9d713bea564b52855a"
+          },
+          {
+            "name": "src/DiceCounter",
+            "file": "objects/4798a5/src__DiceCounter.lua",
+            "chars": 5816,
+            "sha256": "05f0c8fceb2c134da22212ed1521245c6773b5e842eb8d5aa91f4bd40137837a"
+          }
+        ]
+      }
+    },
+    {
+      "slot": "4fcf71",
+      "guid": "4fcf71",
+      "nickname": "Leaders",
+      "type": "Deck",
+      "dir": "objects/4fcf71",
+      "lua": {
+        "chars": 4385,
+        "sha256": "57b38d8b0ad8d79b50421461e7397ec4bdaae93dc3a5f1837e7edf26a8ab81e6",
+        "bundled": false,
+        "file": "objects/4fcf71/script.lua"
+      }
+    }
+  ],
+  "shared_modules": [
+    {
+      "name": "src/ActionCards",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "230a2d5a3e158c179d73e8744ffe9a8c0bf6c0fc12ab752319249a1426498cad"
+      ]
+    },
+    {
+      "name": "src/AmbitionMarkers",
+      "copies": 3,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "global"
+      ],
+      "sha256": [
+        "acfefe82e52977e9e68aa701210487def06643227781a6bf7c9172b105ff0876"
+      ]
+    },
+    {
+      "name": "src/ArcsPlayer",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "e3324bb2a66ddfc58d5abb27e5eb5b6dde024654fd79ea6f8ce1010dc7cc8ec2"
+      ]
+    },
+    {
+      "name": "src/BaseGame",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "46147a87553bcd88be54051f0e128427f0b7a000ffbf4bb5ea371d41341aa9c9"
+      ]
+    },
+    {
+      "name": "src/Campaign",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "73fb0ffb991ba79c74e434bb0ee0cc063f3886114a1cee2bbdeb0f9ac8e3f0d9"
+      ]
+    },
+    {
+      "name": "src/Control",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "6e21fe",
+        "global"
+      ],
+      "sha256": [
+        "9806892da5987a3355c0d1255389ae7da89e15ee1aeffb8e5d077bdec9798b55"
+      ]
+    },
+    {
+      "name": "src/Counters",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "ec874eea7d4a3994d8bacc8142d98d01423699f9f0264970370ad7f1ffa795a9"
+      ]
+    },
+    {
+      "name": "src/DiceCounter",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "069307",
+        "4798a5"
+      ],
+      "sha256": [
+        "05f0c8fceb2c134da22212ed1521245c6773b5e842eb8d5aa91f4bd40137837a"
+      ]
+    },
+    {
+      "name": "src/GUIDs",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "2c7628873146e34331e9570f90f707ab8f466d759564d81f777efd8468b9e230"
+      ]
+    },
+    {
+      "name": "src/InitiativeMarker",
+      "copies": 3,
+      "identical": true,
+      "slots": [
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "64094545432ad4d2cb82768ac3168d8fc51ccfce695037f4f1003f6aa8c3221a"
+      ]
+    },
+    {
+      "name": "src/LOG",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "5b21c13ee2d62eafe2ee36d39a9ee52988f7749f0a064c3f3f9e2f3586c0d35f"
+      ]
+    },
+    {
+      "name": "src/Merchant",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "6b0649a26fe2d0dc51d3c52d6ef9e8e24bbbd9e0ab23566da08db56b0c927cc8"
+      ]
+    },
+    {
+      "name": "src/Resource",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "f336b722a4e141e4bad05a0a039905073fb68f6b1fdecaf9f0ab3841a0dab459"
+      ]
+    },
+    {
+      "name": "src/RoundManager",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "6e21fe",
+        "global"
+      ],
+      "sha256": [
+        "b62400699e56f078a26d7374ed324a26001b2ae58464107bb038983be1db8d36"
+      ]
+    },
+    {
+      "name": "src/SetupControl",
+      "copies": 2,
+      "identical": true,
+      "slots": [
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "5dbc823ed40aa4e423ef1606d4987a24799917894ae48c7951e0eea15b626a8d"
+      ]
+    },
+    {
+      "name": "src/Supplies",
+      "copies": 4,
+      "identical": true,
+      "slots": [
+        "0289cb",
+        "6e21fe",
+        "7299d7",
+        "global"
+      ],
+      "sha256": [
+        "8f808c062be64c8f8570bf93024de19d876048f95b6a3cb3f6e8497f0be6fa08"
+      ]
+    }
+  ]
+}

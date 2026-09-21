@@ -1,0 +1,86 @@
+{
+  "bundled": true,
+  "modules": [
+    {
+      "name": "Setup.7299d7.lua",
+      "file": "Setup.7299d7.lua",
+      "start": 1178,
+      "end": 1205
+    },
+    {
+      "name": "src/SetupControl",
+      "file": "src__SetupControl.lua",
+      "start": 1313,
+      "end": 44197
+    },
+    {
+      "name": "src/Counters",
+      "file": "src__Counters.lua",
+      "start": 44301,
+      "end": 53239
+    },
+    {
+      "name": "src/LOG",
+      "file": "src__LOG.lua",
+      "start": 53338,
+      "end": 54026
+    },
+    {
+      "name": "src/GUIDs",
+      "file": "src__GUIDs.lua",
+      "start": 54127,
+      "end": 61820
+    },
+    {
+      "name": "src/Campaign",
+      "file": "src__Campaign.lua",
+      "start": 61924,
+      "end": 78429
+    },
+    {
+      "name": "src/InitiativeMarker",
+      "file": "src__InitiativeMarker.lua",
+      "start": 78541,
+      "end": 81082
+    },
+    {
+      "name": "src/Merchant",
+      "file": "src__Merchant.lua",
+      "start": 81186,
+      "end": 81915
+    },
+    {
+      "name": "src/Resource",
+      "file": "src__Resource.lua",
+      "start": 82019,
+      "end": 84493
+    },
+    {
+      "name": "src/ActionCards",
+      "file": "src__ActionCards.lua",
+      "start": 84600,
+      "end": 107588
+    },
+    {
+      "name": "src/Supplies",
+      "file": "src__Supplies.lua",
+      "start": 107692,
+      "end": 135594
+    },
+    {
+      "name": "src/BaseGame",
+      "file": "src__BaseGame.lua",
+      "start": 135698,
+      "end": 235028
+    },
+    {
+      "name": "src/ArcsPlayer",
+      "file": "src__ArcsPlayer.lua",
+      "start": 235134,
+      "end": 256921
+    }
+  ],
+  "slot": "7299d7",
+  "guid": "7299d7",
+  "save": "Mods/Workshop/3683918449.json"
+}

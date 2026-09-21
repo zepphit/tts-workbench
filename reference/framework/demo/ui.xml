@@ -1,0 +1,30 @@
+<!-- Woodcutter — the demo's screen panel.
+     Lives in the save's XmlUI field, so it exists before onLoad runs and the
+     script never calls setXml: it only sets the three values that change.
+     Handlers here take (player, value, id), not the button signature. -->
+
+<Defaults>
+  <!-- A bare tag styles every element of that kind. -->
+  <Text color="#efe3cf" fontSize="20" alignment="MiddleLeft"/>
+  <Button color="#4a3a28" textColor="#efe3cf" fontSize="20" fontStyle="Bold"/>
+
+  <!-- A class styles only the elements that ask for it. Politik's token panel
+       is nine elements and two of these (cookbook 04-xmlui). -->
+  <Panel class="hud" color="#241c14" outline="#00000080" outlineSize="2 2"/>
+  <Text class="stat" fontSize="22"/>
+  <Text class="title" fontSize="26" fontStyle="Bold" color="#d8b678"/>
+</Defaults>
+
+<Panel class="hud" id="hud" rectAlignment="LowerLeft" width="300" height="212"
+       offsetXY="24 24">
+  <VerticalLayout padding="16 16 14 14" spacing="6">
+    <Text class="title" preferredHeight="32">Woodcutter</Text>
+    <Text class="stat" id="hudRound" preferredHeight="28">Round 1 of 8</Text>
+    <Text class="stat" id="hudSupply" preferredHeight="28">In supply: —</Text>
+    <Text class="stat" id="hudDropped" preferredHeight="28">Wood dropped: 0</Text>
+    <HorizontalLayout spacing="8" preferredHeight="42">
+      <Button id="hudNext" onClick="hudNextRound">Next round</Button>
+      <Button id="hudReset" onClick="hudReset" color="#5a2b24">Reset</Button>
+    </HorizontalLayout>
+  </VerticalLayout>
+</Panel>
