@@ -136,18 +136,40 @@ function Rubber.data(position)
   }
 end
 
+-- ------------------------------------------------------------------ the line
+
+-- onMapSide(obj) — is this tile on the map, or in the palette?
+--
+-- **Position, not the `tray` tag.**  The owner builds by copying a tray tile
+-- with ctrl+c/ctrl+v and dragging the copy across, and a copy carries whatever
+-- tags its original had — so the tag says "this came from the palette", which
+-- is a different question from "where is it now".  The divider is the answer to
+-- the second one: it is drawn at TRAY.divider.x precisely because that is the
+-- clear gap between the two, so the mark on the table and the rule are the same
+-- number and cannot disagree.
+--
+-- Measured in the anchor's frame like every other position here, so dragging
+-- the plate takes the boundary with it.
+function Rubber.onMapSide(obj)
+  if not obj or ASYNC.gone(obj) then return false end
+  local LAYOUT = ttslib.layout
+  local anchor = LAYOUT.anchorObject()
+  if not anchor then return false end
+  local offset = LAYOUT.worldOffset(anchor.positionToLocal(obj.getPosition()))
+  return offset.x < ((TRAY.divider or {}).x or 0)
+end
+
 -- spawn(obj, name) — the cubes for one tile that has just appeared.
 --
--- Called from Tiles.spawn's callback, which is the single entry point: if it
--- is not reached from there, no cube is ever created on its own.  Returns the
--- number placed, so 0 is the normal answer for jungle, river and every flat
--- kind — they have no painted walls.
+-- Returns the number placed, so 0 is the normal answer for jungle, river and
+-- every flat kind — they have no painted walls — and for anything sitting on
+-- the palette side of the line.
 function Rubber.spawn(obj, name)
   if not RUBBER.enabled then return 0 end
   if not obj or ASYNC.gone(obj) then return 0 end
-  -- The tray is a palette, not a board (RUBBER.tray). A tile dragged off it
-  -- would leave its cubes behind on the empty slot, which reads as litter.
-  if not RUBBER.tray and obj.hasTag and obj.hasTag(TRAY.tag) then return 0 end
+  -- The palette is not a board. A tile there carries no cubes, whether it was
+  -- spawned by a tray sync or pasted beside one by hand.
+  if not Rubber.onMapSide(obj) then return 0 end
 
   local places = Rubber.places(obj, name)
   for _, at in ipairs(places) do
@@ -155,6 +177,73 @@ function Rubber.spawn(obj, name)
   end
   if #places > 0 then REG.invalidate(RUBBER.tag) end
   return #places
+end
+
+-- --------------------------------------------------------------- the crossing
+
+-- A tile's rubber follows the tile.  The owner works by copying a tray tile and
+-- dragging the copy onto the map, so the cubes have to appear when it lands and
+-- not before — nothing else knows a hand-dragged tile has arrived.
+--
+-- This is the one place rubber is not spawn-time, and it is still not a
+-- watcher: it is two taps on the tile's own drag, and a **cube** picked up,
+-- moved or deleted fires nothing at all.  Take a cube off a tile and it stays
+-- off; only moving the tile itself re-derives that tile's set.
+--
+--   pickUp  the cubes come off, so they do not stay behind on the empty hex
+--   drop    they go back on, if it landed on the map side of the line
+--
+-- Both are gated on RUBBER.enabled, so with the toggle off a drag changes
+-- nothing and existing cubes are left exactly where they are.
+
+-- carry(obj) — take a tile's rubber off as it is lifted.
+function Rubber.carry(obj)
+  if not RUBBER.enabled then return 0 end
+  if not obj or ASYNC.gone(obj) then return 0 end
+  return Rubber.clearNear(obj)
+end
+
+-- land(obj) — put it back, if the tile came down west of the divider.
+--
+-- `whenSettled` for the reason the journal uses it: a drop fires while the
+-- object is still falling, and reading its position then gives where it was
+-- thrown from rather than where it came to rest — which, on a drop near the
+-- line, is the difference between rubber and no rubber.
+--
+-- It clears again before spawning rather than trusting `carry` to have run:
+-- a tile pasted with ctrl+v is dropped without ever being picked up, and two
+-- sets of cubes on one tile is the one failure that is invisible until you
+-- lift one.
+function Rubber.land(obj)
+  if not RUBBER.enabled then return 0 end
+  if not obj or ASYNC.gone(obj) then return 0 end
+  ASYNC.whenSettled(obj, function(settled)
+    if not settled or ASYNC.gone(settled) then return end
+    local name = Tiles.kindOf(settled)
+    if not name then return end
+    Rubber.clearNear(settled)
+    local placed = Rubber.spawn(settled, name)
+    if placed > 0 then
+      Journal.emit("rubber", { kind = name, placed = placed,
+        at = Journal.where(settled) })
+    end
+  end)
+  return true
+end
+
+-- attach() — the two taps, routed by the `tile` tag so a dropped cube, a bag
+-- or the divider never reaches them.  Called from onLoad.
+function Rubber.attach()
+  local EVENTS = ttslib.events
+  EVENTS.on("pickUp", "tile", function(_, obj)
+    Rubber.carry(obj)
+  end)
+  -- The same 1.25s debounce the journal uses: TTS fires drop more than once
+  -- for one physical drop.
+  EVENTS.on("drop", "tile", function(_, obj)
+    Rubber.land(obj)
+  end, { debounce = 1.25 })
+  return true
 end
 
 -- ---------------------------------------------------------------- the supply
@@ -264,8 +353,10 @@ end
 -- GUID, because a GUID changes the moment the tile is picked up or reskinned
 -- and a stale one is worse than none.  Position settles it instead — a cube
 -- sits RUBBER.inset (0.66) from its own cell's centre, so the nearest cube
--- belonging to a *neighbouring* tile is 1.73 - 0.66 = 1.07 away. One radius
--- claims a tile's own cubes and nothing else's.
+-- belonging to a *neighbouring* tile is 1.73 - 0.66 = 1.07 away. RUBBER.claim
+-- is 0.9: clear of its own at 0.66 and clear of the neighbour's at 1.07, with
+-- room either side for the jitter a settled cube carries. This runs on every
+-- tile pickup now, in the middle of a dense map, so the margin matters.
 function Rubber.clearNear(obj)
   if not obj or ASYNC.gone(obj) then return 0 end
   local name = Tiles.kindOf(obj)
@@ -279,7 +370,7 @@ function Rubber.clearNear(obj)
     centres[#centres + 1] = obj.positionToWorld({ x = x, y = 0, z = z })
   end
 
-  local reach = ART.radius * ART.radius
+  local reach = (RUBBER.claim * ART.radius) ^ 2
   local gone = 0
   for _, cube in ipairs(Rubber.all()) do
     if not ASYNC.gone(cube) then
@@ -309,7 +400,15 @@ end
 function Rubber.apply()
   local was = Rubber.clear()
   local placed = 0
-  local tiles = Tiles.onMap()
+  -- Every tile west of the line, not Tiles.onMap(): a tile dragged over from
+  -- the palette keeps its `tray` tag for ever, and skipping it here would mean
+  -- apply quietly ignored exactly the tiles the owner placed by hand.
+  local tiles = {}
+  for _, obj in ipairs(Tiles.all()) do
+    if not ASYNC.gone(obj) and Rubber.onMapSide(obj) then
+      tiles[#tiles + 1] = obj
+    end
+  end
   Tiles.bulk = true
   for _, obj in ipairs(tiles) do
     local name = Tiles.kindOf(obj)
@@ -326,7 +425,8 @@ function Rubber.apply()
     Tiles.bulk = false
     REG.invalidate()
     Journal.emit("rubber", { placed = placed, removed = was })
-    LOG.info("rubber: " .. placed .. " cubes over " .. #tiles .. " map tiles")
+    LOG.info("rubber: " .. placed .. " cubes over " .. #tiles ..
+      " tiles west of the line")
   end)
   return placed
 end

@@ -207,9 +207,11 @@ HUB = {
 RUBBER = {
   enabled = true,
   terrain = "deep_jungle", -- which painted edge terrain earns a cube
-  tray = false, -- **off**: the palette stays a clean set of silhouettes, and a
-  -- tile dragged off the tray would leave its cubes behind on
-  -- the empty slot. Glades get theirs from AZ.put, which spawns.
+
+  -- How far from a cell's centre a cube has to be to count as that cell's,
+  -- in hex radii. See Rubber.clearNear — 0.9 sits between a tile's own cubes
+  -- at 0.66 and a neighbouring tile's at 1.07.
+  claim = 0.9,
 
   -- Two tags, and the split is what decides whose cubes survive a reroll.
   --

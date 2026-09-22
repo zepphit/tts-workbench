@@ -140,16 +140,31 @@ Which hexsides those are is **data, not inference**: `scripts/tilegen.py` writes
 an `edges` table into `art/index.lua` from the same `paint` block it draws the
 diffuse from, so a spec edit moves the pixels and the cubes together.
 
-**Spawn only.** Rubber appears when a tile appears and never again. Nothing
-watches a drop, a pick-up or a rotate, so rearranging the table by hand is free
-and no cube grows back. A reload does not respawn either — TTS saves spawned
-objects, so the cubes come back from the save with the tiles they sit on.
+**The divider is the rule, not decoration.** A tile is on the map when it is
+west of `TRAY.divider.x`, and that is decided by **position, not by the `tray`
+tag** — the owner builds by copying a palette tile with ctrl+c/ctrl+v and
+dragging the copy across, and a copy carries its original's tags for ever. So
+the line you can see on the table and the line the script tests are the same
+number.
+
+**Rubber follows the tile across it.** Two taps on a tile's own drag: the cubes
+come off as it is lifted, and go back on if it lands west of the line. Drag a
+glade out of the palette and its nine cubes appear; drag it back and they come
+off with it.
+
+That is the only thing that is not spawn-time, and it is still not a watcher —
+**a cube is never touched by any of it**. Pick a cube up, move it, delete it:
+nothing grows back. Only moving the *tile* re-derives that tile's set.
 
 | | |
 | --- | --- |
-| **spawns** | `Map.build`, `Map.reroll`, `AZ.put`, a tray sync |
-| **does not** | a reload, a reskin (the tile is respawned in place; its cubes never moved), a hand drag, a rotate |
-| **removes** | `Map.clear` and a reroll take `rubber.map`; `AZ.put` takes the replaced tile's, by position |
+| **places** | a drop west of the line (dragged, or pasted with ctrl+v); `Map.build`, `Map.reroll`, `AZ.put`; a tray sync, for anything already west of it |
+| **does not** | a reload, a reskin (the tile is respawned in place; its cubes never moved), a rotate, anything done to a cube |
+| **removes** | lifting the tile; a drop east of the line; `Map.clear` and a reroll take `rubber.map`; `AZ.put` takes the replaced tile's |
+
+Moving a tile around inside the map takes its cubes with it and does not double
+them: the drop clears the tile's footprint before it spawns, so a paste and a
+drag come out the same.
 
 Two tags, and the split decides whose cubes survive a reroll: `rubber` is every
 cube including the ones dragged out of the bag by hand, `rubber.map` only the
@@ -173,9 +188,11 @@ so the DF band runs 0.43 to 0.87 and 0.66 is the middle of it: the cube sits on
 the deep forest it marks rather than on the line, and two cubes facing each
 other across a seam land 0.4 apart instead of in the same place.
 
-**A tile dragged off the tray by hand keeps its `tray` tag**, wherever it ends
-up, so it never gets rubber and `apply` skips it — the tray is a tag, not a
-region. Place glades with `AZ.put(kind, q, r)` and they are map tiles.
+**A tile dragged off the tray keeps its `tray` tag** wherever it ends up — that
+tag means "came from the palette", not "is in the palette". Rubber ignores it
+and goes by the line instead, and so does `apply`. It still matters elsewhere:
+`Map.count()` does not count such a tile and **a reroll will not destroy it**,
+which is usually what you want when you have hand-built a map out of copies.
 
 The supply is an `Infinite_Bag` called **Rubber**, beside the creek and road
 bags. It is spawned once and found by its tag on every later boot, so a reload

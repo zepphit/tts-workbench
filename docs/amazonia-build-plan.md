@@ -955,3 +955,43 @@ spawned none; `apply` then covered both for 21.
 **Not proven outside TTS**, and worth an eye at the table: whether 0.25 is the
 right size for a cube against a tri-hex at this camera, and whether the ochre
 bar reads as a boundary or as clutter. Both are one number in `00-config.lua`.
+
+### The rule was wrong: the line is the boundary — 2026-09-22, same session
+
+Shipped, then tried: *"I am expecting to, when I drag from tray and drop onto
+map, white cubes appear. This should be true for any tile that crosses the line.
+I will be constantly making ctrl+c ctrl+v on tiles at tray to get identical
+copies to then drag and drop."*
+
+Spawn-time-only could not do that. A hand-dragged tile is never spawned, and a
+ctrl+v copy is spawned *in the palette* — so nothing the rig watched ever fired
+at the moment that mattered. The divider, added the same session as decoration,
+turned out to be the specification: **a tile is on the map when it is west of
+`TRAY.divider.x`**, by position, and the mark on the table is the same number
+the script tests.
+
+Position rather than the `tray` tag, because a ctrl+v copy carries its
+original's tags for ever: the tag means "came from the palette", which is a
+different question from "where is it now". `Rubber.apply` moved to the same
+test — on the tag it would have skipped exactly the tiles he places by hand.
+
+Two taps on a tile's drag (`Rubber.attach`): `carry` takes the cubes off as it
+is lifted so they are not left on the vacated hex, `land` puts them back if it
+came down west of the line. `land` goes through `whenSettled` for the reason
+the journal does — a drop fires while the object is still falling, and near the
+line that is the difference between rubber and none — and it clears before it
+spawns, because a pasted tile is dropped without ever being picked up.
+
+**This does not reopen "spawn only".** His condition was that moving things by
+hand must not make cubes reappear, and the taps are on the *tile*: a cube picked
+up, moved or deleted fires nothing. Only moving the tile re-derives that tile's
+set. `boot_spec` pins both halves.
+
+`RUBBER.claim` (0.9 radii) replaced the bare radius in `clearNear`, which now
+runs on every tile pickup in a dense map rather than only on `Map.put`: a tile's
+own cubes are at 0.66 and a neighbour's at 1.07, and 1.0 left only 7% of margin
+against settled-cube jitter.
+
+Verified in the running game, both directions: a `glade_mix_a` at x = 24.25 in
+the palette (0 cubes) dragged to x = -4 came up with nine; dragged back to its
+slot, none. 66 cases in `boot_spec`.

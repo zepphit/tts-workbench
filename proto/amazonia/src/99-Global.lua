@@ -52,6 +52,11 @@ function onLoad(script_state)
 
   Journal.attach()
 
+  -- Rubber follows a dragged tile across the divider: off as it is lifted, on
+  -- again if it lands west of the line. This is what makes "copy a tray tile,
+  -- drag it onto the map" bring its cubes, which nothing at spawn time can see.
+  Rubber.attach()
+
   -- Hub stripes are counter-rotated so their text reads one way across the
   -- whole map (20-tiles.lua). A tile turned by hand invalidates that, and TTS
   -- has no event for "rotation finished" — so this redraws on rotate, keyed per

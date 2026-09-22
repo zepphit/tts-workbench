@@ -1436,6 +1436,120 @@ case("putting a tile over another takes the replaced tile's rubber", function()
   eq(Rubber.count(), 9, "replacing a tile 1.7 away took none of them")
 end)
 
+-- drag(obj, x, z) — the owner picking a tile up and putting it down somewhere.
+-- The debounce on the drop tap is 1.25s, so the ticks have to cover it.
+local function drag(obj, x, z)
+  onObjectPickUp("White", obj)
+  H.tick(5)
+  local at = obj.getPosition()
+  obj.setPosition({ x = x, y = at.y, z = z })
+  onObjectDrop("White", obj)
+  H.tick(80)
+end
+
+case("a tile dragged across the line brings its rubber", function()
+  boot(nil)
+  eq(Rubber.count(), 0, "a plain map starts clean")
+
+  -- The owner's actual workflow: a glade sitting in the palette, dragged onto
+  -- the map by hand. Nothing spawns it, so only the drop can notice.
+  local glade = Tiles.ofKind("glade_mix_a")[1]
+  check(glade ~= nil, "the palette holds a glade")
+  check(not Rubber.onMapSide(glade), "and it starts east of the line")
+  eq(Rubber.count(), 0, "with no cubes")
+
+  drag(glade, -4, 6)
+  check(Rubber.onMapSide(glade), "it is west of the line now")
+  eq(Rubber.count(), 9, "nine cubes appeared on the drop")
+  for _, cube in ipairs(Rubber.all()) do
+    near(toNearestCell(glade, cube), RUBBER.inset, "placed on its hexsides")
+  end
+
+  -- Back to the palette: the cubes come off rather than staying behind on the
+  -- hex it vacated.
+  drag(glade, TRAY.origin.x, TRAY.origin.z)
+  check(not Rubber.onMapSide(glade), "east of the line again")
+  eq(Rubber.count(), 0, "and the cubes went with it")
+end)
+
+case("moving a tile inside the map carries its cubes, without doubling", function()
+  boot(nil)
+  local glade = Tiles.ofKind("glade_4")[1]
+  drag(glade, -4, 6)
+  eq(Rubber.count(), 12, "the sealed glade brought twelve")
+
+  -- Twice more, well inside the map. Each move has to take the old set off and
+  -- put one new set on: leaving them behind litters the vacated hex, and not
+  -- clearing first doubles the count every drag.
+  drag(glade, 0, -6)
+  eq(Rubber.count(), 12, "still twelve after moving it")
+  drag(glade, 3, 3)
+  eq(Rubber.count(), 12, "and after moving it again")
+  for _, cube in ipairs(Rubber.all()) do
+    near(toNearestCell(glade, cube), RUBBER.inset, "all of them came along")
+  end
+end)
+
+case("a pasted copy gets rubber on the drop it never was picked up for", function()
+  boot(nil)
+  -- ctrl+c / ctrl+v: the copy appears already held, so TTS fires a drop with
+  -- no pickUp in front of it. Rubber.land clears before it spawns for exactly
+  -- this case — otherwise a paste onto the map could end up double-stacked.
+  local original = Tiles.ofKind("glade_mix_a")[1]
+  local copy = H.object({
+    tags = { "tile", "tile.glade_mix_a", TRAY.tag },
+    name = "Glades — 2/3/4", position = { x = -6, y = 1.15, z = -3 },
+    rotation = { x = 0, y = 0, z = 0 },
+  })
+  augment(copy, { GMNotes = "glade_mix_a" })
+  ttslib.registry.invalidate()
+  H.tick(5)
+
+  onObjectDrop("White", copy)
+  H.tick(80)
+  eq(Rubber.count(), 9, "the copy got its nine")
+  check(original ~= nil, "the original is still in the palette")
+  for _, cube in ipairs(Rubber.all()) do
+    near(toNearestCell(copy, cube), RUBBER.inset, "on the copy's hexsides")
+  end
+end)
+
+case("a cube moved by hand is never replaced", function()
+  boot(nil)
+  local glade = Tiles.ofKind("glade_mix_a")[1]
+  drag(glade, -4, 6)
+  eq(Rubber.count(), 9, "nine to start")
+
+  -- The owner's original condition, and it still holds: the taps are on the
+  -- *tile*. Picking a cube up, dropping it elsewhere or deleting it is his
+  -- business and nothing grows back.
+  local cube = Rubber.all()[1]
+  onObjectPickUp("White", cube)
+  H.tick(5)
+  cube.setPosition({ x = 12, y = 1.4, z = 12 })
+  onObjectDrop("White", cube)
+  H.tick(80)
+  eq(Rubber.count(), 9, "moving a cube spawns nothing")
+
+  destroyObject(cube)
+  H.tick(40)
+  eq(Rubber.count(), 8, "and one taken off the table stays off")
+end)
+
+case("with the toggle off, dragging a tile changes nothing", function()
+  boot(nil)
+  local glade = Tiles.ofKind("glade_mix_a")[1]
+  drag(glade, -4, 6)
+  eq(Rubber.count(), 9, "nine while it is on")
+
+  AZ.rubber(false)
+  drag(glade, 0, -6)
+  eq(Rubber.count(), 9, "the cubes are left exactly where they were")
+
+  AZ.rubber(true)
+  TRAY.divider.enabled = true
+end)
+
 case("the rubber bag is spawned once and survives a reload", function()
   boot(nil)
   local bags = ttslib.registry.all(RUBBER.bagTag)
