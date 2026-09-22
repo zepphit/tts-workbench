@@ -839,3 +839,119 @@ TILES.locked`. That idiom cannot express false — `true and false or true` is
 true — so an explicit `locked = false` came out locked. It had been silently
 re-locking unlocked tiles on every reskin; it surfaced as a tray nobody could
 pick up.
+
+## 13. Third pass — 2026-09-22, rubber
+
+Asked for at the table: *"All deep forest hex sides now spawn with a white cube
+on top of them. Call the white cube Rubber, and create a new bag next to creek
+bag. Make it so this functionality can be toggled on/off via the seed panel. And
+also make it so it's spawn only."* Plus, mid-session, a visible delimiter between
+the map and the tray.
+
+### The specification was a cube on the table
+
+He placed one white cube by hand and said *"use its coordinates and apply
+symmetrically"*. Read back out of the running game — GUID `7bfd32`, a
+`BlockSquare` at scale 0.25, white, unlocked — it sat at (7.210, 1.355, -2.344)
+on a `glade_mix_a` at (5.942, 1.183, -4.372) with rotY 0. In the tile's own
+frame that is (1.268, 0.172, 2.028): 0.66 from the centre of the top-right cell,
+7 degrees off the normal of its NE hexside, which is hand placement.
+
+**0.66 is not arbitrary and not the edge.** The apothem — the hexside itself —
+is 0.866. The `jungle|deep_jungle` frontier reaches 0.44 in from the rim, so the
+deep forest band runs 0.43 to 0.87 and its middle is 0.646. He had put the cube
+in the middle of the band it marks. `RUBBER.inset` is 0.66 and `boot_spec`
+asserts it against the sample within a hand's width, which is the only thing
+tying the constant to the table rather than to arithmetic.
+
+Height: 0.18 above the tile's centre. A tile is 0.1 thick at `scaleY` 0.5 and a
+0.25 cube is 0.26 tall, so that rests one on the other; his measured 0.172 is
+the same cube after physics settled it.
+
+### His count disagreed with his tile, and the tile won
+
+He described the triplet's walls as *"1,5,6 for the bottommost one, 1,2,3 for
+the top-left one and 2,3,4 for the top-right"* — 3/3/3 in his own numbering.
+The tile the cube was sitting on is `glade_mix_a`, whose spec walls are 2/3/4,
+which is also what its label says (*Glades — 2/3/4*). Both come to **nine**,
+which is the number he gave, so the feature was built from the spec and the
+count agrees with him.
+
+### The narrow rule, chosen rather than assumed
+
+"All deep forest hex sides" has two readings and they differ by sixty cubes:
+
+| | `glade_mix_a` | plain `deep_jungle` triplet | the rings-3 map |
+| --- | --- | --- | --- |
+| painted DF edges only | 9 | 0 | +0 |
+| any hexside whose terrain is DF | 9 | 12 | +60, doubled along every seam |
+
+He took the narrow one, and separately chose **map tiles only** over the tray.
+`RUBBER.terrain` is the only thing deciding it; `RUBBER.tray` the only thing
+deciding the other.
+
+### tilegen now publishes the walls
+
+`art/index.lua` carried a kind's shape, tint, label and diffuse — nothing about
+its terrain, which lived only in the pixels. `tilegen.painted_edges` adds an
+`edges` table: six slots per cell, `false` where the edge is not overridden, in
+the spec's own 1..6 numbering. One source, so a spec edit moves the diffuse and
+the cubes together.
+
+It changes `index.lua` and `index.json` and **no** `.png` or `.obj` — the art is
+content-hashed off the drawing, not the catalogue — so this needed no reskin and
+`tilegen.py --check` still reports 35 files byte-identical.
+
+### Spawn only, which is mostly about what does *not* call it
+
+`Rubber.spawn` is called from `Tiles.spawn`'s callback and from nowhere else
+automatic. No drop handler, no rotate handler. The three non-obvious cases:
+
+- **a reload** — TTS saves spawned objects, so the cubes come back from the save
+  with their tiles. `onLoad`'s restore branch deliberately spawns none.
+- **a reskin** — destroys and respawns a tile *in place*; its cubes never moved,
+  so `Tiles.reskin` passes `rubber = false`. Without it, changing a colour would
+  quietly double every cube on the table.
+- **`Map.put`** — replaces a tile, so the replaced tile's cubes go with it.
+  There is no back-reference to follow: a cube carries no tile GUID, because a
+  GUID changes the moment the tile is picked up. `Rubber.clearNear` uses
+  position — a cube is 0.66 from its own cell centre and 1.07 from the nearest
+  neighbouring one, so one radius claims a tile's own and nothing else's.
+
+Two tags, and the split decides whose cubes survive a rebuild: `rubber` is all
+of them, `rubber.map` only what a tile spawned. `Map.clear` takes `rubber.map`
+alone, so **rubber placed by hand is not swept away by a reroll**. The bag
+carries neither, or clearing would destroy the supply.
+
+### The panel toggle needed a second button
+
+A spawn-only toggle on a panel is a trap: switching it on changes what the next
+tile does and the table in front of you does not move. `Rubber.apply` is the
+other half — it covers the map tiles already out, clearing first so running it
+twice does not stack. The toggle's label carries its own state, because a button
+reading "Rubber" cannot say which way it is set.
+
+### The divider
+
+One plate has carried the map and the palette since the second pass, which
+removed the seam that used to show where one stopped. `TRAY.divider` puts the
+boundary back as a mark rather than a second surface: a locked ochre bar at
+x = 9.9, in the clear between the map's reach (6.1, or 7.8 for an overflow tile)
+and the palette's west column (10.77). It spans the plate's depth less a margin,
+and is re-derived on every sync so a plate resize cannot leave it the old
+length. `AZ.divider(x)` moves it live.
+
+It sits 0.10 to 0.16 above the anchor's centre — under a tile's top face at 0.20
+— so a tile laid across it hides it instead of being pierced by it.
+
+### Verified
+
+Lint clean, `tilegen --check` byte-identical, 91 cases across the three suites
+(12 new in `boot_spec`), and the feature driven in the running game: a
+`glade_mix_a` put at hex(0,0) spawned nine cubes, 2/3/4 across its cells, every
+one at inset 0.660 and 0.175 above the tile. With the toggle off a `glade_4`
+spawned none; `apply` then covered both for 21.
+
+**Not proven outside TTS**, and worth an eye at the table: whether 0.25 is the
+right size for a cube against a tri-hex at this camera, and whether the ochre
+bar reads as a boundary or as clutter. Both are one number in `00-config.lua`.

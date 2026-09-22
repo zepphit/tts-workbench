@@ -183,6 +183,10 @@ function Tiles.spawn(name, position, rotY, opts)
         REG.invalidate(tag)
       end
       Tiles.hubs(obj)
+      -- The single place rubber is ever created (25-rubber.lua). `false` is
+      -- for a respawn of a tile that is already on the table — a reskin — where
+      -- the cubes never moved and a second set would sit on top of the first.
+      if opts.rubber ~= false then Rubber.spawn(obj, name) end
       if opts.onSpawned then
         LOG.attempt("Tiles.spawn onSpawned", opts.onSpawned, obj)
       end
@@ -413,8 +417,11 @@ function Tiles.reskin(name, url)
   REG.invalidate()
 
   for _, entry in ipairs(plan) do
+    -- No rubber: a reskin puts the same tile back in the same place, and its
+    -- cubes are still sitting on it. Spawning a second set here is how "change
+    -- a colour" would quietly double every cube on the table.
     Tiles.spawn(name, entry.position, entry.rotY,
-      { locked = entry.locked, tags = entry.tags })
+      { locked = entry.locked, tags = entry.tags, rubber = false })
   end
   LOG.info("reskin " .. name .. " -> " .. tostring(kind.diffuse),
     #plan .. " tiles")

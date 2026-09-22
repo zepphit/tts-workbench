@@ -92,6 +92,11 @@ function onLoad(script_state)
   -- a rebuild would undo his arrangement on each code change.  See Tray.sync.
   Tray.sync()
 
+  -- The rubber supply, beside the creek and road bags. Spawned once and then
+  -- recognised by its tag on every later boot, so a reload neither replaces
+  -- what he has been dragging from nor leaves him a second one.
+  Rubber.bag()
+
   if Map.count() == 0 then
     LOG.info("empty table — building map " .. MAP.seed)
     Map.build(MAP.seed)

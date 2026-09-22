@@ -145,6 +145,51 @@ function AZ.tray(on)
   return "tray " .. Tray.count() .. " tiles (+" .. added .. " -" .. orphans .. ")"
 end
 
+-- divider([x|off|on]) — the line on the floor between the map and the palette.
+--
+-- L1: a number moves it and respawns the bar in one call, so "is it in the
+-- right place" is answered by looking rather than by rebuilding. Copy what you
+-- settle on into TRAY.divider in 00-config.lua, which is the source of truth —
+-- a live change is lost on the next reload, like every other L1 tweak here.
+function AZ.divider(x)
+  local spec = TRAY.divider
+  if x == false or x == "false" or x == "0" or x == 0 or x == "off" then
+    spec.enabled = false
+  elseif x == true or x == "true" or x == "on" then
+    spec.enabled = true
+  elseif tonumber(x) then
+    spec.x = tonumber(x)
+    spec.enabled = true
+  end
+  Tray.divider()
+  return "divider " .. (spec.enabled and ("at x=" .. spec.x) or "off")
+end
+
+-- ------------------------------------------------------------------ rubber
+
+-- rubber([on|"apply"|"clear"]) — the white cubes on deep forest hexsides.
+--
+-- No argument reports. A boolean sets the flag, and the flag governs **future
+-- spawns only** — which is the whole design (00-config.lua, RUBBER), so
+-- switching it on does nothing to the tiles already out and switching it off
+-- leaves the cubes where they are. The two verbs that touch what is on the
+-- table have to be asked for by name:
+--
+--   "apply"  rubber on every map tile now, clearing first so it does not stack
+--   "clear"  take the map's cubes off and leave the tiles
+function AZ.rubber(on)
+  if on == "apply" then return Rubber.apply() end
+  if on == "clear" then return Rubber.clear() end
+  if on == nil or on == "" then return Rubber.status() end
+  RUBBER.enabled = not (on == false or on == "false" or on == "0" or on == 0)
+  LOG.info("rubber " .. (RUBBER.enabled and "on" or "off") ..
+    " — spawn only, so this takes effect on the next tile" ..
+    " (AZ.rubber('apply') for the ones already out)")
+  Journal.emit("rubber", { enabled = RUBBER.enabled })
+  uiRefresh()
+  return Rubber.status()
+end
+
 -- ------------------------------------------------------------------- tiles
 
 function AZ.tint(kind, colour) return Tiles.tint(kind, colour) end
@@ -218,10 +263,11 @@ end
 function AZ.state()
   return string.format(
     "seed=%d rings=%d shape=%s tiles=%d slots=%d snapfield=%d plate=%gx%g " ..
-    "tray=%d snap=%s grid=%s labels=%s kinds=%d",
+    "tray=%d snap=%s grid=%s labels=%s rubber=%s/%d kinds=%d",
     MAP.seed, MAP.rings, MAP.shape, Map.count(), #Map.slots(),
     #Map.lattice(), MAP.plate.x, MAP.plate.z, Tray.count(),
     tostring(MAP.snap), tostring(MAP.gridSnap), tostring(HUB.enabled),
+    tostring(RUBBER.enabled), Rubber.count(),
     #Tiles.kinds())
 end
 
@@ -241,7 +287,9 @@ function AZ.help()
   return "AZ.build(seed) AZ.reroll([seed]) AZ.clear() AZ.n() AZ.rings(n) " ..
       "AZ.shape(name) AZ.at(q,r) AZ.put(kind,q,r[,rot]) AZ.capture() " ..
       "AZ.plate(w,d) AZ.snaprings(n) " ..
-      "AZ.tray([on|false|rebuild]) AZ.snap(on) AZ.gridsnap(on) AZ.labels(on) " ..
+      "AZ.tray([on|false|rebuild]) AZ.divider([x|off]) " ..
+      "AZ.rubber([on|apply|clear]) " ..
+      "AZ.snap(on) AZ.gridsnap(on) AZ.labels(on) " ..
       "AZ.tint(kind,hex) " ..
       "AZ.reskin(kind[,url]) AZ.reskinall() AZ.hub(kind,cell,resource[,n]) " ..
       "AZ.lock(bool) AZ.weight(kind,n) AZ.kinds() AZ.state() AZ.say(text) " ..
@@ -270,6 +318,21 @@ function uiTray()
   if Tray.count() > 0 then Tray.clear() else Tray.build() end
 end
 
+-- The rubber toggle carries its own state as its label, because a button that
+-- reads "Rubber" cannot say whether the next tile will bring cubes. Shift- or
+-- right-click applies it to the tiles already out, which is the other half of
+-- a spawn-only feature: the flag alone changes nothing you can see.
+function uiRubber()
+  AZ.rubber(not RUBBER.enabled)
+end
+
+function uiRubberApply()
+  Rubber.apply()
+  -- Spawning is asynchronous and Rubber.apply's own flush is keyed at 0.5, so
+  -- the count on the panel is read after that has landed rather than before.
+  ttslib.async.keyed("rubber.hud", 0.75, uiRefresh)
+end
+
 function uiLock()
   local tiles = Tiles.all()
   local locked = tiles[1] and tiles[1].getLock()
@@ -290,4 +353,9 @@ function uiRefresh()
   UI_.value(nil, "hudSeed", "Seed " .. MAP.seed)
   UI_.value(nil, "hudTiles", "Tiles: " .. Map.count() .. " / " .. #Map.slots())
   UI_.value(nil, "hudRings", "Rings: " .. MAP.rings)
+  -- A button's value is its label, so the toggle says which way it is set
+  -- rather than what it is called.
+  UI_.value(nil, "uiRubber",
+    RUBBER.enabled and "Rubber on" or "Rubber off")
+  UI_.attr(nil, "uiRubber", "color", RUBBER.enabled and "#2f3b27" or "#3c3524")
 end

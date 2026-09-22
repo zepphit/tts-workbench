@@ -632,6 +632,36 @@ def prepare_paint(name, kind, shape, terrains, frontiers, radius):
     return out
 
 
+def painted_edges(name, kind, shape):
+    """Per cell, the terrain each of its six edges is painted with.
+
+    `prepare_paint` flattens a `paint` block into pixel arithmetic — unit
+    vectors, reach, band — which is everything the renderer needs and nothing
+    the *game* can read back.  This keeps the other half: which numbered
+    hexside carries which terrain, in the spec's own 1..6 numbering, so the Lua
+    can ask "is edge 6 of cell 3 deep forest?" without re-deriving it from the
+    diffuse.  src/25-rubber.lua is what asks.
+
+    Six slots per cell so an edge number indexes the row directly, with `false`
+    where the edge is not overridden.  Only an **outer** edge can carry one —
+    prepare_paint refuses an override on an interior seam, and that runs first —
+    so a non-false entry is always a hexside on the tile's rim.
+
+    A flat kind has no `paint` and gets an empty list rather than a grid of
+    `false`: index.lua is read by a human often enough to be worth the terse
+    form, and the Lua treats missing and empty the same way.
+    """
+    paint = kind.get("paint")
+    if paint is None:
+        return []
+    out = []
+    for index in range(len(shape["cells"])):
+        overrides = paint[index].get("edges") or {}
+        out.append([overrides.get(str(d), overrides.get(d)) or False
+                    for d in range(1, 7)])
+    return out
+
+
 def write_png(width, height, pixels):
     """An 8-bit RGBA PNG, adaptively filtered.
 
@@ -1052,6 +1082,9 @@ def generate(spec, out_dir, url_style="encoded", jobs=None):
             "tray": bool(entry.get("tray", False)),
             "tint": [round(c, 4) for c in tint],
             "hubs": hubs,
+            # Which numbered hexside carries which terrain. The art bakes this
+            # into pixels; the game needs it as data — see painted_edges.
+            "edges": painted_edges(name, entry, shape),
         }
 
     # The diffuses are the whole cost of a run and each one is independent, so
@@ -1138,6 +1171,7 @@ def lua_index(index):
         "kinds": {name: {"shape": kind["shape"], "label": kind["label"],
                          "weight": kind["weight"], "tint": kind["tint"],
                          "tray": kind["tray"], "hubs": kind["hubs"],
+                         "edges": kind["edges"],
                          "diffuse": kind["diffuse"]["url"]}
                   for name, kind in index["kinds"].items()},
     }

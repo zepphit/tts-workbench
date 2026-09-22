@@ -50,6 +50,9 @@ for `return AZ.<verb>("a", "b")`.
 | `AZ.rings(n)` `AZ.shape(name)` | resize it, or relay it in another tile shape |
 | `AZ.tray()` | sync the palette to the spec — spawn what is missing, leave the rest put |
 | `AZ.tray(false)` `AZ.tray("rebuild")` | clear it, or relay the whole catalogue on the grid (**destroys a hand arrangement**) |
+| `AZ.divider(x)` `AZ.divider(false)` | the line between the map and the palette: move it, or hide it |
+| `AZ.rubber(on)` | whether a spawning tile brings cubes. **Spawn only** — see below |
+| `AZ.rubber("apply")` `AZ.rubber("clear")` | cover the map tiles already out, or take the cubes off |
 | `AZ.plate(w, d)` | resize the one plate the map and the tray share, in world units |
 | `AZ.snaprings(n)` | how far the snap field reaches; **0 = cover the plate**, the default |
 | `AZ.put(kind, q, r[, rot])` | one named tile on one cell, replacing what covered it |
@@ -119,6 +122,77 @@ seven glades (an F clearing walled by DF on two to four of a cell's four outer
 edges). All at weight 0 — the random map is untouched, and they are placed by
 hand or with `AZ.put`.
 
+## Rubber — a cube on every deep forest hexside
+
+A white cube called **Rubber** sits on each deep forest hexside of a tile, put
+there as the tile spawns. The Glades 2/3/4 triplet carries nine: two on the
+pivot, three on the top-left cell, four on the top-right.
+
+**A "deep forest hexside" is an outer edge a kind's `paint` block names
+`deep_jungle`** — the walls of a glade, the far bank of a DF coast. It is not
+every hexside whose terrain happens to be deep forest, and the difference is not
+pedantry: a plain `deep_jungle` triplet is deep forest all over, so the wider
+rule would ring each of the five on a rings-3 map with twelve cubes and stack
+two rows along every seam where two of them meet. The narrow rule is the owner's
+(2026-09-22) and `RUBBER.terrain` is the only thing that decides it.
+
+Which hexsides those are is **data, not inference**: `scripts/tilegen.py` writes
+an `edges` table into `art/index.lua` from the same `paint` block it draws the
+diffuse from, so a spec edit moves the pixels and the cubes together.
+
+**Spawn only.** Rubber appears when a tile appears and never again. Nothing
+watches a drop, a pick-up or a rotate, so rearranging the table by hand is free
+and no cube grows back. A reload does not respawn either — TTS saves spawned
+objects, so the cubes come back from the save with the tiles they sit on.
+
+| | |
+| --- | --- |
+| **spawns** | `Map.build`, `Map.reroll`, `AZ.put`, a tray sync |
+| **does not** | a reload, a reskin (the tile is respawned in place; its cubes never moved), a hand drag, a rotate |
+| **removes** | `Map.clear` and a reroll take `rubber.map`; `AZ.put` takes the replaced tile's, by position |
+
+Two tags, and the split decides whose cubes survive a reroll: `rubber` is every
+cube including the ones dragged out of the bag by hand, `rubber.map` only the
+ones a tile spawned. Clearing takes `rubber.map` alone, so **rubber you placed
+yourself is not swept away by a rebuild**.
+
+The toggle is on the screen panel and at `AZ.rubber(on)`. It governs the *next*
+tile, so switching it on does nothing to what is already on the table — which is
+what **Apply** is for. It clears first, so running it twice does not stack.
+
+```bash
+python3 scripts/ttsd.py call rubber false     # the next tile brings none
+python3 scripts/ttsd.py call rubber apply     # cover the map tiles already out
+python3 scripts/ttsd.py exec 'return AZ.put("glade_mix_a", 0, 0)'   # nine cubes
+```
+
+The cube's geometry is measured, not chosen. `RUBBER.inset` is 0.66 from the
+cell's centre along the hexside's normal — **not** the apothem 0.866, which is
+the edge itself. The jungle|deep_jungle frontier reaches 0.44 in from the rim,
+so the DF band runs 0.43 to 0.87 and 0.66 is the middle of it: the cube sits on
+the deep forest it marks rather than on the line, and two cubes facing each
+other across a seam land 0.4 apart instead of in the same place.
+
+**A tile dragged off the tray by hand keeps its `tray` tag**, wherever it ends
+up, so it never gets rubber and `apply` skips it — the tray is a tag, not a
+region. Place glades with `AZ.put(kind, q, r)` and they are map tiles.
+
+The supply is an `Infinite_Bag` called **Rubber**, beside the creek and road
+bags. It is spawned once and found by its tag on every later boot, so a reload
+neither replaces it nor leaves a second one.
+
+## The divider
+
+One plate carries the map and the palette, which removed the seam that used to
+show where one ended and the other began. `TRAY.divider` puts that boundary back
+as a locked ochre bar in the gap at x = 9.9 — east of anything the map can reach
+(a rings-3 disc ends around 6.1, an overflow tile at 7.8), west of the palette's
+first column (centred at 12.5, so its tiles start at 10.77).
+
+It sits 0.10 to 0.16 above the anchor's centre, under the top face of a tile at
+0.20, so a tile laid across it hides it rather than being pierced by it.
+`AZ.divider(8.0)` moves it live; `AZ.divider(false)` hides it.
+
 ## Only tiles snap
 
 Two independent systems, set opposite ways round:
@@ -186,8 +260,10 @@ art/                generated: .obj, collider, .png, index.json, index.lua
 src/00-config.lua   ROLES, MAP, TILES, TRAY, HUB — data only
 src/10-hex.lua      axial math. Pure: no TTS global, luajit-testable
 src/20-tiles.lua    spawn / tint / reskin / hub buttons
+src/25-rubber.lua   a cube on every deep forest hexside, and the supply bag
 src/30-map.lua      build / clear / reroll / put / capture, seeded
-src/35-tray.lua     the palette: one of every frontier tile, beside the plate
+src/35-tray.lua     the palette: one of every frontier tile, beside the plate,
+                    and the divider that marks where the map stops
 src/40-journal.lua  event taps -> sendExternalMessage
 src/50-api.lua      the A.* command surface
 src/99-Global.lua   onLoad, onSave, boot

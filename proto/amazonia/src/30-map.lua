@@ -376,6 +376,9 @@ function Map.put(name, q, r, steps)
   q, r, steps = tonumber(q) or 0, tonumber(r) or 0, tonumber(steps) or 0
   local occupant = Map.at(q, r)
   if occupant and occupant.obj and not ASYNC.gone(occupant.obj) then
+    -- Its cubes first, while the tile is still there to measure against —
+    -- Rubber.clearNear finds them by position, not by a back-reference.
+    Rubber.clearNear(occupant.obj)
     destroyObject(occupant.obj)
     REG.invalidate()
   end
@@ -413,6 +416,10 @@ end
 function Map.clear()
   local tiles = Tiles.onMap()
   Tiles.bulk = true
+  -- The cubes go with the tiles they were spawned on. They are separate
+  -- objects and nothing else would remove them, so a reroll would otherwise
+  -- leave every previous map's rubber floating over the new one.
+  Rubber.clear()
   for _, obj in ipairs(tiles) do
     if not ASYNC.gone(obj) then destroyObject(obj) end
   end

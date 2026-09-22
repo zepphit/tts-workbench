@@ -7,6 +7,7 @@
         "sha256": "b7832ecec2c3774324e7ac2fce0bf48b9a1779e5c92271980475a976468046ac",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/clearing-b7832ece.png"
       },
+      "edges": [],
       "hubs": [],
       "label": "Clearing",
       "shape": "hex1",
@@ -24,6 +25,32 @@
         "sha256": "7562170f938f6974fc40602170aaee7e85af32b713f0d259b8c1fb6326aef532",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_df_e-7562170f.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 deep forest east",
       "shape": "trihex",
@@ -41,6 +68,32 @@
         "sha256": "17592a6b5d4a4a8101d455e53027fec68821cabcd642bf2b06fe12c2c469ca7b",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_df_n-17592a6b.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 deep forest north",
       "shape": "trihex",
@@ -58,6 +111,32 @@
         "sha256": "602b143155082468f56bb7a2f73583482b2f3ebf239f1eefcaf16097d92b2297",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_bay_closed-602b1431.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle",
+          "jungle"
+        ],
+        [
+          "jungle",
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 forest closed bay",
       "shape": "trihex",
@@ -75,6 +154,32 @@
         "sha256": "d338d067dcf704286fe879ce17ef3d52d74ac1f18134dbc1232b21d93ddda48c",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_e-d338d067.png"
       },
+      "edges": [
+        [
+          "jungle",
+          "jungle",
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          "jungle",
+          "jungle",
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 forest east",
       "shape": "trihex",
@@ -92,6 +197,32 @@
         "sha256": "917fd584dde0da77c97519a6df7f74071878fc3a12868e0b51255774e5f6ce3d",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_engorge-917fd584.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle",
+          false
+        ],
+        [
+          "jungle",
+          false,
+          false,
+          false,
+          false,
+          "jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 forest engorgement",
       "shape": "trihex",
@@ -109,6 +240,32 @@
         "sha256": "b1a9b945cd26d44eebdf89557c0aa72d376300be63c375b9e90979f4ab715fb3",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_n-b1a9b945.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle"
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 forest north",
       "shape": "trihex",
@@ -126,6 +283,32 @@
         "sha256": "94a100c94fb7b46a9c64b127a7395fc4b7bb70d25b6981669452844165bed4c1",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_w-94a100c9.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          "jungle",
+          "jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          "jungle",
+          "jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 forest west",
       "shape": "trihex",
@@ -143,6 +326,32 @@
         "sha256": "3fb1a20bf10abbd011a03e04124bda88f4471e47f1dd76c4c20d14a02a7a5843",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_mix_bay-3fb1a20b.png"
       },
+      "edges": [
+        [
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          "jungle",
+          "jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 mixed bay",
       "shape": "trihex",
@@ -160,6 +369,32 @@
         "sha256": "e7a9205aaf7785fc87b11a3fad1389739d58bad0112cdfd90db332a3750f32cb",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_mix_n-e7a9205a.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "jungle",
+          "jungle"
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Coast \u2014 mixed north",
       "shape": "trihex",
@@ -177,6 +412,7 @@
         "sha256": "3155db733f39d9eb26847d8f7a158cc9e3d58710e0d916f8c16df15575b4b850",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/deep_jungle-3155db73.png"
       },
+      "edges": [],
       "hubs": [],
       "label": "Deep jungle",
       "shape": "trihex",
@@ -194,6 +430,32 @@
         "sha256": "f26f60dc404ced51e45397c72becd3126cce27f6d98b71d7fb1c38a37db6b3bd",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_2-f26f60dc.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 two walls",
       "shape": "trihex",
@@ -211,6 +473,32 @@
         "sha256": "03dfd835bb80dbdb4768b451fc6ad7bca8da0912206c9bcc8beed12c3f98b740",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_3-03dfd835.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle"
+        ],
+        [
+          "deep_jungle",
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 three walls",
       "shape": "trihex",
@@ -228,6 +516,32 @@
         "sha256": "3cc68f1b7944d591f80a45107417ab78ac1bd8cb4ab3384e4a046a71c7bcb68a",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_4-3cc68f1b.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle"
+        ],
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 sealed",
       "shape": "trihex",
@@ -245,6 +559,32 @@
         "sha256": "06a802e0ac872c96df496c96cbe139ccc792035451523d96726420d27ce66f92",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_coast-06a802e0.png"
       },
+      "edges": [
+        [
+          "jungle",
+          "jungle",
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glade coast",
       "shape": "trihex",
@@ -262,6 +602,32 @@
         "sha256": "78ac55542a4e7a0882dd057bb8016dce7ac7861126919180bf45b564ff4134ee",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_mix_a-78ac5554.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle"
+        ],
+        [
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 2/3/4",
       "shape": "trihex",
@@ -279,6 +645,32 @@
         "sha256": "c32c98d0ae66ed52fd3542eea3ef8889317b8ac233ee4c0b6e558d5e2ec405a1",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_mix_b-c32c98d0.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          "deep_jungle",
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 4/2/3",
       "shape": "trihex",
@@ -296,6 +688,32 @@
         "sha256": "1e84b70dfba74f37e7bbe69a4724cb2ccf01a78c7810c326714ba459a37a6826",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_open-1e84b70d.png"
       },
+      "edges": [
+        [
+          false,
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          "deep_jungle",
+          "deep_jungle"
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Glades \u2014 one open",
       "shape": "trihex",
@@ -313,6 +731,7 @@
         "sha256": "c2fa3f910f044032fedb400296665452bab3fcae81ff0324e0520b5d809dbef5",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/jungle-c2fa3f91.png"
       },
+      "edges": [],
       "hubs": [],
       "label": "Jungle",
       "shape": "trihex",
@@ -330,6 +749,32 @@
         "sha256": "a95a3f13deab8a6e1bf9d09d4242938faf335b6e1b6a766abb2eee148d11c3db",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/landfall_df-a95a3f13.png"
       },
+      "edges": [
+        [
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          "deep_jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Landfall \u2014 deep forest pool",
       "shape": "trihex",
@@ -347,6 +792,32 @@
         "sha256": "7d809c8563d26d09a5f3e2009c1863b00ee93e4bd5c595c3e6fd958a88143232",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/landfall_f-7d809c85.png"
       },
+      "edges": [
+        [
+          "jungle",
+          "jungle",
+          "jungle",
+          "jungle",
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "Landfall \u2014 forest pool",
       "shape": "trihex",
@@ -364,6 +835,7 @@
         "sha256": "1392f3ba66701a942a6836d4f482cd233a3a053a19e7cda22399264b5d842243",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/probe-1392f3ba.png"
       },
+      "edges": [],
       "hubs": [],
       "label": "UV probe",
       "shape": "trihex",
@@ -381,6 +853,7 @@
         "sha256": "52e86d4ec97a8ee56bd194f88cdf0c63cb66dc7263a3dbb09f589e79af53f6f3",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river-52e86d4e.png"
       },
+      "edges": [],
       "hubs": [],
       "label": "River",
       "shape": "trihex",
@@ -398,6 +871,32 @@
         "sha256": "5bf3313a432731314603ead4e88cdda320d3c89a6fd506eb39943f311626d303",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river_run_df-5bf3313a.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "River run \u2014 deep forest",
       "shape": "trihex",
@@ -415,6 +914,32 @@
         "sha256": "1ecafad91e074c479f6647c25039bb9f6d89ebe7aba9d093bd4b7d3082142344",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river_run_f-1ecafad9.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "River run \u2014 forest",
       "shape": "trihex",
@@ -432,6 +957,32 @@
         "sha256": "f537b2a4f3fd97dc388bf6832a9d26ca6ad8aee87e9f9de96d9dbfea573bb86c",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/rivermouth_df-f537b2a4.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "River mouth \u2014 deep forest",
       "shape": "trihex",
@@ -449,6 +1000,32 @@
         "sha256": "537523c9d93bfaf9bfc782b230f3b9ac675d83cfc917e3feb41e8a222bf2f5ad",
         "url": "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/rivermouth_f-537523c9.png"
       },
+      "edges": [
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      ],
       "hubs": [],
       "label": "River mouth \u2014 forest",
       "shape": "trihex",

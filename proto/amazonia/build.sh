@@ -100,7 +100,9 @@ with open(index_path, encoding="utf-8") as handle:
     index = json.load(handle)
 labels = save.setdefault("ComponentTags", {"labels": []}).setdefault("labels", [])
 known = {entry.get("normalized") for entry in labels}
-for tag in ["tile"] + ["tile.%s" % name for name in sorted(index["kinds"])]:
+tags = ["tile"] + ["tile.%s" % name for name in sorted(index["kinds"])]
+tags += ["tray", "tray.divider", "rubber", "rubber.map", "rubber.bag"]
+for tag in tags:
     if tag.lower() not in known:
         known.add(tag.lower())
         labels.append({"displayed": tag, "normalized": tag.lower()})

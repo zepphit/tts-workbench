@@ -7,6 +7,7 @@ AMAZONIA_ART = {
   kinds = {
     clearing = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/clearing-b7832ece.png",
+      edges = {},
       hubs = {},
       label = "Clearing",
       shape = "hex1",
@@ -16,6 +17,7 @@ AMAZONIA_ART = {
     },
     coast_df_e = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_df_e-7562170f.png",
+      edges = { { "deep_jungle", "deep_jungle", false, false, false, false }, { false, false, false, false, false, false }, { "deep_jungle", "deep_jungle", false, false, false, false } },
       hubs = {},
       label = "Coast — deep forest east",
       shape = "trihex",
@@ -25,6 +27,7 @@ AMAZONIA_ART = {
     },
     coast_df_n = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_df_n-17592a6b.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, "deep_jungle", "deep_jungle" }, { false, false, false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Coast — deep forest north",
       shape = "trihex",
@@ -34,6 +37,7 @@ AMAZONIA_ART = {
     },
     coast_f_bay_closed = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_bay_closed-602b1431.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, "jungle", "jungle", "jungle" }, { "jungle", false, false, false, "jungle", "jungle" } },
       hubs = {},
       label = "Coast — forest closed bay",
       shape = "trihex",
@@ -43,6 +47,7 @@ AMAZONIA_ART = {
     },
     coast_f_e = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_e-d338d067.png",
+      edges = { { "jungle", "jungle", false, false, false, false }, { false, false, false, false, false, false }, { "jungle", "jungle", false, false, false, false } },
       hubs = {},
       label = "Coast — forest east",
       shape = "trihex",
@@ -52,6 +57,7 @@ AMAZONIA_ART = {
     },
     coast_f_engorge = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_engorge-917fd584.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, "jungle", "jungle", false }, { "jungle", false, false, false, false, "jungle" } },
       hubs = {},
       label = "Coast — forest engorgement",
       shape = "trihex",
@@ -61,6 +67,7 @@ AMAZONIA_ART = {
     },
     coast_f_n = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_n-b1a9b945.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, "jungle", "jungle" }, { false, false, false, false, "jungle", "jungle" } },
       hubs = {},
       label = "Coast — forest north",
       shape = "trihex",
@@ -70,6 +77,7 @@ AMAZONIA_ART = {
     },
     coast_f_w = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_f_w-94a100c9.png",
+      edges = { { false, false, "jungle", "jungle", false, false }, { false, false, "jungle", "jungle", false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "Coast — forest west",
       shape = "trihex",
@@ -79,6 +87,7 @@ AMAZONIA_ART = {
     },
     coast_mix_bay = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_mix_bay-3fb1a20b.png",
+      edges = { { false, "deep_jungle", "deep_jungle", false, false, false }, { false, false, "jungle", "jungle", false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "Coast — mixed bay",
       shape = "trihex",
@@ -88,6 +97,7 @@ AMAZONIA_ART = {
     },
     coast_mix_n = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/coast_mix_n-e7a9205a.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, "jungle", "jungle" }, { false, false, false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Coast — mixed north",
       shape = "trihex",
@@ -97,6 +107,7 @@ AMAZONIA_ART = {
     },
     deep_jungle = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/deep_jungle-3155db73.png",
+      edges = {},
       hubs = {},
       label = "Deep jungle",
       shape = "trihex",
@@ -106,6 +117,7 @@ AMAZONIA_ART = {
     },
     glade_2 = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_2-f26f60dc.png",
+      edges = { { "deep_jungle", "deep_jungle", false, false, false, false }, { false, false, "deep_jungle", "deep_jungle", false, false }, { false, false, false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glades — two walls",
       shape = "trihex",
@@ -115,6 +127,7 @@ AMAZONIA_ART = {
     },
     glade_3 = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_3-03dfd835.png",
+      edges = { { "deep_jungle", "deep_jungle", "deep_jungle", false, false, false }, { false, false, false, "deep_jungle", "deep_jungle", "deep_jungle" }, { "deep_jungle", false, false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glades — three walls",
       shape = "trihex",
@@ -124,6 +137,7 @@ AMAZONIA_ART = {
     },
     glade_4 = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_4-3cc68f1b.png",
+      edges = { { "deep_jungle", "deep_jungle", "deep_jungle", "deep_jungle", false, false }, { false, false, "deep_jungle", "deep_jungle", "deep_jungle", "deep_jungle" }, { "deep_jungle", "deep_jungle", false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glades — sealed",
       shape = "trihex",
@@ -133,6 +147,7 @@ AMAZONIA_ART = {
     },
     glade_coast = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_coast-06a802e0.png",
+      edges = { { "jungle", "jungle", false, false, false, false }, { false, false, false, "deep_jungle", "deep_jungle", false }, { false, false, false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glade coast",
       shape = "trihex",
@@ -142,6 +157,7 @@ AMAZONIA_ART = {
     },
     glade_mix_a = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_mix_a-78ac5554.png",
+      edges = { { "deep_jungle", "deep_jungle", false, false, false, false }, { false, false, false, "deep_jungle", "deep_jungle", "deep_jungle" }, { "deep_jungle", "deep_jungle", false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glades — 2/3/4",
       shape = "trihex",
@@ -151,6 +167,7 @@ AMAZONIA_ART = {
     },
     glade_mix_b = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_mix_b-c32c98d0.png",
+      edges = { { "deep_jungle", "deep_jungle", "deep_jungle", "deep_jungle", false, false }, { false, false, "deep_jungle", "deep_jungle", false, false }, { false, "deep_jungle", false, false, "deep_jungle", "deep_jungle" } },
       hubs = {},
       label = "Glades — 4/2/3",
       shape = "trihex",
@@ -160,6 +177,7 @@ AMAZONIA_ART = {
     },
     glade_open = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/glade_open-1e84b70d.png",
+      edges = { { false, "deep_jungle", "deep_jungle", false, false, false }, { false, false, false, false, "deep_jungle", "deep_jungle" }, { false, false, false, false, false, false } },
       hubs = {},
       label = "Glades — one open",
       shape = "trihex",
@@ -169,6 +187,7 @@ AMAZONIA_ART = {
     },
     jungle = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/jungle-c2fa3f91.png",
+      edges = {},
       hubs = {},
       label = "Jungle",
       shape = "trihex",
@@ -178,6 +197,7 @@ AMAZONIA_ART = {
     },
     landfall_df = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/landfall_df-a95a3f13.png",
+      edges = { { "deep_jungle", "deep_jungle", "deep_jungle", "deep_jungle", false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "Landfall — deep forest pool",
       shape = "trihex",
@@ -187,6 +207,7 @@ AMAZONIA_ART = {
     },
     landfall_f = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/landfall_f-7d809c85.png",
+      edges = { { "jungle", "jungle", "jungle", "jungle", false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "Landfall — forest pool",
       shape = "trihex",
@@ -196,6 +217,7 @@ AMAZONIA_ART = {
     },
     probe = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/probe-1392f3ba.png",
+      edges = {},
       hubs = {},
       label = "UV probe",
       shape = "trihex",
@@ -205,6 +227,7 @@ AMAZONIA_ART = {
     },
     river = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river-52e86d4e.png",
+      edges = {},
       hubs = {},
       label = "River",
       shape = "trihex",
@@ -214,6 +237,7 @@ AMAZONIA_ART = {
     },
     river_run_df = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river_run_df-5bf3313a.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "River run — deep forest",
       shape = "trihex",
@@ -223,6 +247,7 @@ AMAZONIA_ART = {
     },
     river_run_f = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/river_run_f-1ecafad9.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "River run — forest",
       shape = "trihex",
@@ -232,6 +257,7 @@ AMAZONIA_ART = {
     },
     rivermouth_df = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/rivermouth_df-f537b2a4.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "River mouth — deep forest",
       shape = "trihex",
@@ -241,6 +267,7 @@ AMAZONIA_ART = {
     },
     rivermouth_f = {
       diffuse = "file:///Users/artur/Library/Tabletop%20Simulator/proto/amazonia/art/rivermouth_f-537523c9.png",
+      edges = { { false, false, false, false, false, false }, { false, false, false, false, false, false }, { false, false, false, false, false, false } },
       hubs = {},
       label = "River mouth — forest",
       shape = "trihex",

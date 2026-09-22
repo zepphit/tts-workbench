@@ -1182,6 +1182,328 @@ case("AZ.put drops a named tile on a cell, replacing what covered it", function(
   eq(AZ.put("nonesuch", 0, 0), false, "an unknown kind is refused")
 end)
 
+local function dividers()
+  return ttslib.registry.all(TRAY.divider.tag)
+end
+
+case("a line on the floor separates the map from the palette", function()
+  local plate = boot(nil)
+  local bar = dividers()
+  eq(#bar, 1, "exactly one divider")
+
+  -- In the clear gap: east of everything the map can reach, west of the
+  -- palette's first column. Both ends are measured, not assumed.
+  local at = bar[1].getPosition()
+  local eastmost = 0
+  for _, obj in ipairs(Tiles.onMap()) do
+    eastmost = math.max(eastmost, obj.getPosition().x + ART.radius * 0.8661)
+  end
+  check(at.x > eastmost,
+    string.format("clear of the map (%.2f > %.2f)", at.x, eastmost))
+  check(at.x < TRAY.origin.x - ART.radius * math.sqrt(3),
+    "clear of the palette's west column")
+
+  -- Under a tile's top face, so a tile laid over it hides it rather than
+  -- being pierced by it.
+  -- A tile is ART.thickness * 2 tall in the mesh and scaled TILES.scaleY, so
+  -- its top face is half of that above the height it floats at.
+  local plateTop = plate.getPosition().y + 0.1
+  local tileTop = plate.getPosition().y + MAP.tileY + ART.thickness * TILES.scaleY
+  check(at.y + TRAY.divider.height / 2 <= tileTop,
+    string.format("under a tile's top face (%.3f <= %.3f)",
+      at.y + TRAY.divider.height / 2, tileTop))
+  check(at.y - TRAY.divider.height / 2 >= plateTop - 0.001,
+    "and not sunk into the plate")
+
+  check(bar[1].getLock(), "locked: it is furniture")
+
+  -- Live, like every other L1 tweak.
+  AZ.divider(8.0)
+  H.tick(20)
+  bar = dividers()
+  eq(#bar, 1, "moving it does not leave the old one behind")
+  near(bar[1].getPosition().x, 8.0, "moved to where it was asked for")
+
+  AZ.divider(false)
+  H.tick(20)
+  eq(#dividers(), 0, "and it can be turned off")
+  TRAY.divider.enabled = true
+end)
+
+-- --------------------------------------------------------------------- rubber
+
+-- The owner's own cube, read out of the running game on 2026-09-22 (GUID
+-- 7bfd32) and the only thing tying RUBBER.inset to the table rather than to
+-- arithmetic: a white BlockSquare he put on the NE hexside of the top-right
+-- cell of a glade_mix_a sitting at (5.9422, 1.1833, -4.3721) with rotY 0.
+local SAMPLE = { dx = 1.2679, dy = 0.1720, dz = 2.0279, cell = 3, dir = 6 }
+
+-- distance from a cube to the nearest of its tile's three cell centres.
+local function toNearestCell(obj, cube)
+  local kind = ART.kinds[Tiles.kindOf(obj)]
+  local shape = ART.shapes[kind.shape]
+  local at, best = cube.getPosition(), 1e9
+  for _, cell in ipairs(shape.cells) do
+    local x, z = hex.toWorld(cell[1], cell[2], ART.radius)
+    local centre = obj.positionToWorld({ x = x, y = 0, z = z })
+    local dx, dz = at.x - centre.x, at.z - centre.z
+    best = math.min(best, math.sqrt(dx * dx + dz * dz))
+  end
+  return best
+end
+
+case("deep forest hexsides come from the catalogue, not from the art", function()
+  boot(nil)
+  -- The owner counted these by eye: "the Glades 2/3/4 triplet would have 9 DF
+  -- hexsides". tilegen writes them into art/index.lua from the same `paint`
+  -- block it draws the diffuse from, so the cubes and the pixels cannot drift.
+  local sides = Rubber.sides("glade_mix_a")
+  eq(#sides, 9, "glade_mix_a has nine deep forest hexsides")
+
+  local perCell = { 0, 0, 0 }
+  for _, side in ipairs(sides) do
+    perCell[side.cell] = perCell[side.cell] + 1
+  end
+  eq(perCell[1], 2, "pivot: two walls")
+  eq(perCell[2], 3, "top-left: three")
+  eq(perCell[3], 4, "top-right: four — 2/3/4, which is what the kind is called")
+
+  eq(#Rubber.sides("glade_4"), 12, "the sealed glade is walled all round")
+  eq(#Rubber.sides("coast_df_n"), 4, "a deep forest coast walls two cells")
+
+  -- The narrow rule the owner chose: a *painted* deep forest edge, not every
+  -- hexside whose terrain happens to be deep forest. A plain deep_jungle
+  -- triplet is deep forest all over and still earns nothing.
+  eq(#Rubber.sides("deep_jungle"), 0, "a plain deep forest triplet: none")
+  eq(#Rubber.sides("jungle"), 0, "a plain forest triplet: none")
+  eq(#Rubber.sides("river_run_df"), 0, "deep forest cells, but no painted edge")
+  eq(#Rubber.sides("nonesuch"), 0, "an unknown kind does not throw")
+end)
+
+case("a cube sits in the middle of the deep forest band, not on the edge", function()
+  boot(nil)
+  local shape = ART.shapes.trihex
+  local x, z = Rubber.offset(shape, SAMPLE.cell, SAMPLE.dir)
+
+  -- Against the owner's sample. He placed it by hand, so this is a tolerance
+  -- rather than an equality — the point is that 0.66 is his 0.66 and not a
+  -- number someone liked the look of.
+  check(math.sqrt((x - SAMPLE.dx) ^ 2 + (z - SAMPLE.dz) ^ 2) < 0.1,
+    string.format("within a hand's width of the sample (got %.3f,%.3f, "
+      .. "want %.3f,%.3f)", x, z, SAMPLE.dx, SAMPLE.dz))
+  check(math.abs(RUBBER.y - SAMPLE.dy) < 0.05,
+    string.format("cube height matches the sample (%.3f vs %.3f)",
+      RUBBER.y, SAMPLE.dy))
+
+  -- And the geometry it is meant to express: inset along the edge normal,
+  -- inside the cell rather than on its rim.
+  local cx, cz = hex.toWorld(shape.cells[SAMPLE.cell][1],
+    shape.cells[SAMPLE.cell][2], ART.radius)
+  near(math.sqrt((x - cx) ^ 2 + (z - cz) ^ 2), RUBBER.inset,
+    "inset from the cell centre")
+  local apothem = ART.radius * math.sqrt(3) / 2
+  check(RUBBER.inset < apothem, "inside the cell, not on the hexside")
+  check(RUBBER.inset > apothem - 0.44, "inside the deep forest band, which "
+    .. "reaches 0.44 in from the rim")
+end)
+
+case("a plain map brings no rubber; placing a glade brings nine", function()
+  boot(nil)
+  -- jungle, deep_jungle and river are the only kinds with a weight, and none
+  -- of them paints a wall. A fresh table is clean.
+  eq(Rubber.count(), 0, "nothing on a plain map")
+
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 9, "the glade brought its nine")
+
+  -- Every cube belongs to a hexside of the tile that spawned it.
+  local tile = Tiles.onMap(Tiles.ofKind("glade_mix_a"))[1]
+  check(tile ~= nil, "the glade is on the map")
+  for _, cube in ipairs(Rubber.all()) do
+    eq(cube.getName(), RUBBER.name, "called Rubber")
+    check(cube.hasTag(RUBBER.tag), "tagged rubber")
+    check(not cube.getLock(), "unlocked — these get moved")
+    near(toNearestCell(tile, cube), RUBBER.inset, "inset from its own cell")
+  end
+end)
+
+case("rubber turns with the tile", function()
+  boot(nil)
+  -- Two steps of 60 degrees. positionToWorld carries the rotation, so the
+  -- invariant is the same at any angle: every cube is one inset from a cell
+  -- centre of the tile it belongs to.
+  AZ.put("glade_mix_a", 0, 0, 2)
+  H.tick(30)
+  local tile = Tiles.onMap(Tiles.ofKind("glade_mix_a"))[1]
+  near(tile.getRotation().y, 120, "the tile really is turned")
+  eq(Rubber.count(), 9, "nine cubes at 120 degrees too")
+  for _, cube in ipairs(Rubber.all()) do
+    near(toNearestCell(tile, cube), RUBBER.inset, "inset survives the rotation")
+  end
+end)
+
+case("spawn only: moving a tile grows nothing back", function()
+  boot(nil)
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  local before = Rubber.count()
+  local tile = Tiles.onMap(Tiles.ofKind("glade_mix_a"))[1]
+
+  -- The whole point of the feature being spawn-only: the owner rearranges the
+  -- table by hand and nothing is watching.
+  tile.setPosition({ x = -8, y = 1.15, z = 6 })
+  tile.setRotation({ x = 0, y = 240, z = 0 })
+  H.tick(40)
+  eq(Rubber.count(), before, "no cubes appeared under the moved tile")
+
+  local cube = Rubber.all()[1]
+  cube.setPosition({ x = 14, y = 1.4, z = 14 })
+  H.tick(40)
+  eq(Rubber.count(), before, "moving a cube does not replace it")
+
+  destroyObject(cube)
+  H.tick(40)
+  eq(Rubber.count(), before - 1, "a cube taken off the table stays off")
+end)
+
+case("a reload does not respawn rubber the save already carries", function()
+  boot(nil)
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 9, "nine before the reload")
+
+  -- TTS saves spawned objects, so a real reload comes back with tiles *and*
+  -- cubes. Carrying only the tiles is the harsher test: if onLoad spawned
+  -- rubber for what it restored, this would come back with nine.
+  local carried = {}
+  for _, obj in ipairs(Tiles.all()) do carried[#carried + 1] = obj end
+  boot(onSave(), { carry = carried })
+  eq(Rubber.count(), 0, "the restore path spawns none of its own")
+  check(Map.count() > 0, "the tiles did come back")
+end)
+
+case("a reskin does not double the cubes", function()
+  boot(nil)
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  local before = Rubber.count()
+
+  -- reskin destroys and respawns the tile in place. Its cubes never moved, so
+  -- a second set would sit exactly on top of the first and nothing would look
+  -- wrong until you picked one up.
+  Tiles.reskin("glade_mix_a", "file:///tmp/other.png")
+  H.tick(40)
+  eq(Rubber.count(), before, "still nine after a reskin")
+end)
+
+case("clearing and rerolling the map take its rubber with them", function()
+  boot(nil)
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  check(Rubber.count() > 0, "there is rubber to lose")
+
+  Map.reroll(7)
+  H.tick(80)
+  eq(Rubber.count(), 0, "a reroll does not leave cubes floating over the new map")
+
+  AZ.put("glade_4", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 12, "the sealed glade brought twelve")
+  AZ.clear()
+  H.tick(40)
+  eq(Rubber.count(), 0, "clear takes them too")
+end)
+
+case("putting a tile over another takes the replaced tile's rubber", function()
+  boot(nil)
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 9, "nine on the glade")
+
+  -- Rubber.clearNear finds them by position — a cube carries no tile GUID,
+  -- because a GUID changes the moment the tile is picked up.
+  AZ.put("jungle", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 0, "the glade's cubes went with the glade")
+
+  -- And it claims only its own: a glade next door keeps all nine.
+  AZ.put("glade_mix_a", 3, 0)
+  H.tick(30)
+  eq(Rubber.count(), 9, "the neighbour is untouched")
+  AZ.put("jungle", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 9, "replacing a tile 1.7 away took none of them")
+end)
+
+case("the rubber bag is spawned once and survives a reload", function()
+  boot(nil)
+  local bags = ttslib.registry.all(RUBBER.bagTag)
+  eq(#bags, 1, "one supply bag")
+  eq(bags[1].getName(), RUBBER.name, "called Rubber")
+
+  -- Beside the creek and road bags, which sit at x = 1.6 and 3.6 on z = 10.6.
+  local at = bags[1].getPosition()
+  near(at.x, RUBBER.bag.x, "on the free side of the creek bag")
+  near(at.z, RUBBER.bag.z, "on the same row")
+
+  -- The bag is not itself rubber: clearing the map's cubes must not destroy
+  -- the supply they would be replaced from.
+  check(not bags[1].hasTag(RUBBER.tag), "the bag is not tagged rubber")
+  check(not bags[1].hasTag(RUBBER.mapTag), "nor rubber.map")
+  Rubber.clear()
+  H.tick(20)
+  eq(#ttslib.registry.all(RUBBER.bagTag), 1, "still there after a clear")
+
+  -- A reload finds it by tag rather than spawning a second one, which is what
+  -- makes it safe to call from onLoad every time.
+  local carried = { bags[1] }
+  for _, obj in ipairs(Tiles.all()) do carried[#carried + 1] = obj end
+  boot(onSave(), { carry = carried })
+  eq(#ttslib.registry.all(RUBBER.bagTag), 1, "one bag after a reload, not two")
+end)
+
+case("the tray is a palette and gets no rubber", function()
+  boot(nil)
+  -- The tray holds glades — glade_mix_a among them — and they paint the same
+  -- walls. RUBBER.tray is off because a tile dragged off the tray would leave
+  -- its cubes sitting on the empty slot.
+  local glades = 0
+  for _, name in ipairs(Tray.kinds()) do
+    if #Rubber.sides(name) > 0 then glades = glades + 1 end
+  end
+  check(glades > 0, "the tray does hold walled kinds (" .. glades .. ")")
+  eq(Rubber.count(), 0, "and none of them carries a cube")
+end)
+
+case("the toggle governs the next tile; apply covers the ones already out", function()
+  boot(nil)
+  AZ.rubber(false)
+  eq(RUBBER.enabled, false, "off")
+  AZ.put("glade_mix_a", 0, 0)
+  H.tick(30)
+  eq(Rubber.count(), 0, "a tile spawned while it is off brings nothing")
+
+  -- Switching it back on is spawn-only too, so the table does not change.
+  AZ.rubber(true)
+  eq(RUBBER.enabled, true, "on")
+  eq(Rubber.count(), 0, "the toggle alone changes nothing already on the table")
+
+  -- Which is what apply is for, and it has to be idempotent: run twice, nine.
+  AZ.rubber("apply")
+  H.tick(80)
+  eq(Rubber.count(), 9, "apply covered the glade that was already out")
+  AZ.rubber("apply")
+  H.tick(80)
+  eq(Rubber.count(), 9, "apply again does not stack a second set")
+
+  AZ.rubber("clear")
+  H.tick(40)
+  eq(Rubber.count(), 0, "clear empties it")
+  check(AZ.rubber():find("rubber on", 1, true) ~= nil,
+    "no argument reports: " .. tostring(AZ.rubber()))
+end)
+
 -- ------------------------------------------------------------------- runner
 
 out("boot_spec")

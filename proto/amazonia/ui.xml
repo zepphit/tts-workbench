@@ -35,8 +35,16 @@
       <Button id="uiReroll" onClick="uiReroll">Reroll</Button>
       <Button id="uiLock" onClick="uiLock" color="#3c3524">Lock</Button>
     </HorizontalLayout>
+    <!-- Rubber is spawn-only, so the toggle governs the *next* tile and cannot
+         change what is already on the table. That is what Apply is for, and
+         why the two sit together rather than the toggle standing alone
+         pretending to do something. The toggle's label carries its state; the
+         script rewrites it (uiRefresh). -->
     <HorizontalLayout spacing="8" preferredHeight="40">
       <Button id="uiTray" onClick="uiTray" color="#2a3a44">Tray</Button>
+      <Button id="uiRubber" onClick="uiRubber">Rubber on</Button>
+      <Button id="uiRubberApply" onClick="uiRubberApply" color="#2a3a44"
+              tooltip="Put rubber on every map tile that is out now">Apply</Button>
     </HorizontalLayout>
     <HorizontalLayout spacing="8" preferredHeight="40">
       <Button id="uiShrink" onClick="uiShrink">Smaller</Button>

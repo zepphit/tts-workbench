@@ -68,6 +68,79 @@ function Tray.spaces()
   return slots
 end
 
+-- ------------------------------------------------------------------ the line
+
+-- divider() — the mark between the map and the palette.
+--
+-- One plate carries both, which removed the seam that used to show where one
+-- ended and the other began.  This is that boundary as a line on the floor: a
+-- locked bar in the clear gap east of the map, spanning the plate's depth.
+--
+-- Rebuilt rather than moved, because it is one object and a rebuild re-derives
+-- its length from MAP.plate — so resizing the plate does not leave a bar that
+-- is the old plate's length.
+--
+-- **A BlockRectangle's mesh is 1 x 1 x 2**, which is the measurement that cost
+-- a shipped save on 2026-09-21 (the map stretched by exactly two along Z). The
+-- anchor plate is the same block, and Map.plate divides by the measured basis
+-- for precisely this reason. Nothing to measure here — the object does not
+-- exist yet — so the constant is written down and named.
+local BLOCK_MESH_Z = 2
+
+function Tray.divider()
+  local spec = TRAY.divider or {}
+  for _, obj in ipairs(REG.all(spec.tag or "tray.divider")) do
+    if not ASYNC.gone(obj) then destroyObject(obj) end
+  end
+  if not spec.enabled then return nil end
+
+  local anchor = LAYOUT.anchorObject()
+  if not anchor then return nil end
+
+  local depth = math.max(MAP.plate.z - (spec.margin or 0) * 2, 1)
+  local space = "tray.divider"
+  LAYOUT.spaces({
+    [space] = LAYOUT.localOffset({ x = spec.x, y = spec.y, z = 0 }),
+  })
+  local world = LAYOUT.world(space)
+  if not world then return nil end
+
+  return spawnObjectData({
+    data = {
+      Name = "BlockRectangle",
+      Transform = {
+        posX = world.x, posY = world.y, posZ = world.z,
+        rotX = 0, rotY = (anchor.getRotation() or {}).y or 0, rotZ = 0,
+        scaleX = spec.width, scaleY = spec.height,
+        scaleZ = depth / BLOCK_MESH_Z,
+      },
+      Nickname = "",
+      Description = "",
+      GMNotes = spec.tag,
+      ColorDiffuse = {
+        r = spec.colour[1], g = spec.colour[2], b = spec.colour[3],
+      },
+      Tags = { spec.tag },
+      -- Locked, and out of both snapping systems: this is furniture. Unlocked
+      -- it would be shoved aside by the first tile dropped against it, and a
+      -- 60-unit bar is not something you want to have to put back.
+      Locked = true,
+      Grid = false,
+      Snap = false,
+      Sticky = false,
+      Autoraise = false,
+      DragSelectable = false,
+      Tooltip = false,
+      GridProjection = false,
+      HideWhenFaceDown = false,
+      Hands = false,
+      LuaScript = "",
+      LuaScriptState = "",
+      XmlUI = "",
+    },
+  })
+end
+
 -- sync() — make the table hold one of every tray kind, without disturbing the
 -- ones already out.
 --
@@ -110,6 +183,10 @@ function Tray.sync()
     end
   end
 
+  -- Rebuilt on every sync, which is every boot: it is one locked object and
+  -- re-deriving it is what keeps its length honest after a plate resize.
+  Tray.divider()
+
   local slots = Tray.spaces()
   local anchor = LAYOUT.anchorObject()
   local facing = (anchor and (anchor.getRotation() or {}).y or 0)
@@ -137,6 +214,7 @@ end
 function Tray.build()
   Tray.clear()
   ASYNC.cancel("tray.cleared")
+  Tray.divider()
 
   local slots = Tray.spaces()
   local anchor = LAYOUT.anchorObject()
@@ -171,6 +249,10 @@ function Tray.clear()
     if not ASYNC.gone(obj) then destroyObject(obj) end
   end
   for _, obj in ipairs(REG.all(TRAY.plateTag)) do
+    if not ASYNC.gone(obj) then destroyObject(obj) end
+  end
+  -- The line marks where the palette is; with no palette it marks nothing.
+  for _, obj in ipairs(REG.all((TRAY.divider or {}).tag or "tray.divider")) do
     if not ASYNC.gone(obj) then destroyObject(obj) end
   end
   REG.invalidate()
