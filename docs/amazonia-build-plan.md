@@ -995,3 +995,104 @@ against settled-cube jitter.
 Verified in the running game, both directions: a `glade_mix_a` at x = 24.25 in
 the palette (0 cubes) dragged to x = -4 came up with nine; dragged back to its
 slot, none. 66 cases in `boot_spec`.
+
+## 14. Fourth pass — 2026-09-22, the lattice was a tiling
+
+*"I am having a grid over-restriction issue. It does not allow for overlaps
+between proposed positions. […] It does not let me go northwest of southwest
+one, northwest of north one (the piece is laid out as such, I just want to make
+it fit and i can't)."*
+
+A river triplet was on the table and a `rivermouth_f` would not go into the
+notch on its west side. The rig answered it in two round trips, which is what
+the bridge is for:
+
+```
+AZ.capture()  ->  { "river", -1, -5, 1 }
+```
+
+That footprint is `(-1,-5)` `(-1,-4)` `(0,-5)` — his southwest, north and
+southeast cells. The tile he wanted covers the cell NW of each of the first two,
+plus the one that closes the triangle: `(-2,-4)` `(-2,-3)` `(-3,-3)`, which is
+pivot `(-2,-4)` at rot 0. All three cells were free. Asking the live game
+whether that placement was on offer:
+
+```
+wanted slot present: false
+slots covering those 3 cells:  -2,-5/rot0   -3,-3/rot1
+```
+
+Those two slots are exactly the alternatives TTS was giving him — "left of the
+southwest one" and "northwest of the north one, rotated".
+
+### The diagnosis: a tessellation is not a placement space
+
+`Map.lattice` was `hex.pack`'s output, and **a packing covers every cell exactly
+once**. So the 242 snap points were 242 *mutually non-overlapping* tiles: every
+placement that straddled two of them existed nowhere on the table. Worse, the
+packer is greedy from one corner and emits only two of the six rotations — over
+a rings-8 field, 43 at rot 0 and 30 at rot 1, and none at all at 2, 3, 4 or 5.
+Four orientations were unreachable everywhere.
+
+The widening on 2026-09-21 (§12, *Only tiles snap*) fixed the count and not the
+kind: a bigger tiling is still a tiling.
+
+Each point also carried `facing = rot * 60` with `rotationSnap`, which is the
+"or it rotates it" half — a snap point that carries a rotation *forces* it.
+
+### The fix: one point per cell, and the angle rounded rather than replaced
+
+The field is now every **cell** a tri-hex may pivot on, with no rotation on the
+point: 709 pivots on the 60 × 40.8 plate, and 4,254 placements where there were
+242.
+
+It is exact without a legality check, because of the geometry. A tri-hex's
+origin is its pivot cell's centre — `tilegen.py` builds the mesh about
+`cells[1]` and never recentres — and rotating about that pivot by any multiple
+of 60° maps the hex lattice onto itself. **A pivot on a cell centre plus a sixth
+of a turn always interlocks**, whichever sixth. So position can come from the
+lattice and the angle can stay the player's.
+
+`Map.align` supplies the angle half: on drop, round to the nearest sixth of a
+turn, measured against the anchor's own Y, map side only — the palette is laid
+out on `TRAY`'s grid, not on hexes, and it uses the same divider test rubber
+does. `AZ.align()` sweeps what is already down. Each tile also gets **Rotate
+left / right 60°** on its right-click menu, which is the one rotation control
+guaranteed to step in sixths whatever TTS's rotate keys are set to.
+
+A cell is in the field only when it **and all six of its neighbours** are on the
+plate: a tri-hex pivoting there covers the pivot plus two neighbours and which
+two is no longer knowable. That costs the outermost ring of *pivots*, not of
+cells.
+
+`Map.slots()` still packs, and should: a *generated* map does want a tiling.
+The two are unrelated now, and `hex.pack`'s `opts.order` — added so the snap
+field could extend the map's own packing — has no caller left in the rig.
+
+### Found on the way: two debounced subscriptions starve each other
+
+`ttslib.events` keys a debounce on `(event, tag, object)` and nothing else
+(`04-events.lua:142`). Registering the align tap as a second debounced
+subscription to `("drop", "tile")` made it consume the shared window, and
+`Rubber.land` never ran once — 65 of 66 `boot_spec` cases went red on cubes that
+stopped appearing. The align tap is undebounced instead, which it can afford:
+aligning an already-square tile is a no-op by construction. **This is a ttslib
+sharp edge, not an Amazonia one**, and it is worth a line in the review's work
+order: a second debounced handler on the same event and tag is silently dead.
+
+### Verified
+
+Lint clean, `tilegen --check` byte-identical, and 175 cases across the five
+suites with no failures — 70 in `boot_spec`, four of them new: the field is a
+placement space and not a tiling, every placement it offers lands wholly on the
+plate, a dropped tile is rounded to a sixth of a turn, and the palette is left
+alone. The snap point assertions were inverted: they now pin that a point
+carries *no* rotation.
+
+**Not proven outside TTS**, and the reason to load it before trusting it:
+
+- that a snap point with no rotation leaves the angle alone rather than zeroing
+  it — the stub cannot model TTS's placement, only what we hand it;
+- what TTS's own rotate keys step by on a `Custom_Model`. If it is 90°, rounding
+  to the nearest 60° reaches only four of the six orientations from the keyboard
+  and the context menu is the way round it. That is why the menu is there.

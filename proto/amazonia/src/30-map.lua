@@ -1,11 +1,14 @@
 -- src/30-map.lua — lay the tiles out, clear them, capture them.
 --
--- The lattice and the draw are separate on purpose:
+-- Three things that are deliberately not one thing:
 --
---   the lattice  hex.pack over a disc, deterministic. Rerolling does not move
---                it, so the table keeps its shape and only the terrain changes.
+--   the slots    hex.pack over a disc, deterministic: the tiling the *random
+--                map* is laid out on. Rerolling does not move it, so the table
+--                keeps its shape and only the terrain changes.
 --   the draw     hex.rng(seed) over the weighted pool. This is the re-rollable
 --                half, and it is one number.
+--   the lattice  every cell a tri-hex may pivot on: the snap field for placing
+--                by hand. Not a tiling — see Map.lattice for why that matters.
 --
 -- Positions go through ttslib.layout, not arithmetic: every slot is registered
 -- as a named space in the anchor's local coordinates, so dragging or rescaling
@@ -22,14 +25,18 @@ Map = {}
 
 local slots = nil -- { { q, r, rot, space } }, rebuilt when rings change
 local slotRings = nil
-local lattice = nil -- { { q, r, rot } } — the bigger snap field, see Map.lattice
+local lattice = nil -- { { q, r } } — the snap field's cells, see Map.lattice
 local latticeKey = nil
 
 -- ------------------------------------------------------------------- lattice
 
--- slots() — the packed lattice, as named layout spaces.  Cached until the ring
--- count changes, because packing rings=6 is a few hundred table lookups and
--- this is called on every build.
+-- slots() — the tiling the random map is laid out on, as named layout spaces.
+-- Cached until the ring count changes, because packing rings=6 is a few hundred
+-- table lookups and this is called on every build.
+--
+-- This one *is* a tessellation, and should be: a generated map lays
+-- non-overlapping tiles over a disc.  It is not the snap field — see
+-- Map.lattice, where confusing the two cost the owner an afternoon.
 function Map.slots()
   if slots and slotRings == MAP.rings then return slots end
 
@@ -97,24 +104,32 @@ local function latticeRings()
     math.min(MAP.snapMaxRings, math.ceil(math.max(byX, byZ)) + 1))
 end
 
--- lattice() — every position on the plate a tri-hex can be dropped into.
+-- lattice() — every cell on the plate a tri-hex may pivot on.  The snap field.
 --
--- This is the *snap* field, and it is deliberately much larger than
--- Map.slots(), which is only the disc the random map is drawn over.  They were
--- the same set until 2026-09-21, and that is the whole of the bug the owner
--- reported: with one snap point per map slot and every slot already filled, the
--- only snappable positions on the table were underneath tiles, so a tile
--- dragged off the tray had nowhere to land and looked like it was ignoring the
--- lattice.  A drop probe measured it — a tile let go 0.00 from a point snapped,
--- one let go 4.77 away did not.
+-- **A position lattice, not a tiling**, and the difference is the whole of the
+-- bug the owner reported on 2026-09-22.  This used to be hex.pack's output — one
+-- greedy tessellation of the plate — and a tessellation covers every cell
+-- exactly once.  That made the 242 snap points 242 *mutually non-overlapping*
+-- tiles: any placement straddling two of them existed nowhere on the table, and
+-- the packer only ever emits two of the six rotations, so four orientations were
+-- unreachable everywhere.  He hit it nestling a river mouth into the notch on a
+-- river triplet's west side: the three cells he wanted were split between slots
+-- (-2,-5)/rot0 and (-3,-3)/rot1, so TTS offered him those two and turned his
+-- tile to suit.  "It does not allow for overlaps between proposed positions" —
+-- which is precisely what a tiling is.
 --
--- **The map's own slots must come out as an exact prefix of this**, or every
--- tile already on the table stops interlocking.  hex.pack is greedy, so the
--- walk order *is* the tiling: hex.disc sorts by r then q, which puts disc(18)'s
--- first cell in a different corner from disc(3)'s and yields a tiling offset
--- from it.  Walking the map's own disc first, in its own order, and only then
--- the rest of the big one, makes the small packing a prefix by construction.
--- test/hex_spec.lua asserts it.
+-- One point per *cell* instead, carrying no rotation, and the space opens from
+-- 242 placements to every one there is: a tri-hex has two distinct footprints
+-- per cell and three orientations each.  It stays exact, because a tri-hex's
+-- origin is its pivot cell's centre — tilegen builds the mesh about cells[1],
+-- with no recentring — and rotating about that pivot by any multiple of 60
+-- degrees maps the hex lattice onto itself.  **A pivot on a cell centre plus a
+-- sixth of a turn always interlocks**, whichever sixth.  Map.align supplies the
+-- rotation half on drop.
+--
+-- Map.slots() still packs, because the map *generator* does want a tiling: it
+-- lays non-overlapping tiles over a disc.  The two are unrelated now, and the
+-- prefix dance that kept them agreeing went with the tiling.
 function Map.lattice()
   local rings = latticeRings()
   local key = MAP.shape .. "|" .. MAP.rings .. "|" .. rings
@@ -125,58 +140,63 @@ function Map.lattice()
   local basis = LAYOUT.basis()
   if not basis then return {} end
 
-  local order, seen = {}, {}
-  for _, cell in ipairs(hex.disc(MAP.rings)) do
-    order[#order + 1] = cell
-    seen[hex.key(cell[1], cell[2])] = true
-  end
-  for _, cell in ipairs(hex.disc(rings)) do
-    if not seen[hex.key(cell[1], cell[2])] then order[#order + 1] = cell end
-  end
-
-  local placements = hex.pack(shape.cells, rings,
-    { overflow = MAP.overflow, order = order })
-
-  -- Keep the placements that sit wholly on the plate.  A pointy-top hex is
-  -- sqrt(3)R across the flats and 2R corner to corner, so a cell centre needs
-  -- 0.866R of x and 1R of z to spare.  Snap points past the rim would pull a
-  -- tile off the edge of the world — the table is Table_None and this plate is
-  -- the floor.
+  -- A cell is a pivot only when **all six placements it allows** land wholly on
+  -- the plate.  Which cells a tile covers is no longer knowable in advance —
+  -- rotation is the player's now — so the guarantee has to hold for every
+  -- rotation, and it is checked against the shape's own cells rather than
+  -- assumed to be "the pivot and two neighbours", which is true of a tri-hex and
+  -- not of hex3_row.  It costs the outermost ring of *pivots*, not the outermost
+  -- ring of cells: a tile may still reach the rim, it just may not hang over it.
+  -- The table is Table_None and this plate is the floor, so a snap point that
+  -- allowed that would drop a tile out of the world.
+  --
+  -- The per-cell test is the old footprint filter's: a pointy-top hex is
+  -- sqrt(3)R across the flats and 2R corner to corner, so a centre needs 0.866R
+  -- of x and 1R of z to spare.
   local halfX, halfZ = basis.x / 2, basis.z / 2
   local apothem, radius = ART.radius * 0.8661, ART.radius
+  local function onPlate(q, r)
+    local x, z = hex.toWorld(q, r, ART.radius)
+    return math.abs(x) + apothem <= halfX and math.abs(z) + radius <= halfZ
+  end
 
   lattice = {}
-  for _, placement in ipairs(placements) do
-    local fits = true
-    for _, cell in ipairs(hex.footprint(shape.cells,
-      placement[1], placement[2], placement[3])) do
-      local x, z = hex.toWorld(cell[1], cell[2], ART.radius)
-      if math.abs(x) + apothem > halfX or math.abs(z) + radius > halfZ then
-        fits = false
-        break
+  for _, cell in ipairs(hex.disc(rings)) do
+    local q, r = cell[1], cell[2]
+    if onPlate(q, r) then
+      local room = true
+      for rot = 0, 5 do
+        for _, c in ipairs(hex.footprint(shape.cells, q, r, rot)) do
+          if not onPlate(c[1], c[2]) then
+            room = false
+            break
+          end
+        end
+        if not room then break end
       end
-    end
-    if fits then
-      lattice[#lattice + 1] =
-        { q = placement[1], r = placement[2], rot = placement[3] }
+      if room then lattice[#lattice + 1] = { q = q, r = r } end
     end
   end
   latticeKey = key
 
-  LOG.info("snap field: " .. #lattice .. " positions over " .. rings ..
+  LOG.info("snap field: " .. #lattice .. " cells over " .. rings ..
     " rings, on a " .. string.format("%.1f x %.1f", basis.x, basis.z) .. " plate")
   return lattice
 end
 
--- snaps() — one tagged snap point per lattice position, so a tile dropped by
--- hand lands interlocked anywhere on the plate.  This is Clash of Cultures'
--- pattern (build plan section 2.5) and it is data, not code: it works with the
--- script switched off.
+-- snaps() — one tagged snap point per lattice cell, so a tile dropped by hand
+-- lands with its pivot on a cell centre anywhere on the plate.  This is Clash of
+-- Cultures' pattern (build plan section 2.5) and it is data, not code: it works
+-- with the script switched off.
 --
--- **This is the snapping we want** (MAP.snap): a tri-hex dropped near a
--- position lands interlocked with its neighbours, at that position's own
--- rotation.  What was catching cubes was the other system, TTS's grid — see
--- Map.grid below.
+-- **No `facing`, and no `rotationSnap`** — deliberately, and this is the second
+-- half of the 2026-09-22 fix.  A point that carries a rotation *forces* it, so
+-- the owner's tile was being turned to the slot's angle as it landed however he
+-- held it.  Position comes from the lattice, the angle stays the player's, and
+-- Map.align rounds that angle to the nearest sixth of a turn once it is down —
+-- which is all interlocking ever needed.
+--
+-- What was catching cubes was the other system, TTS's grid — see Map.grid below.
 --
 -- The points go in as raw local offsets rather than named layout spaces: there
 -- are a couple of hundred of them, they are never addressed by name, and
@@ -195,8 +215,6 @@ function Map.snaps()
     local x, z = hex.toWorld(at.q, at.r, ART.radius)
     list[#list + 1] = {
       at = LAYOUT.localOffset({ x = x, y = MAP.tileY, z = z }),
-      facing = at.rot * 60,
-      rotationSnap = true,
       tags = { "tile" },
     }
   end
@@ -246,6 +264,127 @@ function Map.snap(on)
   LOG.info("snap lattice " .. (MAP.snap and ("on — " .. n .. " points")
     or "off — cleared"))
   return n
+end
+
+-- ------------------------------------------------------------- the angle half
+--
+-- A snap point no longer carries a rotation (Map.snaps), which is what lets a
+-- tile land in any of the six orientations instead of the one the old tiling
+-- had chosen for that slot.  The cost is that nothing in TTS constrains the
+-- angle any more, and a tri-hex a few degrees out does not interlock: its two
+-- other cells come off the hex centres, and Rubber.spawn puts cubes on hexsides
+-- that have drifted with them.  These close that gap — round to the nearest
+-- sixth of a turn, on drop and on demand.
+--
+-- All of it is measured against the **anchor's** own Y, the way Map.put's
+-- facing is, so a plate turned on the table still carries a lattice rather than
+-- a grid at an angle to one.
+
+local function baseFacing()
+  local anchor = LAYOUT.anchorObject()
+  if not anchor then return nil end
+  return (anchor.getRotation() or {}).y or 0
+end
+
+-- steps(obj) — a tile's rotation as sixths of a turn from the anchor's, 0..5.
+function Map.steps(obj)
+  if not obj or ASYNC.gone(obj) then return nil end
+  local base = baseFacing()
+  if not base then return nil end
+  local y = (obj.getRotation() or {}).y or 0
+  return math.floor(((y - base) / 60) + 0.5) % 6
+end
+
+-- face(obj, steps) — put a tile at exactly that many sixths of a turn, level.
+function Map.face(obj, steps)
+  if not obj or ASYNC.gone(obj) then return nil end
+  local base = baseFacing()
+  if not base then return nil end
+  steps = (tonumber(steps) or 0) % 6
+  -- Named components, not a triple: TTS takes either, but everything that reads
+  -- a rotation back here reads `.y`, and a locked tile is level besides — this
+  -- is also what puts a tile that landed tilted back flat.
+  obj.setRotation({ x = 0, y = (base + steps * 60) % 360, z = 0 })
+  return steps
+end
+
+-- align(obj) — round a dropped tile's angle to the lattice's 60 degrees.
+-- Returns the steps it settled on, and whether it had to turn the tile.
+--
+-- Map side only.  The palette is laid out on TRAY's grid rather than on hexes,
+-- and a tray tile straightened to a sixth of a turn would be pulled out of the
+-- arrangement the owner curates by hand.  Rubber.onMapSide is already the
+-- divider test, and sharing it keeps the line the player sees and the line the
+-- script tests the same number here too.
+--
+-- Silent when the tile is already square: setRotation fires a rotate event,
+-- which redraws that tile's hub stripes (Tiles.repin), and a no-op should not
+-- cost a redraw.
+function Map.align(obj)
+  if not MAP.snap then return nil end -- lattice off: placement is freehand
+  if not obj or ASYNC.gone(obj) then return nil end
+  if not Rubber.onMapSide(obj) then return nil end
+
+  local steps = Map.steps(obj)
+  if not steps then return nil end
+  local y = (obj.getRotation() or {}).y or 0
+  local drift = (y - ((baseFacing() or 0) + steps * 60)) % 360
+  if drift > 180 then drift = drift - 360 end
+  if math.abs(drift) < 0.05 then return steps, false end
+  Map.face(obj, steps)
+  return steps, true
+end
+
+-- alignAll() — re-square every tile on the map side.  The counterpart of
+-- AZ.rubber("apply"): for the tile that landed beyond TTS's snap range, or that
+-- was turned by hand and left a few degrees out.
+function Map.alignAll()
+  local seen, turned = 0, 0
+  for _, obj in ipairs(Tiles.all()) do
+    local steps, moved = Map.align(obj)
+    if steps then
+      seen = seen + 1
+      if moved then turned = turned + 1 end
+    end
+  end
+  LOG.info("aligned " .. turned .. " of " .. seen .. " tiles on the map side")
+  return turned
+end
+
+-- turn(obj, n) — spin a tile by n sixths of a turn, from its right-click menu.
+--
+-- The one rotation control that is guaranteed to step in sixths: TTS's own
+-- rotate keys step by whatever the client is set to, and the snap point no
+-- longer supplies an angle to round them to.  Six taps come back to the start.
+-- Unlike align it is allowed in the palette, so a tile can be turned before it
+-- is dragged across.
+function Map.turn(obj, n)
+  local steps = Map.steps(obj)
+  if not steps then return nil end
+  return Map.face(obj, steps + (tonumber(n) or 1))
+end
+
+-- attach() — the drop tap that keeps a hand-placed tile on the lattice.
+--
+-- **Registered before Rubber.attach in onLoad, and that order is load-bearing**:
+-- rubber derives a tile's deep forest hexsides from its rotation, so the
+-- rotation has to be final before the cubes go on.  Align is synchronous at the
+-- drop and rubber waits for the tile to settle, which makes it safe either way;
+-- the registration order is the belt to that's braces.
+--
+-- **Not debounced, and that is not an oversight.**  ttslib keys a debounce on
+-- (event, tag, object) and nothing else, so two debounced subscriptions to the
+-- same event and tag share one suppression window and starve each other: this
+-- handler, registered first, consumed the key and Rubber.land never ran once.
+-- Align is idempotent instead — the second call for one physical drop finds the
+-- tile already square and returns without turning it — which is cheaper than a
+-- debounce anyway.  Do not add one here without giving rubber its own key.
+function Map.attach()
+  local EVENTS = ttslib.events
+  EVENTS.on("drop", "tile", function(_, obj)
+    Map.align(obj)
+  end)
+  return true
 end
 
 -- ------------------------------------------------------------ the other grid

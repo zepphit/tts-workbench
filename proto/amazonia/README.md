@@ -56,7 +56,8 @@ for `return AZ.<verb>("a", "b")`.
 | `AZ.plate(w, d)` | resize the one plate the map and the tray share, in world units |
 | `AZ.snaprings(n)` | how far the snap field reaches; **0 = cover the plate**, the default |
 | `AZ.put(kind, q, r[, rot])` | one named tile on one cell, replacing what covered it |
-| `AZ.snap(on)` | the hex snap lattice, which interlocks tiles. **On** |
+| `AZ.snap(on)` | the hex snap lattice, which interlocks tiles. **On** — one point per cell, no rotation on it |
+| `AZ.align()` | re-square every map tile to the lattice's 60 degrees. A drop is rounded as it lands; this is for what is already down |
 | `AZ.gridsnap(on)` | TTS's own grid snapping. **Off** — see below |
 | `AZ.labels(on)` | the resource stripes. **Off** — the tiles read plain |
 | `AZ.tint(kind, hex)` | **L1.** Instant, no respawn. Flat kinds only |
@@ -216,22 +217,57 @@ Two independent systems, set opposite ways round:
 
 | | | |
 | --- | --- | --- |
-| **the lattice** | `MAP.snap`, `AZ.snap(on)` | **on** — a tagged snap point at every tri-hex position on the plate, with a rotation, so a tile dropped by hand lands interlocked |
+| **the lattice** | `MAP.snap`, `AZ.snap(on)` | **on** — a tagged snap point on every hex cell of the plate, carrying no rotation, so a tile dropped by hand lands with its pivot on a cell centre |
 | **TTS's grid** | `MAP.gridSnap`, `AZ.gridsnap(on)` | **off** — Options > Grid, global, no tags: this is what was pulling cubes to hex centres |
 
-**The snap field is not the map.** `MAP.rings` is the disc the random map is
-drawn over — 14 slots at rings 3. The snap field is a separate, much larger
-packing (242 positions on the 60 x 40.8 plate) derived from the plate's measured
-size, and `Map.slots()` is an exact prefix of it. They were the same set until
-2026-09-21, which meant the only snappable positions on the table were the ones
-the map already filled: every tile dragged off the tray landed on top of another
-tile and looked like it was ignoring the lattice. A drop probe settled it — a
-tile let go 0.00 from a point snapped, one let go 4.77 away did not.
+**The snap field is a placement space, not a tiling**, and that distinction is
+the whole of the 2026-09-22 fix. It used to be `hex.pack`'s output — one greedy
+tessellation of the plate, 242 slots — and a tessellation covers every cell
+exactly once, so those 242 were 242 *mutually non-overlapping* tiles. Any
+placement straddling two of them existed nowhere on the table, and the packer
+only ever emits two of the six rotations, so four orientations were unreachable
+everywhere. The owner hit it nestling a river mouth into the notch on a river
+triplet's west side: the three cells he wanted were split between slots
+`(-2,-5)/rot0` and `(-3,-3)/rot1`, so TTS offered him those two and turned his
+tile to suit. *"It does not allow for overlaps between proposed positions"* —
+which is precisely what a tiling is.
 
-The prefix matters. `hex.pack` is greedy, so the walk order *is* the tiling, and
-`hex.disc` sorts by r then q — `disc(18)` starts in a different corner from
-`disc(3)` and packs a tiling offset from it. `Map.lattice()` walks the map's own
-disc first, in its own order, then the rest; `hex_spec.lua` asserts both halves.
+One point per **cell** instead, with no rotation on any of them: 709 pivots on
+the 60 x 40.8 plate, and every placement a tri-hex has — 4,254 of them, two
+distinct footprints per cell at three orientations each.
+
+It stays exact because of the geometry, not because of a check. A tri-hex's
+origin is its pivot cell's centre — `tilegen.py` builds the mesh about
+`cells[1]`, with no recentring — and rotating about that pivot by any multiple
+of 60 degrees maps the hex lattice onto itself. **A pivot on a cell centre plus
+a sixth of a turn always interlocks**, whichever sixth. So the position can come
+from the lattice and the angle can stay the player's:
+
+| | |
+| --- | --- |
+| the snap point | puts the pivot on a cell centre. No `facing` and no `rotationSnap` — a point that carries a rotation *forces* it, which is what was turning his tile as it landed |
+| `Map.align` | rounds the angle to the nearest sixth of a turn as the tile lands, map side only. `AZ.align()` sweeps whatever is already down |
+| the tile's menu | **Rotate left / right 60°**, on right-click. The one control guaranteed to step in sixths whatever TTS's own rotate keys are set to |
+
+A cell is in the field only when it **and all six of its neighbours** sit on the
+plate: a tri-hex pivoting there covers the pivot plus two neighbours, and which
+two is the player's business now. That costs the outermost ring of *pivots*, not
+of cells — a tile may still reach the rim, it just may not hang over it. The
+table is `Table_None` and this plate is the floor.
+
+**The snap field is still not the map.** `MAP.rings` is the disc the random map
+is drawn over — 14 slots at rings 3 — and `Map.slots()` still packs, because a
+*generated* map does want a tiling: it lays non-overlapping tiles over a disc.
+The two are unrelated now. The prefix dance that used to keep them agreeing went
+with the tiling, and `hex.pack`'s `opts.order` has no caller left in the rig
+(`hex_spec.lua` still pins the property).
+
+They were the same set until 2026-09-21, which meant the only snappable
+positions on the table were the ones the map already filled: every tile dragged
+off the tray landed on top of another tile and looked like it was ignoring the
+lattice. A drop probe settled it — a tile let go 0.00 from a point snapped, one
+let go 4.77 away did not. Widening the field was only half the answer, because
+it was still one tiling.
 
 The grid is forced off at boot rather than trusted from the save file, because
 the two disagreed: `TS_Save_127.json` says `"Snapping": false` and the running
@@ -278,7 +314,8 @@ src/00-config.lua   ROLES, MAP, TILES, TRAY, HUB — data only
 src/10-hex.lua      axial math. Pure: no TTS global, luajit-testable
 src/20-tiles.lua    spawn / tint / reskin / hub buttons
 src/25-rubber.lua   a cube on every deep forest hexside, and the supply bag
-src/30-map.lua      build / clear / reroll / put / capture, seeded
+src/30-map.lua      build / clear / reroll / put / capture, seeded; the snap
+                    field, and the 60-degree rounding that goes with it
 src/35-tray.lua     the palette: one of every frontier tile, beside the plate,
                     and the divider that marks where the map stops
 src/40-journal.lua  event taps -> sendExternalMessage

@@ -274,12 +274,16 @@ case("pack handles a one-cell shape exactly", function()
   eq(#holes, 0, "no holes")
 end)
 
--- The property the snap field rests on.  hex.disc sorts by r then q, so a
--- bigger disc starts in a different corner and — the pack being greedy — comes
--- out as a tiling offset from the small one.  Walking the small disc's cells
--- first makes the small packing an exact prefix of the big one, which is what
--- lets 30-map.lua extend the snap lattice over a map already on the table
--- without moving a tile of it.
+-- The packer's prefix property.  hex.disc sorts by r then q, so a bigger disc
+-- starts in a different corner and — the pack being greedy — comes out as a
+-- tiling offset from the small one.  Walking the small disc's cells first makes
+-- the small packing an exact prefix of the big one, so a bigger pack extends a
+-- smaller one instead of replacing it.
+--
+-- The snap field used to be what needed this.  It is per cell since 2026-09-22
+-- and does not pack at all (30-map.lua, Map.lattice), so nothing in the rig
+-- passes opts.order today.  Kept pinned because it is a real property of the
+-- packer and the next shape laid over a growing disc will want it.
 case("a plain bigger pack does NOT contain the smaller one", function()
   local small = hex.pack(TRIHEX, 3)
   local big = hex.pack(TRIHEX, 8)

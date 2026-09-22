@@ -308,10 +308,15 @@ case("only tiles snap: the lattice is on and TTS's grid is off", function()
   eq(Grid.snapping, 1, "and the rig set it off rather than trusting the save")
 
   local points = plate.getSnapPoints()
-  eq(#points, #Map.lattice(), "one snap point per lattice position")
+  eq(#points, #Map.lattice(), "one snap point per lattice cell")
   for _, point in ipairs(points) do
     eq(point.tags[1], "tile", "snap point is tagged for tiles")
-    check(point.rotation ~= nil, "snap point carries a rotation, so tiles land interlocked")
+    -- **And no rotation on it.** A snap point that carries one *forces* it,
+    -- which is what was turning the owner's tile as it landed however he held
+    -- it (2026-09-22). Map.align rounds the angle he chose instead of replacing
+    -- it, which is all interlocking ever needed.
+    eq(point.rotation, nil, "snap point carries no rotation")
+    eq(point.rotation_snap, false, "and so cannot force one")
   end
 
   -- The field is much larger than the map, and that is the point: with one
@@ -322,15 +327,16 @@ case("only tiles snap: the lattice is on and TTS's grid is off", function()
     "the snap field reaches well past the map (" .. #points .. " vs " ..
     #Map.slots() .. " slots)")
 
-  -- and every map slot is still one of them, or the tiles already down stop
-  -- interlocking with anything dropped beside them.
+  -- and every cell the map covers can be pivoted on, or the tiles already down
+  -- stop interlocking with anything dropped beside them.
   local field = {}
-  for _, at in ipairs(Map.lattice()) do
-    field[at.q .. "," .. at.r .. "," .. at.rot] = true
-  end
+  for _, at in ipairs(Map.lattice()) do field[hex.key(at.q, at.r)] = true end
   for _, slot in ipairs(Map.slots()) do
-    check(field[slot.q .. "," .. slot.r .. "," .. slot.rot],
-      "map slot " .. slot.q .. "," .. slot.r .. " is in the snap field")
+    for _, cell in ipairs(hex.footprint(ART.shapes[MAP.shape].cells,
+      slot.q, slot.r, slot.rot)) do
+      check(field[hex.key(cell[1], cell[2])],
+        "map cell " .. hex.key(cell[1], cell[2]) .. " is in the snap field")
+    end
   end
 
   for _, obj in ipairs(Tiles.onMap()) do
@@ -343,21 +349,28 @@ case("only tiles snap: the lattice is on and TTS's grid is off", function()
   eq(#plate.getSnapPoints(), #Map.lattice(), "and on writes it again")
 end)
 
-case("the snap field covers the plate and stops at its rim", function()
+case("the snap field covers the plate and stops short of its rim", function()
   local plate = boot(nil)
   local basis = ttslib.layout.basis()
   local halfX, halfZ = basis.x / 2, basis.z / 2
+  local cells = ART.shapes[MAP.shape].cells
 
-  -- Nothing hangs off: the table is Table_None and this plate is the floor, so
-  -- a snap point past the rim would pull a tile out of the world.
+  -- Nothing may hang off: the table is Table_None and this plate is the floor,
+  -- so a tile pulled past the rim falls out of the world. The angle is the
+  -- player's now, so that has to hold for **all six** placements a pivot
+  -- allows — which is why a lattice cell needs all six of its neighbours on the
+  -- plate, and why the field stops one ring of pivots short of the rim rather
+  -- than one ring of cells.
+  local off = 0
   for _, at in ipairs(Map.lattice()) do
-    for _, cell in ipairs(hex.footprint(ART.shapes[MAP.shape].cells,
-      at.q, at.r, at.rot)) do
-      local x, z = hex.toWorld(cell[1], cell[2], ART.radius)
-      check(math.abs(x) <= halfX and math.abs(z) <= halfZ,
-        string.format("cell %.2f,%.2f is on the plate", x, z))
+    for rot = 0, 5 do
+      for _, cell in ipairs(hex.footprint(cells, at.q, at.r, rot)) do
+        local x, z = hex.toWorld(cell[1], cell[2], ART.radius)
+        if math.abs(x) > halfX or math.abs(z) > halfZ then off = off + 1 end
+      end
     end
   end
+  eq(off, 0, "every placement the field offers lands wholly on the plate")
 
   -- and it reaches: a lattice that only covered the middle would pass the test
   -- above trivially.
@@ -370,6 +383,127 @@ case("the snap field covers the plate and stops at its rim", function()
     string.format("the field reaches %.1f of the plate's %.1f half-width",
       far, halfX))
   eq(#plate.getSnapPoints(), #Map.lattice(), "all of it is written to the plate")
+end)
+
+case("the snap field is a placement space, not a tiling", function()
+  -- 2026-09-22, and the whole of the change. It used to be hex.pack's output —
+  -- one tessellation — so every cell belonged to exactly one proposed tile and
+  -- **no two reachable placements could overlap**. The owner hit it nestling a
+  -- river mouth into the notch on a river triplet's west side: the three cells
+  -- he wanted were split between two packed slots, so TTS offered him those two
+  -- and turned his tile to suit.
+  boot(nil)
+  local cells = ART.shapes["trihex"].cells
+  local field = {}
+  for _, at in ipairs(Map.lattice()) do field[hex.key(at.q, at.r)] = true end
+
+  -- Two placements that overlap, both on offer. A tiling can never do this.
+  local pivot = hex.key(0, 0)
+  check(field[pivot], "the origin is a lattice cell")
+  local a = hex.footprint(cells, 0, 0, 0)
+  local b = hex.footprint(cells, 0, 0, 1)
+  local shared = 0
+  for _, ca in ipairs(a) do
+    for _, cb in ipairs(b) do
+      if ca[1] == cb[1] and ca[2] == cb[2] then shared = shared + 1 end
+    end
+  end
+  check(shared > 0 and shared < #cells,
+    "one pivot, two rotations: the footprints overlap without being the same tile")
+
+  -- His case, in relative terms. A triplet at rot 1 has a pivot and a north
+  -- cell; the tile that fills the notch on its west side covers the cell NW of
+  -- each of them, plus the one that closes the triangle. It is the *other*
+  -- orientation, which the packer never emits — of the six rotations, hex.pack
+  -- only ever produces two.
+  local triplet = hex.footprint(cells, 0, 0, 1)
+  local nw = hex.DIRECTIONS[5]
+  local notch = hex.footprint(cells, nw[1], nw[2], 0)
+  for _, c in ipairs(notch) do
+    local clash = false
+    for _, t in ipairs(triplet) do
+      if c[1] == t[1] and c[2] == t[2] then clash = true end
+    end
+    check(not clash, "the notch tile covers no cell of the triplet")
+    check(field[hex.key(c[1], c[2])], "and every cell of it is on the lattice")
+  end
+  check(field[hex.key(notch[1][1], notch[1][2])],
+    "its pivot is a snap point, which is what makes it placeable at all")
+
+  -- The old field could not have offered it: pack covers each cell once, so it
+  -- has one placement per three cells where this has six per cell.
+  local packed = hex.pack(cells, MAP.rings, { overflow = MAP.overflow })
+  check(#Map.lattice() > #packed * 3,
+    "the placement space is far larger than any tiling of it (" ..
+    #Map.lattice() .. " pivots vs " .. #packed .. " packed slots)")
+end)
+
+case("a dropped tile is rounded to the lattice's sixth of a turn", function()
+  -- The other half of taking the rotation off the snap points: TTS no longer
+  -- corrects the angle, so the script does, and it rounds rather than replaces.
+  boot(nil)
+  local tile = Tiles.onMap()[1]
+  tile.setRotation({ x = 0, y = 97, z = 0 })
+  onObjectDrop("White", tile)
+  H.tick(5)
+  eq(tile.getRotation().y % 60, 0, "it came to rest on a sixth of a turn")
+  eq(tile.getRotation().y, 120, "the nearest sixth, not the tiling's slot")
+  eq(Map.steps(tile), 2, "which is two steps round")
+
+  -- A tile already square is left alone, because setRotation fires a rotate
+  -- event and that redraws the tile's hub stripes.
+  local steps, turned = Map.align(tile)
+  eq(steps, 2, "still two steps")
+  eq(turned, false, "and nothing was turned to find that out")
+
+  -- With the lattice off, placement is freehand and so is the angle.
+  AZ.snap(false)
+  tile.setRotation({ x = 0, y = 97, z = 0 })
+  onObjectDrop("White", tile)
+  H.tick(5)
+  eq(tile.getRotation().y, 97, "the lattice off leaves the angle alone")
+  AZ.snap(true)
+end)
+
+case("align leaves the palette alone, and alignAll squares the map", function()
+  boot(nil)
+  -- A tray tile is laid out on TRAY's grid, not on hexes. Straightening it
+  -- would pull it out of the arrangement the owner curates by hand, so the
+  -- divider decides this the same way it decides rubber.
+  local tray = Tiles.inTray()[1]
+  tray.setRotation({ x = 0, y = 97, z = 0 })
+  onObjectDrop("White", tray)
+  H.tick(5)
+  eq(tray.getRotation().y, 97, "a palette tile keeps the angle it was put at")
+
+  -- and the sweep, for what is already down: two tiles knocked off true.
+  local tiles = Tiles.onMap()
+  tiles[1].setRotation({ x = 0, y = 43, z = 0 })
+  tiles[2].setRotation({ x = 0, y = 181, z = 0 })
+  eq(Map.alignAll(), 2, "both were turned")
+  eq(tiles[1].getRotation().y, 60, "43 rounds to one step")
+  eq(tiles[2].getRotation().y, 180, "181 rounds to three")
+  eq(Map.alignAll(), 0, "and running it again turns nothing")
+  eq(tray.getRotation().y, 97, "the palette is still out of it")
+end)
+
+case("a tile's right-click menu turns it in sixths", function()
+  -- The one rotation control guaranteed to step in sixths. TTS's own rotate
+  -- keys step by whatever the client is set to, and since 2026-09-22 no snap
+  -- point supplies an angle to round them to.
+  boot(nil)
+  local tile = Tiles.onMap()[1]
+  local before = Map.steps(tile)
+  check(tile.fireContextMenuItem("Rotate right 60°"), "the item is on the tile")
+  eq(Map.steps(tile), (before + 1) % 6, "one sixth clockwise")
+  tile.fireContextMenuItem("Rotate left 60°")
+  eq(Map.steps(tile), before, "and back again")
+  for _ = 1, 6 do tile.fireContextMenuItem("Rotate right 60°") end
+  eq(Map.steps(tile), before, "six taps is a full turn")
+
+  -- A palette tile has it too: turn it before dragging it across.
+  check(Tiles.inTray()[1].fireContextMenuItem("Rotate right 60°"),
+    "the palette gets the menu as well")
 end)
 
 case("anything that is not a tile is taken out of both snapping systems", function()

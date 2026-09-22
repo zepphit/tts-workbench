@@ -165,9 +165,13 @@ end
 --             which means disc(18) starts in a different corner from disc(3)
 --             and the two produce tilings that do not line up.  Pass the small
 --             disc's cells first, then the rest of the big one, and the small
---             packing comes out as an exact prefix of the big one — which is
---             what lets a snap lattice extend a map already on the table
---             without moving a tile of it (30-map.lua, Map.lattice).
+--             packing comes out as an exact prefix of the big one, so a bigger
+--             pack extends a smaller one instead of replacing it.
+--             The rig had one caller for that — the snap field, when it was
+--             still a tiling — and since 2026-09-22 it has none: Map.lattice is
+--             per cell now, and Map.slots packs one disc and only one.  The
+--             property is the packer's own and hex_spec still pins it, because
+--             the next shape laid over a growing disc will want it.
 --
 -- Returns placements = { { q, r, rot } } with rot in 60-degree steps, and
 -- holes = the cells of the disc nothing covered (0 to 2 of them for a tri-hex).

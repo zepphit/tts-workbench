@@ -52,6 +52,15 @@ function onLoad(script_state)
 
   Journal.attach()
 
+  -- A dropped tile is rounded to the lattice's 60 degrees, because the snap
+  -- points stopped supplying an angle on 2026-09-22 — that is what lets a tile
+  -- land in any of the six orientations (30-map.lua, Map.lattice).
+  --
+  -- **Before Rubber.attach, and that is not alphabetical.** Rubber reads a
+  -- tile's rotation to work out which of its hexsides are deep forest, so the
+  -- rotation has to be final before the cubes go on.
+  Map.attach()
+
   -- Rubber follows a dragged tile across the divider: off as it is lifted, on
   -- again if it lands west of the line. This is what makes "copy a tray tile,
   -- drag it onto the map" bring its cubes, which nothing at spawn time can see.
@@ -107,10 +116,12 @@ function onLoad(script_state)
     Map.build(MAP.seed)
   else
     -- A reload: the tiles came back with the save, but scripted buttons never
-    -- do, so the hubs have to be drawn again.
+    -- do, and neither do context menu items — so the hubs and the turn menu
+    -- both have to be put back.
     local tiles = Tiles.all()
     for _, obj in ipairs(tiles) do
       Tiles.hubs(obj)
+      Tiles.menu(obj)
     end
     LOG.info("restored " .. #tiles .. " tiles, seed " .. MAP.seed)
   end
@@ -133,6 +144,7 @@ function onPlayerConnect(player)
   ASYNC.keyed("rebuild." .. tostring(player and player.color), 1.0, function()
     for _, obj in ipairs(Tiles.all()) do
       Tiles.hubs(obj)
+      Tiles.menu(obj)
     end
     uiRefresh()
   end)

@@ -92,9 +92,22 @@ end
 
 -- snap(on) — the hex snap lattice: what makes a tri-hex dropped by hand land
 -- interlocked with its neighbours. **On.**
+--
+-- One point per cell and no rotation on it, so every placement a tri-hex has is
+-- reachable and the angle is yours. Off makes placement freehand, which also
+-- switches off the drop-time rounding (Map.align).
 function AZ.snap(on)
   local want = not (on == false or on == "false" or on == "0" or on == 0)
   return Map.snap(want)
+end
+
+-- align() — re-square every tile on the map side to the lattice's 60 degrees.
+--
+-- The counterpart of AZ.rubber("apply"): a drop is rounded as it lands, so this
+-- is for what was already down — a tile let go beyond TTS's snap range, or one
+-- turned by hand and left a few degrees out. Returns how many it had to turn.
+function AZ.align()
+  return Map.alignAll()
 end
 
 -- gridsnap(on) — TTS's own grid snapping, the other system. **Off**, and it is
@@ -289,7 +302,7 @@ function AZ.help()
       "AZ.plate(w,d) AZ.snaprings(n) " ..
       "AZ.tray([on|false|rebuild]) AZ.divider([x|off]) " ..
       "AZ.rubber([on|apply|clear]) " ..
-      "AZ.snap(on) AZ.gridsnap(on) AZ.labels(on) " ..
+      "AZ.snap(on) AZ.align() AZ.gridsnap(on) AZ.labels(on) " ..
       "AZ.tint(kind,hex) " ..
       "AZ.reskin(kind[,url]) AZ.reskinall() AZ.hub(kind,cell,resource[,n]) " ..
       "AZ.lock(bool) AZ.weight(kind,n) AZ.kinds() AZ.state() AZ.say(text) " ..

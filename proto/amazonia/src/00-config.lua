@@ -36,9 +36,13 @@ MAP = {
   -- Two different snapping systems, and the whole point is that they are set
   -- opposite ways round.
   --
-  --   snap      the lattice: one snap point per slot, tagged `tile`, which is
+  --   snap      the lattice: one snap point per *cell*, tagged `tile`, which is
   --             what makes a tri-hex dropped by hand land interlocked with its
-  --             neighbours instead of a few millimetres off.  **On.**
+  --             neighbours instead of a few millimetres off.  **On.**  It
+  --             carries no rotation — the angle is the player's, rounded to the
+  --             nearest sixth of a turn on drop by Map.align — because a point
+  --             that carries one *forces* it, and a field of non-overlapping
+  --             slots is a tiling rather than a placement space (Map.lattice).
   --   gridSnap  TTS's own grid — Options > Grid > Snapping.  It is not per
   --             object and not per tag: it catches *everything*, which is why a
   --             cube laid on a tile jumped to the nearest hex centre.  **Off**,
@@ -67,7 +71,9 @@ MAP = {
   -- the random map is drawn over. Until 2026-09-21 they were the same thing, so
   -- the only snappable positions on the table were the slots the map already
   -- filled: every tile dragged from the tray landed on top of another tile and
-  -- looked like it was refusing to snap.
+  -- looked like it was refusing to snap.  Widening it was only half the answer
+  -- — it was still one tiling, so no two reachable placements could overlap
+  -- (2026-09-22, Map.lattice).
   snapRings = 0,
   snapMaxRings = 24, -- a guard: rings^2 cells, and a typo in plate.x is cheap
 }

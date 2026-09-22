@@ -165,6 +165,7 @@ function H.object(spec)
     guid = spec.guid or string.format("%06x", nextGuid),
     tags = spec.tags or {},
     buttons = {},
+    menuItems = {}, -- right-click items; like buttons, TTS never saves these
     vars = {},
     snapPoints = nil,
     destroyed = false,
@@ -250,6 +251,29 @@ function H.object(spec)
   function obj.clearButtons()
     obj.buttons = {}
     return true
+  end
+
+  -- The right-click menu.  Recorded rather than rendered, and `fire` is the
+  -- test's way in: a menu item is a callback with no other handle on it.
+  function obj.addContextMenuItem(label, callback, keepOpen)
+    obj.menuItems[#obj.menuItems + 1] =
+      { label = label, callback = callback, keep_open = keepOpen == true }
+    return true
+  end
+
+  function obj.clearContextMenu()
+    obj.menuItems = {}
+    return true
+  end
+
+  function obj.fireContextMenuItem(label, playerColour)
+    for _, item in ipairs(obj.menuItems) do
+      if item.label == label then
+        item.callback(playerColour or "White", obj.position, obj)
+        return true
+      end
+    end
+    return false
   end
 
   function obj.setVar(name, value)

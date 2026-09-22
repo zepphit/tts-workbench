@@ -183,6 +183,7 @@ function Tiles.spawn(name, position, rotY, opts)
         REG.invalidate(tag)
       end
       Tiles.hubs(obj)
+      Tiles.menu(obj)
       -- The single place rubber is ever created (25-rubber.lua). `false` is
       -- for a respawn of a tile that is already on the table — a reskin — where
       -- the cubes never moved and a second set would sit on top of the first.
@@ -227,6 +228,34 @@ end
 
 function Tiles.inTray()
   return REG.all(TRAY.tag)
+end
+
+-- --------------------------------------------------------------- the tile menu
+
+-- menu(obj) — a tile's right-click items.  Re-added wherever hub stripes are,
+-- and for the same reason: a context menu is not saved either, so it has to be
+-- rebuilt on every load and for every player who joins after one.
+--
+-- Two turns, and they exist because the snap point stopped carrying a rotation
+-- on 2026-09-22 (30-map.lua, Map.snaps).  That is what lets a tile land in any
+-- of the six orientations rather than the one the old tiling picked — and it
+-- hands the angle to the player, so there has to be one control that steps in
+-- sixths whatever TTS's own rotate keys are set to.  `keep_open` leaves the menu
+-- up, so turning three sixths is three taps rather than three right-clicks.
+--
+-- **Not called from Tiles.hubs**, though every hubs() call site calls this too.
+-- hubs() runs again on every rotate (Tiles.repin), and rebuilding the menu from
+-- under a player who is turning a tile with it is how you make it flicker shut.
+function Tiles.menu(obj)
+  if not obj or ASYNC.gone(obj) then return false end
+  obj.clearContextMenu()
+  obj.addContextMenuItem("Rotate left 60°", function()
+    Map.turn(obj, -1)
+  end, true)
+  obj.addContextMenuItem("Rotate right 60°", function()
+    Map.turn(obj, 1)
+  end, true)
+  return true
 end
 
 -- ----------------------------------------------------------------- hub buttons
